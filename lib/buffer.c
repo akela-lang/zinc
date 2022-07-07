@@ -12,6 +12,7 @@ void buffer_init(struct buffer* bf)
     bf->size = 0;
 }
 
+/* destroy bf */
 void buffer_destroy(struct buffer* bf)
 {
     if (bf) {
@@ -21,6 +22,7 @@ void buffer_destroy(struct buffer* bf)
     }
 }
 
+/* dynamic-output bf */
 enum result buffer_add_char(struct buffer* bf, char c)
 {
     if (bf == NULL) {
@@ -45,6 +47,7 @@ enum result buffer_add_char(struct buffer* bf, char c)
     return result_ok;
 }
 
+/* destroy bf */
 void buffer_reset(struct buffer* bf)
 {
     if (bf != NULL) {
@@ -65,6 +68,7 @@ void buffer_clear(struct buffer* bf)
 /*
 * assumes that a and b are initialized
 */
+/* dynamic-output b */
 enum result buffer_copy(struct buffer* a, struct buffer* b)
 {
     enum result r;
@@ -77,6 +81,7 @@ enum result buffer_copy(struct buffer* a, struct buffer* b)
     return result_ok;
 }
 
+/* dynamic-output a */
 enum result buffer2array(struct buffer* bf, char** a)
 {
     enum result r = malloc_safe(a, bf->size + 1);
@@ -90,6 +95,7 @@ enum result buffer2array(struct buffer* bf, char** a)
     return result_ok;
 }
 
+/* dynamic-output bf */
 enum result array2buffer(char* a, struct buffer* bf)
 {
     enum result r;
@@ -104,8 +110,7 @@ enum result array2buffer(char* a, struct buffer* bf)
     return result_ok;
 }
 
-/* dynamic bf2 */
-/* output bf2 */
+/* dynamic-output bf2 */
 enum result next_char(struct buffer* bf, size_t* pos, struct buffer* bf2)
 {
     char c = bf->buf[(*pos)++];
@@ -137,7 +142,6 @@ enum result next_char(struct buffer* bf, size_t* pos, struct buffer* bf2)
     return result_ok;
 }
 
-/* dynamic dest */
 /* dynamic-output dest */
 enum result buffer_uslice(struct buffer* src, struct buffer* dest, size_t start, size_t end)
 {
