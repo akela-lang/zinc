@@ -1,7 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
-#include "lib/assert.h"
-#include "lib/buffer.h"
+#include "zinc/assert.h"
+#include "zinc/buffer.h"
 
 void test_buffer_init()
 {

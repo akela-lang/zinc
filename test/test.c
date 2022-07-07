@@ -1,4 +1,4 @@
-#include "lib/assert.h"
+#include "zinc/assert.h"
 #include "test_buffer.h"
 
 int main()
