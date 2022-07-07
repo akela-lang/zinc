@@ -7,7 +7,7 @@ set(SOURCE_FILES
     result.c
 )
 
-add_definitions(-DEXPORT)
+add_definitions(-DZINC_EXPORT)
 add_library(zinc SHARED ${SOURCE_FILES})
 
 add_custom_command(

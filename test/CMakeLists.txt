@@ -1,6 +1,7 @@
 # files
 set(SOURCE_FILES
     test.c
+    test_result.c
     test_buffer.c
 )
 
