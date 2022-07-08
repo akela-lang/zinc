@@ -224,6 +224,14 @@ void expect_str(struct buffer* a, char* b, char* message)
 	error_triggered();
 }
 
+void expect_nts(char* a, char* b, char* message)
+{
+	test_called();
+	if (strcmp(a, b) == 0) return;
+	printf("string compare: (%s) = (%s): %s", a, b, message);
+	error_triggered();
+}
+
 void expect_error_message(char* s)
 {
 	test_called();

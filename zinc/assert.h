@@ -16,6 +16,7 @@ ZINC_API void expect_ptr(void* p, char* message);
 ZINC_API void expect_null(void* p, char* message);
 ZINC_API void expect_ok(enum result r, char* message);
 ZINC_API void expect_str(struct buffer* a, char* b, char* message);
+ZINC_API void expect_nts(char* a, char* b, char* message);
 ZINC_API void test_name(const char* fmt, ...);
 ZINC_API void print_results();
 ZINC_API void expect_error_message(char* s);
