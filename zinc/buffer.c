@@ -65,9 +65,6 @@ void buffer_clear(struct buffer* bf)
     }
 }
 
-/*
-* assumes that a and b are initialized
-*/
 /* dynamic-output b */
 enum result buffer_copy(struct buffer* a, struct buffer* b)
 {
@@ -78,6 +75,19 @@ enum result buffer_copy(struct buffer* a, struct buffer* b)
             return r;
         }
     }
+    return result_ok;
+}
+
+/* dynamic-output a */
+enum result buffer_copy_str(struct buffer* a, char* b)
+{
+    enum result r;
+    while (*b) {
+        r = buffer_add_char(a, *b);
+        if (r == result_error) return r;
+        b++;
+    }
+
     return result_ok;
 }
 
