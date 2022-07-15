@@ -1,27 +1,33 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "memory.h"
 #include "result.h"
 
-/* dynamic-output buf */
-enum result malloc_safe(void** buf, size_t size)
+/* dynamic-output return */
+void *malloc_safe(size_t size)
 {
+    void* buf;
+    
     /* allocate buf */
-    *buf = malloc(size);
-    if (*buf == NULL) {
-        return set_error("Out of memory");
+    buf = malloc(size);
+    if (buf == NULL) {
+        fprintf(stderr, "Out of memory\n");
+        exit(1);
     }
-    return result_ok;
+
+    return buf;
 }
 
 /* dynamic-output buf */
-enum result realloc_safe(void** buf, size_t size)
+void realloc_safe(void** buf, size_t size)
 {
     void* new_buf;
-    /* allocate buf */
+    /* allocate new_buf */
     new_buf = realloc(*buf, size);
     if (new_buf == NULL) {
-        return set_error("Out of memory");
+        fprintf(stderr, "Out of memory\n");
+        exit(1);
     }
+
     *buf = new_buf;
-    return result_ok;
 }
