@@ -9,5 +9,3 @@
 * zinc memory annotations
   * buffer.c
   * buffer.h
-  * memory.c
-  * memory.h
