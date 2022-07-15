@@ -6,6 +6,3 @@
   * test_memory.h
   * test_result.c
   * test_result.h
-* zinc memory annotations
-  * buffer.c
-  * buffer.h
