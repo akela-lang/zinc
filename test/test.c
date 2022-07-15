@@ -3,6 +3,7 @@
 #include "test_result.h"
 #include "test_memory.h"
 
+/* static-output */
 int main()
 {
 	test_result();
