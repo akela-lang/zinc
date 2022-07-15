@@ -3,6 +3,7 @@
 #include "zinc/assert.h"
 #include "zinc/buffer.h"
 
+/* static-output */
 void test_buffer_init()
 {
 	test_name(__func__);
@@ -14,7 +15,8 @@ void test_buffer_init()
 	expect_null(bf.buf, "buf");
 }
 
-/* dynamic bf */
+/* static-output */
+/* dynamic-temp bf{} */
 void test_buffer_add_char()
 {
 	test_name(__func__);
@@ -23,21 +25,24 @@ void test_buffer_add_char()
 	struct buffer bf;
 	buffer_init(&bf);
 
-	/* allocate bf */
+	/* allocate bf{} */
 	r = buffer_add_char(&bf, 'x');
 	assert_ok(r, "x");
+	/* allocate bf{} */
 	r = buffer_add_char(&bf, 'y');
 	assert_ok(r, "y");
+	/* allocate bf{} */
 	r = buffer_add_char(&bf, 'z');
 	assert_ok(r, "z");
 
 	expect_str(&bf, "xyz", "str");
 
-	/* destroy bf */
+	/* destroy bf{} */
 	buffer_destroy(&bf);
 }
 
-/* dynamic bf */
+/* static-output */
+/* dynamic-temp bf{} */
 void test_buffer_clear()
 {
 	test_name(__func__);
@@ -46,11 +51,13 @@ void test_buffer_clear()
 	struct buffer bf;
 	buffer_init(&bf);
 
-	/* allocate bf */
+	/* allocate bf{} */
 	r = buffer_add_char(&bf, 'x');
 	assert_ok(r, "x");
+	/* allocate bf{} */
 	r = buffer_add_char(&bf, 'y');
 	assert_ok(r, "y");
+	/* allocate bf{} */
 	r = buffer_add_char(&bf, 'z');
 	assert_ok(r, "z");
 
@@ -58,11 +65,12 @@ void test_buffer_clear()
 	buffer_clear(&bf);
 	expect_str(&bf, "", "clear");
 
-	/* destroy bf */
+	/* destroy bf{} */
 	buffer_destroy(&bf);
 }
 
-/* dynamic bf bf2 */
+/* static-output */
+/* dynamic-temp bf{} bf2{} */
 void test_buffer_copy()
 {
 	test_name(__func__);
@@ -73,11 +81,13 @@ void test_buffer_copy()
 
 	buffer_init(&bf);
 
-	/* allocate bf */
+	/* allocate bf{} */
 	r = buffer_add_char(&bf, 'x');
 	assert_ok(r, "x");
+	/* allocate bf{} */
 	r = buffer_add_char(&bf, 'y');
 	assert_ok(r, "y");
+	/* allocate bf{} */
 	r = buffer_add_char(&bf, 'z');
 	assert_ok(r, "z");
 
@@ -85,18 +95,19 @@ void test_buffer_copy()
 
 	buffer_init(&bf2);
 
-	/* allocate bf2 */
+	/* allocate bf2{} */
 	r = buffer_copy(&bf, &bf2);
 	assert_ok(r, "copy");
 
 	expect_str(&bf2, "xyz", "copy");
 
-	/* destroy bf bf2 */
+	/* destroy bf{} bf2{} */
 	buffer_destroy(&bf);
 	buffer_destroy(&bf2);
 }
 
-/* dynamic bf a */
+/* static-output */
+/* dynamic-temp bf{} a */
 void test_buffer_buffer2array()
 {
 	test_name(__func__);
@@ -107,11 +118,13 @@ void test_buffer_buffer2array()
 
 	buffer_init(&bf);
 
-	/* allocate bf */
+	/* allocate bf{} */
 	r = buffer_add_char(&bf, 'x');
 	assert_ok(r, "x");
+	/* allocate bf{} */
 	r = buffer_add_char(&bf, 'y');
 	assert_ok(r, "y");
+	/* allocate bf{} */
 	r = buffer_add_char(&bf, 'z');
 	assert_ok(r, "z");
 
@@ -123,12 +136,13 @@ void test_buffer_buffer2array()
 
 	expect_true(strcmp(a, "xyz") == 0, "array");
 
-	/* destroy bf a */
+	/* destroy bf{} a */
 	buffer_destroy(&bf);
 	free(a);
 }
 
-/* dynamic bf */
+/* static-output */
+/* dynamic-temp bf{} */
 void test_buffer_array2buffer()
 {
 	test_name(__func__);
@@ -139,18 +153,19 @@ void test_buffer_array2buffer()
 
 	buffer_init(&bf);
 
-	/* allocate bf */
+	/* allocate bf{} */
 	r = array2buffer(a, &bf);
 	assert_ok(r, "bf");
 
 	expect_str(&bf, "xyz", "str");
 
 
-	/* destroy bf */
+	/* destroy bf{} */
 	buffer_destroy(&bf);
 }
 
-/* dynamic bf x */
+/* static-output */
+/* dynamic-temp bf{} x{} */
 void test_buffer_next_char()
 {
 	test_name(__func__);
@@ -159,7 +174,7 @@ void test_buffer_next_char()
 	struct buffer bf;
 	buffer_init(&bf);
 
-	/* allocate bf */
+	/* allocate bf{} */
 	r = buffer_add_char(&bf, 'x');
 	assert_ok(r, "x");
 	r = buffer_add_char(&bf, 'y');
@@ -171,30 +186,31 @@ void test_buffer_next_char()
 	buffer_init(&x);
 	size_t pos = 0;
 
-	/* allocate x */
+	/* allocate x{} */
 	r = next_char(&bf, &pos, &x);
 	assert_ok(r, "next_char");
 
 	expect_str(&x, "x", "x");
 
-	/* allocate x */
+	/* allocate x{} */
 	r = next_char(&bf, &pos, &x);
 	assert_ok(r, "y");
 
 	expect_str(&x, "y", "y");
 
-	/* allocate x */
+	/* allocate x{} */
 	r = next_char(&bf, &pos, &x);
 	assert_ok(r, "z");
 
 	expect_str(&x, "z", "z");
 
-	/* destroy bf x */
+	/* destroy bf{} x{} */
 	buffer_destroy(&bf);
 	buffer_destroy(&x);
 }
 
-/* dynamic bf bf2 */
+/* static-output */
+/* dynamic bf{} bf2{} */
 test_buffer_buffer_compare()
 {
 	test_name(__func__);
@@ -203,7 +219,7 @@ test_buffer_buffer_compare()
 	struct buffer bf;
 	buffer_init(&bf);
 
-	/* allocate bf */
+	/* allocate bf{} */
 	r = buffer_add_char(&bf, 'x');
 	assert_ok(r, "x");
 	r = buffer_add_char(&bf, 'y');
@@ -214,7 +230,7 @@ test_buffer_buffer_compare()
 	struct buffer bf2;
 	buffer_init(&bf2);
 
-	/* allocate bf2 */
+	/* allocate bf2{} */
 	r = buffer_add_char(&bf2, 'x');
 	assert_ok(r, "x");
 	r = buffer_add_char(&bf2, 'y');
@@ -226,7 +242,7 @@ test_buffer_buffer_compare()
 
 	buffer_clear(&bf2);
 
-	/* allocate bf2 */
+	/* allocate bf2{} */
 	r = buffer_add_char(&bf2, 'x');
 	assert_ok(r, "x");
 	r = buffer_add_char(&bf2, 'y');
@@ -236,12 +252,13 @@ test_buffer_buffer_compare()
 
 	expect_true(buffer_compare(&bf, &bf2) == 0, "not equal");
 
-	/* destroy bf bf2 */
+	/* destroy bf{} bf2{} */
 	buffer_destroy(&bf);
 	buffer_destroy(&bf2);
 }
 
-/* dynamic bf */
+/* static-output */
+/* dynamic-temp bf{} */
 test_buffer_str_compare()
 {
 	test_name(__func__);
@@ -250,7 +267,7 @@ test_buffer_str_compare()
 	struct buffer bf;
 	buffer_init(&bf);
 
-	/* allocate bf */
+	/* allocate bf{} */
 	r = buffer_add_char(&bf, 'x');
 	assert_ok(r, "x");
 	r = buffer_add_char(&bf, 'y');
@@ -261,11 +278,12 @@ test_buffer_str_compare()
 	expect_true(buffer_str_compare(&bf, "xyz") == 1, "equal");
 	expect_true(buffer_str_compare(&bf, "xy1") == 0, "not equal");
 
-	/* destroy bf */
+	/* destroy bf{} */
 	buffer_destroy(&bf);
 }
 
-/* dynamic bf bf2 */
+/* static-output */
+/* dynamic-temp bf{} bf2{} */
 void test_buffer_uslice()
 {
 	test_name(__func__);
@@ -276,7 +294,7 @@ void test_buffer_uslice()
 
 	buffer_init(&bf);
 
-	/* allocate bf */
+	/* allocate bf{} */
 	r = buffer_add_char(&bf, 'a');
 	assert_ok(r, "a");
 	r = buffer_add_char(&bf, 'b');
@@ -292,7 +310,7 @@ void test_buffer_uslice()
 
 	buffer_init(&bf2);
 
-	/* dynamic bf2 */
+	/* allocate bf2{} */
 	r = buffer_uslice(&bf, &bf2, 2, 5);
 	assert_ok(r, "buffer_uslice");
 
@@ -300,12 +318,13 @@ void test_buffer_uslice()
 	expect_int_equal(bf2.size, 3, "3 bf2.size");
 	expect_str(&bf2, "cde", "cde bf2");
 
-	/* destory bf bf2 */
+	/* destory bf{} bf2{} */
 	buffer_destroy(&bf);
 	buffer_destroy(&bf2);
 }
 
-/* dynamic bf bf2 */
+/* static-output */
+/* dynamic bf{} bf2{} */
 void test_buffer_uslice2()
 {
 	test_name(__func__);
@@ -316,7 +335,7 @@ void test_buffer_uslice2()
 
 	buffer_init(&bf);
 
-	/* dynamic bf */
+	/* allocate bf{} */
 	r = buffer_add_char(&bf, 'a');
 	assert_ok(r, "a");
 	r = buffer_add_char(&bf, 'b');
@@ -332,7 +351,7 @@ void test_buffer_uslice2()
 
 	buffer_init(&bf2);
 
-	/* dynamic bf2 */
+	/* allocate bf2{} */
 	r = buffer_uslice(&bf, &bf2, 2, 1000);
 	assert_ok(r, "buffer_uslice");
 
@@ -340,11 +359,12 @@ void test_buffer_uslice2()
 	expect_int_equal(bf2.size, 4, "4 bf2.size");
 	expect_str(&bf2, "cdef", "cdef bf2");
 
-	/* destroy bf bf2 */
+	/* destroy bf{} bf2{} */
 	buffer_destroy(&bf);
 	buffer_destroy(&bf2);
 }
 
+/* static-output */
 void test_buffer()
 {
 	test_buffer_init();
