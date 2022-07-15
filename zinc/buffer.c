@@ -6,6 +6,7 @@
 #include "memory.h"
 
 /* static-output */
+/* initialize-output bf{} */
 void buffer_init(struct buffer* bf)
 {
     bf->buf = NULL;

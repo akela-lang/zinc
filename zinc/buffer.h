@@ -13,6 +13,7 @@ struct buffer {
 };
 
 /* static-output */
+/* initialize-output bf{} */
 ZINC_API void buffer_init(struct buffer* bf);
 
 /* dynamic-destroy bf{} */
