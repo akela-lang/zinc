@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "memory.h"
 #include "result.h"
 
 enum result malloc_safe(void** buf, size_t size)
