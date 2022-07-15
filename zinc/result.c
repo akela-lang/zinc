@@ -5,6 +5,7 @@
 
 char error_message[ERROR_SIZE];
 
+/* static-output */
 enum result set_error(const char* fmt, ...)
 {
     va_list args;

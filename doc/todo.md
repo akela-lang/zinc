@@ -11,5 +11,3 @@
   * buffer.h
   * memory.c
   * memory.h
-  * result.c
-  * result.h

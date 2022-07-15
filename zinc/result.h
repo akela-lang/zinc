@@ -11,6 +11,7 @@ enum result {
 
 ZINC_API extern char error_message[ERROR_SIZE];
 
+/* static-output */
 ZINC_API enum result set_error(const char* fmt, ...);
 
 #endif
