@@ -40,7 +40,7 @@ enum result buffer_add_char(struct buffer* bf, char c)
             r = malloc_safe(&bf->buf, BUFFER_CHUNK);
         } else {
             /* allocate buf{} */
-            r = malloc_safe(&bf->buf, bf->buf_size + BUFFER_CHUNK);
+            r = realloc_safe(&bf->buf, bf->buf_size + BUFFER_CHUNK);
         }
         if (r == result_error) {
             return r;
