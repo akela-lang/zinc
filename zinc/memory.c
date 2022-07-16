@@ -15,7 +15,7 @@ void malloc_safe(void** buf, size_t size)
 }
 
 /* dynamic-output buf */
-enum result realloc_safe(void** buf, size_t size)
+void realloc_safe(void** buf, size_t size)
 {
     void* new_buf;
     /* allocate buf */
@@ -25,5 +25,4 @@ enum result realloc_safe(void** buf, size_t size)
         exit(1);
     }
     *buf = new_buf;
-    return result_ok;
 }
