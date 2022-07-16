@@ -73,15 +73,13 @@ void buffer_copy(struct buffer* a, struct buffer* b)
 }
 
 /* dynamic-output a{} */
-enum result buffer_copy_str(struct buffer* a, char* b)
+void buffer_copy_str(struct buffer* a, char* b)
 {
     while (*b) {
         /* allocate a{} */
         buffer_add_char(a, *b);
         b++;
     }
-
-    return result_ok;
 }
 
 /* dynamic-output a */
