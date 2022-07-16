@@ -95,7 +95,7 @@ void buffer2array(struct buffer* bf, char** a)
 
 /* bf must be initialized */
 /* dynamic-output bf{} */
-enum result array2buffer(char* a, struct buffer* bf)
+void array2buffer(char* a, struct buffer* bf)
 {
     char* p = a;
     while (*p != '\0') {
@@ -103,7 +103,6 @@ enum result array2buffer(char* a, struct buffer* bf)
         buffer_add_char(bf, *p);
         p++;
     }
-    return result_ok;
 }
 
 /* dynamic-output bf2{} */

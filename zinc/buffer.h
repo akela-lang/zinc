@@ -38,7 +38,7 @@ ZINC_API void buffer_copy_str(struct buffer* a, char* b);
 ZINC_API void buffer2array(struct buffer* bf, char** a);
 
 /* dynamic-output bf{} */
-ZINC_API enum result array2buffer(char* a, struct buffer* bf);
+ZINC_API void array2buffer(char* a, struct buffer* bf);
 
 /* dynamic-output bf2{} */
 ZINC_API enum result next_char(struct buffer* bf, size_t* pos, struct buffer* bf2);

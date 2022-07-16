@@ -123,13 +123,11 @@ void test_buffer_array2buffer()
 
 	char a[] = "xyz";
 	struct buffer bf;
-	enum result r;
 
 	buffer_init(&bf);
 
 	/* allocate bf{} */
-	r = array2buffer(a, &bf);
-	assert_ok(r, "bf");
+	array2buffer(a, &bf);
 
 	expect_str(&bf, "xyz", "str");
 
