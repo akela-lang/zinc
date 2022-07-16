@@ -29,7 +29,7 @@ ZINC_API void buffer_reset(struct buffer* bf);
 ZINC_API void buffer_clear(struct buffer* bf);
 
 /* dynamic-output b{} */
-ZINC_API enum result buffer_copy(struct buffer* a, struct buffer* b);
+ZINC_API void buffer_copy(struct buffer* a, struct buffer* b);
 
 /* dynamic-output a{} */
 ZINC_API enum result buffer_copy_str(struct buffer* a, char* b);

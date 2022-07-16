@@ -63,7 +63,6 @@ void test_buffer_copy()
 {
 	test_name(__func__);
 
-	enum result r;
 	struct buffer bf;
 	struct buffer bf2;
 
@@ -79,8 +78,7 @@ void test_buffer_copy()
 	buffer_init(&bf2);
 
 	/* allocate bf2{} */
-	r = buffer_copy(&bf, &bf2);
-	assert_ok(r, "copy");
+	buffer_copy(&bf, &bf2);
 
 	expect_str(&bf2, "xyz", "copy");
 

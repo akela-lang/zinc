@@ -64,13 +64,12 @@ void buffer_clear(struct buffer* bf)
 }
 
 /* dynamic-output b{} */
-enum result buffer_copy(struct buffer* a, struct buffer* b)
+void buffer_copy(struct buffer* a, struct buffer* b)
 {
     for (int i = 0; i < a->size; i++) {
         /* allocate b{} */
         buffer_add_char(b, a->buf[i]);
     }
-    return result_ok;
 }
 
 /* dynamic-output a{} */
