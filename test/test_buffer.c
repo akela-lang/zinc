@@ -21,15 +21,19 @@ void test_buffer_add_char()
 {
 	test_name(__func__);
 
+	enum result r;
 	struct buffer bf;
 	buffer_init(&bf);
 
 	/* allocate bf{} */
-	buffer_add_char(&bf, 'x');
+	r = buffer_add_char(&bf, 'x');
+	assert_ok(r, "x");
 	/* allocate bf{} */
-	buffer_add_char(&bf, 'y');
+	r = buffer_add_char(&bf, 'y');
+	assert_ok(r, "y");
 	/* allocate bf{} */
-	buffer_add_char(&bf, 'z');
+	r = buffer_add_char(&bf, 'z');
+	assert_ok(r, "z");
 
 	expect_str(&bf, "xyz", "str");
 
@@ -43,15 +47,19 @@ void test_buffer_clear()
 {
 	test_name(__func__);
 
+	enum result r;
 	struct buffer bf;
 	buffer_init(&bf);
 
 	/* allocate bf{} */
-	buffer_add_char(&bf, 'x');
+	r = buffer_add_char(&bf, 'x');
+	assert_ok(r, "x");
 	/* allocate bf{} */
-	buffer_add_char(&bf, 'y');
+	r = buffer_add_char(&bf, 'y');
+	assert_ok(r, "y");
 	/* allocate bf{} */
-	buffer_add_char(&bf, 'z');
+	r = buffer_add_char(&bf, 'z');
+	assert_ok(r, "z");
 
 	expect_str(&bf, "xyz", "str");
 	buffer_clear(&bf);
@@ -67,24 +75,29 @@ void test_buffer_copy()
 {
 	test_name(__func__);
 
+	enum result r;
 	struct buffer bf;
 	struct buffer bf2;
 
 	buffer_init(&bf);
 
 	/* allocate bf{} */
-	buffer_add_char(&bf, 'x');
+	r = buffer_add_char(&bf, 'x');
+	assert_ok(r, "x");
 	/* allocate bf{} */
-	buffer_add_char(&bf, 'y');
+	r = buffer_add_char(&bf, 'y');
+	assert_ok(r, "y");
 	/* allocate bf{} */
-	buffer_add_char(&bf, 'z');
+	r = buffer_add_char(&bf, 'z');
+	assert_ok(r, "z");
 
 	expect_str(&bf, "xyz", "str");
 
 	buffer_init(&bf2);
 
 	/* allocate bf2{} */
-	buffer_copy(&bf, &bf2);
+	r = buffer_copy(&bf, &bf2);
+	assert_ok(r, "copy");
 
 	expect_str(&bf2, "xyz", "copy");
 
@@ -99,22 +112,27 @@ void test_buffer_buffer2array()
 {
 	test_name(__func__);
 
+	enum result r;
 	struct buffer bf;
 	char* a;
 
 	buffer_init(&bf);
 
 	/* allocate bf{} */
-	buffer_add_char(&bf, 'x');
+	r = buffer_add_char(&bf, 'x');
+	assert_ok(r, "x");
 	/* allocate bf{} */
-	buffer_add_char(&bf, 'y');
+	r = buffer_add_char(&bf, 'y');
+	assert_ok(r, "y");
 	/* allocate bf{} */
-	buffer_add_char(&bf, 'z');
+	r = buffer_add_char(&bf, 'z');
+	assert_ok(r, "z");
 
 	expect_str(&bf, "xyz", "str");
 
 	/* allocate a */
-	buffer2array(&bf, &a);
+	r = buffer2array(&bf, &a);
+	assert_ok(r, "a");
 
 	expect_true(strcmp(a, "xyz") == 0, "array");
 
@@ -131,11 +149,13 @@ void test_buffer_array2buffer()
 
 	char a[] = "xyz";
 	struct buffer bf;
+	enum result r;
 
 	buffer_init(&bf);
 
 	/* allocate bf{} */
-	array2buffer(a, &bf);
+	r = array2buffer(a, &bf);
+	assert_ok(r, "bf");
 
 	expect_str(&bf, "xyz", "str");
 
@@ -155,9 +175,12 @@ void test_buffer_next_char()
 	buffer_init(&bf);
 
 	/* allocate bf{} */
-	buffer_add_char(&bf, 'x');
-	buffer_add_char(&bf, 'y');
-	buffer_add_char(&bf, 'z');
+	r = buffer_add_char(&bf, 'x');
+	assert_ok(r, "x");
+	r = buffer_add_char(&bf, 'y');
+	assert_ok(r, "y");
+	r = buffer_add_char(&bf, 'z');
+	assert_ok(r, "z");
 
 	struct buffer x;
 	buffer_init(&x);
@@ -192,30 +215,40 @@ test_buffer_buffer_compare()
 {
 	test_name(__func__);
 
+	enum result r;
 	struct buffer bf;
 	buffer_init(&bf);
 
 	/* allocate bf{} */
-	buffer_add_char(&bf, 'x');
-	buffer_add_char(&bf, 'y');
-	buffer_add_char(&bf, 'z');
+	r = buffer_add_char(&bf, 'x');
+	assert_ok(r, "x");
+	r = buffer_add_char(&bf, 'y');
+	assert_ok(r, "y");
+	r = buffer_add_char(&bf, 'z');
+	assert_ok(r, "z");
 
 	struct buffer bf2;
 	buffer_init(&bf2);
 
 	/* allocate bf2{} */
-	buffer_add_char(&bf2, 'x');
-	buffer_add_char(&bf2, 'y');
-	buffer_add_char(&bf2, 'z');
+	r = buffer_add_char(&bf2, 'x');
+	assert_ok(r, "x");
+	r = buffer_add_char(&bf2, 'y');
+	assert_ok(r, "y");
+	r = buffer_add_char(&bf2, 'z');
+	assert_ok(r, "z");
 
 	expect_true(buffer_compare(&bf, &bf2), "equal");
 
 	buffer_clear(&bf2);
 
 	/* allocate bf2{} */
-	buffer_add_char(&bf2, 'x');
-	buffer_add_char(&bf2, 'y');
-	buffer_add_char(&bf2, '1');
+	r = buffer_add_char(&bf2, 'x');
+	assert_ok(r, "x");
+	r = buffer_add_char(&bf2, 'y');
+	assert_ok(r, "y");
+	r = buffer_add_char(&bf2, '1');
+	assert_ok(r, "z");
 
 	expect_true(buffer_compare(&bf, &bf2) == 0, "not equal");
 
@@ -230,13 +263,17 @@ test_buffer_str_compare()
 {
 	test_name(__func__);
 
+	enum result r;
 	struct buffer bf;
 	buffer_init(&bf);
 
 	/* allocate bf{} */
-	buffer_add_char(&bf, 'x');
-	buffer_add_char(&bf, 'y');
-	buffer_add_char(&bf, 'z');
+	r = buffer_add_char(&bf, 'x');
+	assert_ok(r, "x");
+	r = buffer_add_char(&bf, 'y');
+	assert_ok(r, "y");
+	r = buffer_add_char(&bf, 'z');
+	assert_ok(r, "z");
 
 	expect_true(buffer_str_compare(&bf, "xyz") == 1, "equal");
 	expect_true(buffer_str_compare(&bf, "xy1") == 0, "not equal");
@@ -258,12 +295,18 @@ void test_buffer_uslice()
 	buffer_init(&bf);
 
 	/* allocate bf{} */
-	buffer_add_char(&bf, 'a');
-	buffer_add_char(&bf, 'b');
-	buffer_add_char(&bf, 'c');
-	buffer_add_char(&bf, 'd');
-	buffer_add_char(&bf, 'e');
-	buffer_add_char(&bf, 'f');
+	r = buffer_add_char(&bf, 'a');
+	assert_ok(r, "a");
+	r = buffer_add_char(&bf, 'b');
+	assert_ok(r, "b");
+	r = buffer_add_char(&bf, 'c');
+	assert_ok(r, "c");
+	r = buffer_add_char(&bf, 'd');
+	assert_ok(r, "d");
+	r = buffer_add_char(&bf, 'e');
+	assert_ok(r, "e");
+	r = buffer_add_char(&bf, 'f');
+	assert_ok(r, "f");
 
 	buffer_init(&bf2);
 
@@ -293,12 +336,18 @@ void test_buffer_uslice2()
 	buffer_init(&bf);
 
 	/* allocate bf{} */
-	buffer_add_char(&bf, 'a');
-	buffer_add_char(&bf, 'b');
-	buffer_add_char(&bf, 'c');
-	buffer_add_char(&bf, 'd');
-	buffer_add_char(&bf, 'e');
-	buffer_add_char(&bf, 'f');
+	r = buffer_add_char(&bf, 'a');
+	assert_ok(r, "a");
+	r = buffer_add_char(&bf, 'b');
+	assert_ok(r, "b");
+	r = buffer_add_char(&bf, 'c');
+	assert_ok(r, "b");
+	r = buffer_add_char(&bf, 'd');
+	assert_ok(r, "b");
+	r = buffer_add_char(&bf, 'e');
+	assert_ok(r, "b");
+	r = buffer_add_char(&bf, 'f');
+	assert_ok(r, "b");
 
 	buffer_init(&bf2);
 

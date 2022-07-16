@@ -255,8 +255,12 @@ void expect_str(struct buffer* a, char* b, char* message)
 	char* temp;
 
 	/* allocate temp */
-	buffer2array(a, &temp);
-	printf("%s equals %s error: %s\n", temp, b, message);
+	enum result r = buffer2array(a, &temp);
+	if (r == result_error) {
+		printf("<string> equals %s error: %s\n", b, message);
+	} else {
+		printf("%s equals %s error: %s\n", temp, b, message);
+	}
 
 	/* destroy temp */
 	free(temp);
