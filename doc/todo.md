@@ -1,6 +1,5 @@
 # Todo
 * update function signatures
-  * realloc_safe
   * buffer_add_char
   * buffer_copy
   * buffer_copy_str
