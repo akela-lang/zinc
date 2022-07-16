@@ -20,7 +20,7 @@ ZINC_API void buffer_init(struct buffer* bf);
 ZINC_API void buffer_destroy(struct buffer* bf);
 
 /* dynamic-output bf{} */
-ZINC_API enum result buffer_add_char(struct buffer* bf, char c);
+ZINC_API void buffer_add_char(struct buffer* bf, char c);
 
 /* dynamic-destroy bf{} */
 ZINC_API void buffer_reset(struct buffer* bf);
