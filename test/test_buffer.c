@@ -93,7 +93,6 @@ void test_buffer_buffer2array()
 {
 	test_name(__func__);
 
-	enum result r;
 	struct buffer bf;
 	char* a;
 
@@ -107,8 +106,7 @@ void test_buffer_buffer2array()
 	expect_str(&bf, "xyz", "str");
 
 	/* allocate a */
-	r = buffer2array(&bf, &a);
-	assert_ok(r, "a");
+	buffer2array(&bf, &a);
 
 	expect_true(strcmp(a, "xyz") == 0, "array");
 

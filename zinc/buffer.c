@@ -83,7 +83,7 @@ void buffer_copy_str(struct buffer* a, char* b)
 }
 
 /* dynamic-output a */
-enum result buffer2array(struct buffer* bf, char** a)
+void buffer2array(struct buffer* bf, char** a)
 {
     /* allocate a */
     malloc_safe(a, bf->size + 1);
@@ -91,7 +91,6 @@ enum result buffer2array(struct buffer* bf, char** a)
         (*a)[i] = bf->buf[i];
     }
     (*a)[bf->size] = '\0';
-    return result_ok;
 }
 
 /* bf must be initialized */
