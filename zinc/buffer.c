@@ -28,16 +28,12 @@ void buffer_destroy(struct buffer* bf)
 /* dynamic-output bf{} */
 enum result buffer_add_char(struct buffer* bf, char c)
 {
-    if (bf == NULL) {
-        return set_error("adding char to a string that is not allocated");
-    }
-
-    enum result r;
+    enum result r = result_ok;
 
     if (bf->size + 1 > bf->buf_size) {
         if (bf->buf == NULL) {
             /* allocate buf{} */
-            r = malloc_safe(&bf->buf, BUFFER_CHUNK);
+            malloc_safe(&bf->buf, BUFFER_CHUNK);
         } else {
             /* allocate buf{} */
             r = realloc_safe(&bf->buf, bf->buf_size + BUFFER_CHUNK);
@@ -104,10 +100,7 @@ enum result buffer_copy_str(struct buffer* a, char* b)
 enum result buffer2array(struct buffer* bf, char** a)
 {
     /* allocate a */
-    enum result r = malloc_safe(a, bf->size + 1);
-    if (r == result_error) {
-        return r;
-    }
+    malloc_safe(a, bf->size + 1);
     for (int i = 0; i < bf->size; i++) {
         (*a)[i] = bf->buf[i];
     }

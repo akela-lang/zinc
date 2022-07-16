@@ -4,7 +4,7 @@
 #include "result.h"
 
 /* dynamic-output buf */
-enum result malloc_safe(void** buf, size_t size)
+void malloc_safe(void** buf, size_t size)
 {
     /* allocate buf */
     *buf = malloc(size);
@@ -12,7 +12,6 @@ enum result malloc_safe(void** buf, size_t size)
         fprintf(stderr, "Out of memory\n");
         exit(1);
     }
-    return result_ok;
 }
 
 /* dynamic-output buf */
