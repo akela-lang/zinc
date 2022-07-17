@@ -13,6 +13,7 @@ enum result set_error(const char* fmt, ...)
     char buf[ERROR_SIZE] = "";
     int len;
 
+    char last_last = 0;
     char last = 0;
     int i = 0;
     while (*fmt != '\0') {
@@ -20,8 +21,15 @@ enum result set_error(const char* fmt, ...)
             if (i < ERROR_SIZE) error_message[i++] = '%';
         } else if (*fmt == '%') {
             /* nothing */
+        } else if (last == '%' && *fmt == 'z') {
+            /* nothing */
         } else if (last == '%' && *fmt == 'd') {
             len = snprintf(buf, ERROR_SIZE, "%d", va_arg(args, int));
+            for (int j = 0; j < len; j++) {
+                if (i < ERROR_SIZE) error_message[i++] = buf[j];
+            }
+        } else if (last_last == '%' && last == 'z' && *fmt == 'u') {
+            len = snprintf(buf, ERROR_SIZE, "%zu", va_arg(args, size_t));
             for (int j = 0; j < len; j++) {
                 if (i < ERROR_SIZE) error_message[i++] = buf[j];
             }
@@ -38,6 +46,7 @@ enum result set_error(const char* fmt, ...)
         } else {
             if (i < ERROR_SIZE) error_message[i++] = *fmt;
         }
+        last_last = last;
         last = *fmt;
         fmt++;
     }

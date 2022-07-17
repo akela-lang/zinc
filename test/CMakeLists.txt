@@ -4,6 +4,7 @@ set(SOURCE_FILES
     test_result.c
     test_buffer.c
     test_memory.c
+    test_assert.c
 )
 
 include_directories(..)

@@ -22,6 +22,7 @@ void test_name(const char* fmt, ...)
 	tr.test_case_has_error = 0;
 
 	char* name = tr.test_case_name;
+	char last_last = 0;
 	char last = 0;
 	int i = 0;
 	while (*fmt != '\0') {
@@ -31,6 +32,11 @@ void test_name(const char* fmt, ...)
 			/* nothing */
 		} else if (last == '%' && *fmt == 'd') {
 			len = snprintf(buf, TEST_NAME_SIZE, "%d", va_arg(args, int));
+			for (int j = 0; j < len; j++) {
+				if (i < TEST_NAME_SIZE) name[i++] = buf[j];
+			}
+		} else if (last_last = '%' && last == 'z' && *fmt == 'u') {
+			len = snprintf(buf, TEST_NAME_SIZE, "%zu", va_arg(args, size_t));
 			for (int j = 0; j < len; j++) {
 				if (i < TEST_NAME_SIZE) name[i++] = buf[j];
 			}
@@ -47,6 +53,7 @@ void test_name(const char* fmt, ...)
 		} else {
 			if (i < TEST_NAME_SIZE) name[i++] = *fmt;
 		}
+		last_last = last;
 		last = *fmt;
 		fmt++;
 	}
@@ -266,8 +273,9 @@ void expect_str(struct buffer* a, char* b, char* message)
 void expect_strcmp(char* a, char* b, char* message)
 {
 	test_called();
-	error_triggered();
 	if (strcmp(a, b) == 0) return;
+	error_triggered();
+	printf("(%s) = (%s) strcmp error: %s\n", a, b, message);
 }
 
 /* static-output */
