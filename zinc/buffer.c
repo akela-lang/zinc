@@ -4,6 +4,7 @@
 #include "result.h"
 #include "buffer.h"
 #include "memory.h"
+#include "utf8.h"
 
 /* static-output */
 /* initialize-output bf{} */
@@ -110,7 +111,7 @@ enum result next_char(struct buffer* bf, size_t* pos, struct buffer* bf2)
 {
     char c = bf->buf[(*pos)++];
     int count;
-    enum result r = num_bytes(c, &count);
+    enum result r = check_num_bytes(c, &count);
     if (r == result_error) {
         return r;
     }
@@ -181,7 +182,7 @@ enum result buffer_uslice(struct buffer* src, struct buffer* dest, size_t start,
     size_t index = 0;
     while (i < src->size && index < end) {
         c = src->buf[i++];
-        r = num_bytes(c, &count);
+        r = check_num_bytes(c, &count);
         if (r == result_error) return r;
 
         if (index >= start && index < end) {
@@ -205,46 +206,4 @@ enum result buffer_uslice(struct buffer* src, struct buffer* dest, size_t start,
     }
 
     return r;
-}
-
-/* static-output */
-enum result num_bytes(unsigned char c, int* count)
-{
-    /* 1 byte: 0xxx xxxx */
-    if ((c & 0x80) == 0x00) {
-        *count = 1;
-        return result_ok;
-    }
-
-    /* 2 byte: 110x xxxx */
-    if ((c & 0xe0) == 0xc0) {
-        *count = 2;
-        return result_ok;
-    }
-
-    /* 3 byte: 1110 xxxx */
-    if ((c & 0xf0) == 0xe0) {
-        *count = 3;
-        return result_ok;
-    }
-
-    /* 4 byte: 1111 0xxx */
-    if ((c & 0xf8) == 0xf0) {
-        *count = 3;
-        return result_ok;
-    }
-
-    *count = 0;
-    return set_error("Not utf8: could not detect number bytes in character");
-}
-
-/* static-output */
-enum result check_extra_byte(char c)
-{
-    /* 10xx xxxx */
-    if ((c & 0xc0) == 0x80) {
-        return result_ok;
-    }
-
-    return set_error("Not utf8: extra byte in character not encoded as utf8");
 }
