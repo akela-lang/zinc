@@ -1,8 +1,8 @@
-#include "zinc/assert.h"
+#include "zinc/unit_test.h"
 #include "test_buffer.h"
 #include "test_result.h"
 #include "test_memory.h"
-#include "test_assert.h"
+#include "test_unit_test.h"
 #include "test_utf8.h"
 
 /* static-output */

@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include "result.h"
 #include "buffer.h"
-#include "assert.h"
+#include "unit_test.h"
 
 struct test_run tr;
 

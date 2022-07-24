@@ -1,5 +1,5 @@
-#ifndef _ASSERT_H
-#define _ASSERT_H
+#ifndef _UNIT_TEST_H
+#define _UNIT_TEST_H
 
 #include "api.h"
 #include "buffer.h"

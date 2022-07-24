@@ -1,6 +1,6 @@
 #include <string.h>
 #include <stdio.h>
-#include "zinc/assert.h"
+#include "zinc/unit_test.h"
 #include "zinc/utf8.h"
 #include "zinc/result.h"
 

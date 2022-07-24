@@ -1,6 +1,6 @@
 #include <string.h>
 #include <stdlib.h>
-#include "zinc/assert.h"
+#include "zinc/unit_test.h"
 #include "zinc/buffer.h"
 
 /* static-output */

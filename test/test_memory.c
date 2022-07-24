@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "zinc/result.h"
 #include "zinc/memory.h"
-#include "zinc/assert.h"
+#include "zinc/unit_test.h"
 
 /* static-output */
 /* dynamic-temp p */

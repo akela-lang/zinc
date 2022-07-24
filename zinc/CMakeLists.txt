@@ -1,7 +1,7 @@
 
 # files
 set(SOURCE_FILES
-    assert.c
+    unit_test.c
     buffer.c
     memory.c
     result.c
