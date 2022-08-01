@@ -283,8 +283,8 @@ void expect_nts(char* a, char* b, char* message)
 {
 	test_called();
 	if (strcmp(a, b) == 0) return;
-	printf("string compare: (%s) = (%s): %s", a, b, message);
 	error_triggered();
+	printf("string compare: (%s) = (%s): %s\n", a, b, message);
 }
 
 /* static-output */

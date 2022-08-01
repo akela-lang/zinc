@@ -307,6 +307,18 @@ void test_buffer_uslice2()
 	buffer_destroy(&bf2);
 }
 
+void test_buffer_num_bytes()
+{
+	test_name(__func__);
+
+	enum result r;
+
+	int count;
+	r = num_bytes('x', &count);
+	assert_ok(r, "num_bytes");
+	expect_int_equal(count, 1, "1");
+}
+
 /* static-output */
 void test_buffer()
 {
@@ -321,4 +333,5 @@ void test_buffer()
 	test_buffer_str_compare();
 	test_buffer_uslice();
 	test_buffer_uslice2();
+	test_buffer_num_bytes();
 }
