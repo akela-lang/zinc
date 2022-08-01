@@ -56,3 +56,8 @@ enum result set_error(const char* fmt, ...)
 
     return result_error;
 }
+
+char* get_error_message()
+{
+    return error_message;
+}
