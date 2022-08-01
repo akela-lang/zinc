@@ -52,10 +52,4 @@ ZINC_API int buffer_str_compare(struct buffer* a, char* b);
 /* dynamic-output dest{} */
 ZINC_API enum result buffer_uslice(struct buffer* src, struct buffer* dest, size_t start, size_t end);
 
-/* static-output */
-ZINC_API enum result num_bytes(unsigned char c, int* count);
-
-/* static-output */
-ZINC_API enum result check_extra_byte(char c);
-
 #endif
