@@ -38,6 +38,9 @@ ZINC_API void assert_int_equal(int a, int b, char* message);
 ZINC_API void assert_true(int value, char* message);
 
 /* static-output */
+ZINC_API void assert_false(int value, char* message);
+
+/* static-output */
 ZINC_API void assert_ptr(void* p, char* message);
 
 /* static-output */

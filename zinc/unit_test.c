@@ -128,6 +128,17 @@ void assert_true(int value, char* message)
 }
 
 /* static-output */
+void assert_false(int value, char* message)
+{
+	test_called();
+
+	if (!value) return;
+	error_triggered();
+	printf("%d = false assertion error: %s\n", value, message);
+	panic();
+}
+
+/* static-output */
 void assert_ptr(void* p, char* message)
 {
 	test_called();

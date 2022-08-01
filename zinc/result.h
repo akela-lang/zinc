@@ -5,8 +5,8 @@
 
 #define ERROR_SIZE 100
 enum result {
-    result_ok,
-    result_error
+    result_error = 0,
+    result_ok = 1
 };
 
 ZINC_API extern char error_message[ERROR_SIZE];
