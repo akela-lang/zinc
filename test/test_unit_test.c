@@ -1,4 +1,4 @@
-#include "zinc/assert.h"
+#include "zinc/unit_test.h"
 #include "zinc/result.h"
 
 void test_assert_set_error()

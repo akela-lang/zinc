@@ -4,7 +4,8 @@ set(SOURCE_FILES
     test_result.c
     test_buffer.c
     test_memory.c
-    test_assert.c
+    test_unit_test.c
+    test_utf8.c
 )
 
 include_directories(..)

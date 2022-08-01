@@ -1,10 +1,11 @@
 
 # files
 set(SOURCE_FILES
-    assert.c
+    unit_test.c
     buffer.c
     memory.c
     result.c
+    utf8.c
 )
 
 add_definitions(-DZINC_EXPORT)

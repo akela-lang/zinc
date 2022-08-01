@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include "result.h"
 #include "buffer.h"
-#include "assert.h"
+#include "unit_test.h"
 
 struct test_run tr;
 
@@ -124,6 +124,17 @@ void assert_true(int value, char* message)
 	if (value) return;
 	error_triggered();
 	printf("%d = true assertion error: %s\n", value, message);
+	panic();
+}
+
+/* static-output */
+void assert_false(int value, char* message)
+{
+	test_called();
+
+	if (!value) return;
+	error_triggered();
+	printf("%d = false assertion error: %s\n", value, message);
 	panic();
 }
 

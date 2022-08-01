@@ -1,5 +1,5 @@
-#ifndef _ASSERT_H
-#define _ASSERT_H
+#ifndef _UNIT_TEST_H
+#define _UNIT_TEST_H
 
 #include "api.h"
 #include "buffer.h"
@@ -36,6 +36,9 @@ ZINC_API void assert_int_equal(int a, int b, char* message);
 
 /* static-output */
 ZINC_API void assert_true(int value, char* message);
+
+/* static-output */
+ZINC_API void assert_false(int value, char* message);
 
 /* static-output */
 ZINC_API void assert_ptr(void* p, char* message);
