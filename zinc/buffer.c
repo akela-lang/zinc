@@ -34,10 +34,10 @@ void buffer_add_char(struct buffer* bf, char c)
     if (bf->size + 1 > bf->buf_size) {
         if (bf->buf == NULL) {
             /* allocate buf{} */
-            malloc_safe(&bf->buf, BUFFER_CHUNK);
+            malloc_safe((void**)&bf->buf, BUFFER_CHUNK);
         } else {
             /* allocate buf{} */
-            realloc_safe(&bf->buf, bf->buf_size + BUFFER_CHUNK);
+            realloc_safe((void**)&bf->buf, bf->buf_size + BUFFER_CHUNK);
         }
         bf->buf_size += BUFFER_CHUNK;
     }
@@ -87,7 +87,7 @@ void buffer_copy_str(struct buffer* a, char* b)
 void buffer2array(struct buffer* bf, char** a)
 {
     /* allocate a */
-    malloc_safe(a, bf->size + 1);
+    malloc_safe((void**)a, bf->size + 1);
     for (int i = 0; i < bf->size; i++) {
         (*a)[i] = bf->buf[i];
     }

@@ -13,7 +13,7 @@ void test_memory_malloc()
 	char* p = NULL;
 
 	/* allocate p*/
-	malloc_safe(&p, 10);
+	malloc_safe((void**)&p, 10);
 
 	for (int i = 0; i < 10; i++) {
 		p[i] = 0;

@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdlib.h>
+#include "zinc/result.h"
 #include "zinc/unit_test.h"
 #include "zinc/buffer.h"
 
@@ -180,7 +181,7 @@ void test_buffer_next_char()
 
 /* static-output */
 /* dynamic bf{} bf2{} */
-test_buffer_buffer_compare()
+void test_buffer_buffer_compare()
 {
 	test_name(__func__);
 
@@ -218,7 +219,7 @@ test_buffer_buffer_compare()
 
 /* static-output */
 /* dynamic-temp bf{} */
-test_buffer_str_compare()
+void test_buffer_str_compare()
 {
 	test_name(__func__);
 
