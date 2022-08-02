@@ -46,7 +46,7 @@ void test_name(const char* fmt, ...)
 				if (i < TEST_NAME_SIZE) name[i++] = buf[j];
 			}
 		} else if (last == '%' && *fmt == 'c') {
-			len = snprintf(buf, TEST_NAME_SIZE, "%c", va_arg(args, char));
+			len = snprintf(buf, TEST_NAME_SIZE, "%c", va_arg(args, int));
 			for (int j = 0; j < len; j++) {
 				if (i < TEST_NAME_SIZE) name[i++] = buf[j];
 			}
