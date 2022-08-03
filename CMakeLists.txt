@@ -9,8 +9,8 @@ endif()
 
 if (UNIX)
 	set(CMAKE_C_FLAGS "-O1 -fsanitize=address -fno-omit-frame-pointer")
-else()
-	set(CMAKE_C_FLAGS "-O1 -fsanitize=address -fno-omit-frame-pointer")
+elseif(WIN32)
+	#set(CMAKE_C_FLAGS "-O1 -fsanitize=address -fno-omit-frame-pointer")
 endif()
 
 add_subdirectory("zinc")
