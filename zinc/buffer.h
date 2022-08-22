@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include "api.h"
+#include "result.h"
 
 #define BUFFER_CHUNK 64
 

@@ -90,7 +90,7 @@ void error_triggered()
 	if (!tr.test_case_has_error) {
 		tr.test_case_error_count++;
 		tr.test_case_has_error = 1;
-		printf("%s:\n", tr.test_case_name);
+		printf("\n%s:\n", tr.test_case_name);
 	}
 }
 
@@ -189,6 +189,15 @@ void expect_int_equal(int a, int b, char* message)
 	if (a == b) return;
 	error_triggered();
 	printf("%d = %d error: %s\n", a, b, message);
+}
+
+/* static-output */
+void expect_ptr_equal(void* a, void* b, char* message)
+{
+	test_called();
+	if (a == b) return;
+	error_triggered();
+	printf("%p = %p error: %s\n", a, b, message);
 }
 
 /* static-output */
