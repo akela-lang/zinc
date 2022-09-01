@@ -44,6 +44,12 @@ void buffer_add_char(struct buffer* bf, char c)
     bf->buf[bf->size++] = c;
 }
 
+void buffer_finish(struct buffer* bf)
+{
+    buffer_add_char(bf, '\0');
+    bf->size--;
+}
+
 /* dynamic-destroy bf{} */
 void buffer_reset(struct buffer* bf)
 {

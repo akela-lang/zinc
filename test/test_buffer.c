@@ -38,6 +38,28 @@ void test_buffer_add_char()
 
 /* static-output */
 /* dynamic-temp bf{} */
+void test_buffer_finish()
+{
+	test_name(__func__);
+
+	struct buffer bf;
+	buffer_init(&bf);
+
+	/* allocate bf{} */
+	buffer_add_char(&bf, 'x');
+	buffer_add_char(&bf, 'y');
+	buffer_add_char(&bf, 'z');
+	buffer_finish(&bf);
+
+	expect_str(&bf, "xyz", "str");
+	expect_true(strcmp(bf.buf, "xyz") == 0, "strcmp");
+
+	/* destroy bf{} */
+	buffer_destroy(&bf);
+}
+
+/* static-output */
+/* dynamic-temp bf{} */
 void test_buffer_clear()
 {
 	test_name(__func__);
@@ -313,6 +335,7 @@ void test_buffer()
 {
 	test_buffer_init();
 	test_buffer_add_char();
+	test_buffer_finish();
 	test_buffer_clear();
 	test_buffer_copy();
 	test_buffer_buffer2array();
