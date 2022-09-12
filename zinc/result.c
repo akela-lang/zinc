@@ -50,6 +50,9 @@ enum result set_error(const char* fmt, ...)
         last = *fmt;
         fmt++;
     }
+    if (i >= ERROR_SIZE) {
+        i = ERROR_SIZE - 1;
+    }
     error_message[i++] = '\0';
 
     va_end(args);
