@@ -2,6 +2,7 @@
 #define _UTF8_H
 
 #include "api.h"
+#include "result.h"
 
 #define IS_ONE_BYTE(c) (((c) & 0x80) == 0x00)
 #define IS_TWO_BYTES(c) (((c) & 0xe0) == 0xc0)

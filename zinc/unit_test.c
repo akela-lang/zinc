@@ -12,7 +12,7 @@ struct test_run tr;
 /* static-output */
 void test_name(const char* fmt, ...)
 {
-	va_list args;
+	va_list args = NULL;
 	va_start(args, fmt);
 	char buf[TEST_NAME_SIZE];
 	int len;
@@ -35,7 +35,7 @@ void test_name(const char* fmt, ...)
 			for (int j = 0; j < len; j++) {
 				if (i < TEST_NAME_SIZE) name[i++] = buf[j];
 			}
-		} else if (last_last = '%' && last == 'z' && *fmt == 'u') {
+		} else if (last_last == '%' && last == 'z' && *fmt == 'u') {
 			len = snprintf(buf, TEST_NAME_SIZE, "%zu", va_arg(args, size_t));
 			for (int j = 0; j < len; j++) {
 				if (i < TEST_NAME_SIZE) name[i++] = buf[j];
@@ -105,7 +105,7 @@ void print_results()
 }
 
 /* static-output */
-void assert_int_equal(int a, int b, char* message)
+void assert_int_equal(int a, int b, const char* message)
 {
 	test_called();
 
@@ -117,7 +117,7 @@ void assert_int_equal(int a, int b, char* message)
 }
 
 /* static-output */
-void assert_true(int value, char* message)
+void assert_true(int value, const char* message)
 {
 	test_called();
 
@@ -128,7 +128,7 @@ void assert_true(int value, char* message)
 }
 
 /* static-output */
-void assert_false(int value, char* message)
+void assert_false(int value, const char* message)
 {
 	test_called();
 
@@ -139,7 +139,7 @@ void assert_false(int value, char* message)
 }
 
 /* static-output */
-void assert_ptr(void* p, char* message)
+void assert_ptr(void* p, const char* message)
 {
 	test_called();
 
@@ -150,7 +150,7 @@ void assert_ptr(void* p, char* message)
 }
 
 /* static-output */
-void assert_null(void* p, char* message)
+void assert_null(void* p, const char* message)
 {
 	test_called();
 
@@ -161,7 +161,7 @@ void assert_null(void* p, char* message)
 }
 
 /* static-output */
-void assert_ok(enum result r, char* message)
+void assert_ok(enum result r, const char* message)
 {
 	test_called();
 
@@ -172,7 +172,7 @@ void assert_ok(enum result r, char* message)
 }
 
 /* static-output */
-void assert_error(enum result r, char* message)
+void assert_error(enum result r, const char* message)
 {
 	test_called();
 
@@ -183,7 +183,7 @@ void assert_error(enum result r, char* message)
 }
 
 /* static-output */
-void expect_int_equal(int a, int b, char* message)
+void expect_int_equal(int a, int b, const char* message)
 {
 	test_called();
 	if (a == b) return;
@@ -192,7 +192,7 @@ void expect_int_equal(int a, int b, char* message)
 }
 
 /* static-output */
-void expect_ptr_equal(void* a, void* b, char* message)
+void expect_ptr_equal(void* a, void* b, const char* message)
 {
 	test_called();
 	if (a == b) return;
@@ -201,7 +201,7 @@ void expect_ptr_equal(void* a, void* b, char* message)
 }
 
 /* static-output */
-void expect_char_equal(char a, char b, char* message)
+void expect_char_equal(char a, char b, const char* message)
 {
 	test_called();
 	if (a == b) return;
@@ -210,7 +210,7 @@ void expect_char_equal(char a, char b, char* message)
 }
 
 /* static-output */
-void expect_uint_equal(unsigned int a, unsigned int b, char* message)
+void expect_uint_equal(unsigned int a, unsigned int b, const char* message)
 {
 	test_called();
 	if (a == b) return;
@@ -219,7 +219,7 @@ void expect_uint_equal(unsigned int a, unsigned int b, char* message)
 }
 
 /* static-output */
-void expect_size_t_equal(size_t a, size_t b, char* message)
+void expect_size_t_equal(size_t a, size_t b, const char* message)
 {
 	test_called();
 	if (a == b) return;
@@ -228,7 +228,7 @@ void expect_size_t_equal(size_t a, size_t b, char* message)
 }
 
 /* static-output */
-void expect_true(int value, char* message)
+void expect_true(int value, const char* message)
 {
 	test_called();
 	if (value) return;
@@ -237,7 +237,7 @@ void expect_true(int value, char* message)
 }
 
 /* static-output */
-void expect_false(int value, char* message)
+void expect_false(int value, const char* message)
 {
 	test_called();
 	if (!value) return;
@@ -246,7 +246,7 @@ void expect_false(int value, char* message)
 }
 
 /* static-output */
-void expect_ptr(void* p, char* message)
+void expect_ptr(void* p, const char* message)
 {
 	test_called();
 	if (p) return;
@@ -255,7 +255,7 @@ void expect_ptr(void* p, char* message)
 }
 
 /* static-output */
-void expect_null(void* p, char* message)
+void expect_null(void* p, const char* message)
 {
 	test_called();
 	if (p == NULL) return;
@@ -264,7 +264,7 @@ void expect_null(void* p, char* message)
 }
 
 /* static-output */
-void expect_ok(enum result r, char* message)
+void expect_ok(enum result r, const char* message)
 {
 	test_called();
 	if (r == result_ok) return;
@@ -274,7 +274,7 @@ void expect_ok(enum result r, char* message)
 
 /* static-output */
 /* dynamic-temp temp */
-void expect_str(struct buffer* a, char* b, char* message)
+void expect_str(struct buffer* a, const char* b, const char* message)
 {
 	test_called();
 	if (buffer_str_compare(a, b)) return;
@@ -290,7 +290,7 @@ void expect_str(struct buffer* a, char* b, char* message)
 }
 
 /* static-output */
-void expect_strcmp(char* a, char* b, char* message)
+void expect_strcmp(const char* a, const char* b, const char* message)
 {
 	test_called();
 	if (strcmp(a, b) == 0) return;
@@ -299,7 +299,7 @@ void expect_strcmp(char* a, char* b, char* message)
 }
 
 /* static-output */
-void expect_nts(char* a, char* b, char* message)
+void expect_nts(const char* a, const char* b, const char* message)
 {
 	test_called();
 	if (strcmp(a, b) == 0) return;
@@ -308,7 +308,7 @@ void expect_nts(char* a, char* b, char* message)
 }
 
 /* static-output */
-void expect_error_message(char* s)
+void expect_error_message(const char* s)
 {
 	test_called();
 	if (strcmp(error_message, s) == 0) return;

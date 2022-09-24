@@ -80,7 +80,7 @@ void buffer_copy(struct buffer* a, struct buffer* b)
 }
 
 /* dynamic-output a{} */
-void buffer_copy_str(struct buffer* a, char* b)
+void buffer_copy_str(struct buffer* a, const char* b)
 {
     while (*b) {
         /* allocate a{} */
@@ -102,9 +102,9 @@ void buffer2array(struct buffer* bf, char** a)
 
 /* bf must be initialized */
 /* dynamic-output bf{} */
-void array2buffer(char* a, struct buffer* bf)
+void array2buffer(const char* a, struct buffer* bf)
 {
-    char* p = a;
+    const char* p = a;
     while (*p != '\0') {
         /* allocate b{} */
         buffer_add_char(bf, *p);
@@ -162,7 +162,7 @@ int buffer_compare(struct buffer* a, struct buffer* b)
 * otherwise, return 0
 */
 /* static-output */
-int buffer_str_compare(struct buffer* a, char* b)
+int buffer_str_compare(struct buffer* a, const char* b)
 {
     size_t size = strlen(b);
     if (a->size != size) {

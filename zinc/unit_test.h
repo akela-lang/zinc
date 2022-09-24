@@ -32,66 +32,66 @@ ZINC_API void error_triggered();
 ZINC_API void print_results();
 
 /* static-output */
-ZINC_API void assert_int_equal(int a, int b, char* message);
+ZINC_API void assert_int_equal(int a, int b, const char* message);
 
 /* static-output */
-ZINC_API void assert_true(int value, char* message);
+ZINC_API void assert_true(int value, const char* message);
 
 /* static-output */
-ZINC_API void assert_false(int value, char* message);
+ZINC_API void assert_false(int value, const char* message);
 
 /* static-output */
-ZINC_API void assert_ptr(void* p, char* message);
+ZINC_API void assert_ptr(void* p, const char* message);
 
 /* static-output */
-ZINC_API void assert_null(void* p, char* message);
+ZINC_API void assert_null(void* p, const char* message);
 
 /* static-output */
-ZINC_API void assert_ok(enum result r, char* message);
+ZINC_API void assert_ok(enum result r, const char* message);
 
 /* static-output */
-ZINC_API void assert_error(enum result r, char* message);
+ZINC_API void assert_error(enum result r, const char* message);
 
 /* static-output */
-ZINC_API void expect_int_equal(int a, int b, char* message);
+ZINC_API void expect_int_equal(int a, int b, const char* message);
 
 /* static-output */
-ZINC_API void expect_ptr_equal(void* a, void* b, char* message);
+ZINC_API void expect_ptr_equal(void* a, void* b, const char* message);
 
 /* static-output */
-ZINC_API void expect_char_equal(char a, char b, char* message);
+ZINC_API void expect_char_equal(char a, char b, const char* message);
 
 /* static-output */
-ZINC_API void expect_uint_equal(unsigned int a, unsigned int b, char* message);
+ZINC_API void expect_uint_equal(unsigned int a, unsigned int b, const char* message);
 
 /* static-output */
-ZINC_API void expect_size_t_equal(size_t a, size_t b, char* message);
+ZINC_API void expect_size_t_equal(size_t a, size_t b, const char* message);
 
 /* static-output */
-ZINC_API void expect_true(int value, char* message);
+ZINC_API void expect_true(int value, const char* message);
 
 /* static-output */
-ZINC_API void expect_false(int value, char* message);
+ZINC_API void expect_false(int value, const char* message);
 
 /* static-output */
-ZINC_API void expect_ptr(void* p, char* message);
+ZINC_API void expect_ptr(void* p, const char* message);
 
 /* static-output */
-ZINC_API void expect_null(void* p, char* message);
+ZINC_API void expect_null(void* p, const char* message);
 
 /* static-output */
-ZINC_API void expect_ok(enum result r, char* message);
+ZINC_API void expect_ok(enum result r, const char* message);
 
 /* static-output */
-ZINC_API void expect_str(struct buffer* a, char* b, char* message);
+ZINC_API void expect_str(struct buffer* a, const char* b, const char* message);
 
 /* static-output */
-ZINC_API void expect_strcmp(char* a, char* b, char* message);
+ZINC_API void expect_strcmp(const char* a, const char* b, const char* message);
 
 /* static-output */
-ZINC_API void expect_nts(char* a, char* b, char* message);
+ZINC_API void expect_nts(const char* a, const char* b, const char* message);
 
 /* static-output */
-ZINC_API void expect_error_message(char* s);
+ZINC_API void expect_error_message(const char* s);
 
 #endif
