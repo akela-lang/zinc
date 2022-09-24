@@ -17,3 +17,7 @@ add_custom_command(
                 ${CMAKE_CURRENT_BINARY_DIR}/${SHARED_FILE_NAME}
                 ${CMAKE_BINARY_DIR}/test/${SHARED_FILE_NAME}
 )
+
+install(TARGETS zinc
+    DESTINATION $ENV{HOME}/lib
+)

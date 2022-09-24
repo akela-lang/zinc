@@ -12,7 +12,11 @@ struct test_run tr;
 /* static-output */
 void test_name(const char* fmt, ...)
 {
+#if defined(WIN32)
 	va_list args = NULL;
+#elif defined(unix)
+		va_list args;
+#endif
 	va_start(args, fmt);
 	char buf[TEST_NAME_SIZE];
 	int len;
