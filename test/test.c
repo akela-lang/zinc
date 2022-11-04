@@ -4,6 +4,7 @@
 #include "test_memory.h"
 #include "test_unit_test.h"
 #include "test_utf8.h"
+#include "test_hash.h"
 
 /* static-output */
 int main()
@@ -13,6 +14,7 @@ int main()
 	test_assert();
 	test_utf8();
 	test_buffer();
+	test_hash();
 	print_results();
 	return 0;
 }

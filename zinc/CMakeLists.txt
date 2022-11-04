@@ -6,6 +6,7 @@ set(SOURCE_FILES
     memory.c
     result.c
     utf8.c
+    hash.c
 )
 
 add_definitions(-DZINC_EXPORT)

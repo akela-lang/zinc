@@ -6,6 +6,7 @@ set(SOURCE_FILES
     test_memory.c
     test_unit_test.c
     test_utf8.c
+    test_hash.c
 )
 
 include_directories(..)
