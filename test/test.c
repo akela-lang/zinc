@@ -5,6 +5,7 @@
 #include "test_unit_test.h"
 #include "test_utf8.h"
 #include "test_hash.h"
+#include "test_os_unix.h"
 
 /* static-output */
 int main()
@@ -15,6 +16,7 @@ int main()
 	test_utf8();
 	test_buffer();
 	test_hash();
+    test_os_unix();
 	print_results();
 	return 0;
 }

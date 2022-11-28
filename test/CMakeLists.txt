@@ -1,12 +1,13 @@
 # files
 set(SOURCE_FILES
-    test.c
-    test_result.c
-    test_buffer.c
-    test_memory.c
-    test_unit_test.c
-    test_utf8.c
-    test_hash.c
+        test.c
+        test_result.c
+        test_buffer.c
+        test_memory.c
+        test_unit_test.c
+        test_utf8.c
+        test_hash.c
+        test_os_unix.c
 )
 
 include_directories(..)
