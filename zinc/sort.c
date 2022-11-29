@@ -2,10 +2,9 @@
 void swap(int v[], int i, int j);
 
 /* qsort:  sort v[left]...v[right] into increasing order */
-void qsort(int v[], int left, int right)
+void qsort(int v[], int left, int right) /* NOLINT(misc-no-recursion) */
 {
     int i, last;
-    void swap(int v[], int i, int j);
 
     if (left >= right)   /* do nothing if array contains */
         return;          /* fewer than two elements */
