@@ -8,6 +8,7 @@ set(SOURCE_FILES
         test_utf8.c
         test_hash.c
         test_os_unix.c
+        test_sort.c
 )
 
 include_directories(..)

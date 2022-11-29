@@ -8,6 +8,7 @@ set(SOURCE_FILES
         utf8.c
         hash.c
         os_unix.c
+        sort.c
 )
 
 add_definitions(-DZINC_EXPORT)

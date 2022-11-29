@@ -6,6 +6,7 @@
 #include "test_utf8.h"
 #include "test_hash.h"
 #include "test_os_unix.h"
+#include "test_sort.h"
 
 /* static-output */
 int main()
@@ -17,6 +18,7 @@ int main()
 	test_buffer();
 	test_hash();
     test_os_unix();
+    test_sort();
 	print_results();
 	return 0;
 }
