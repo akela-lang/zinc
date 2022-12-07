@@ -3,6 +3,8 @@
 #include <string.h>
 #include "zinc/memory.h"
 #include <stdlib.h>
+#include <sys/types.h>
+#include <dirent.h>
 
 void test_os_unix_get_temp_file()
 {
@@ -102,10 +104,28 @@ void test_os_unix_get_user_app_directory()
     setenv("HOME", temp, 1);
 }
 
+void test_os_unix_make_directory()
+{
+    test_name(__func__);
+
+    struct buffer dir;
+    buffer_init(&dir);
+    buffer_copy_str(&dir, "/tmp/apple/bear/creek/doe/eddy");
+    buffer_finish(&dir);
+    enum result r = make_directory(&dir);
+    assert_ok(r, "make directory");
+    DIR* dp = opendir(dir.buf);
+    assert_ptr(dp, "ptr dp");
+    closedir(dp);
+    buffer_destroy(&dir);
+    system("cd /tmp && rmdir -p apple/bear/creek/doe/eddy");
+}
+
 void test_os_unix()
 {
     test_os_unix_get_temp_file();
     test_os_unix_get_user_home_directory();
     test_os_unix_path_join();
     test_os_unix_get_user_app_directory();
+    test_os_unix_make_directory();
 }

@@ -11,6 +11,9 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
+#include <sys/stat.h>
+#include <stdbool.h>
+#include <dirent.h>
 
 enum result get_temp_file(FILE** fp_out, struct buffer* name)
 {
@@ -87,6 +90,52 @@ enum result get_user_app_directory(struct buffer* lower_name, struct buffer* dir
     buffer_destroy(&home);
     buffer_destroy(&app);
     buffer_destroy(&temp);
+
+    return result_ok;
+}
+
+enum result make_directory(struct buffer* dir)
+{
+    enum result r = result_ok;
+
+    for (int i = 0; i < dir->size; i++) {
+        bool is_subdir = false;
+        int end;
+        if (i > 0 && dir->buf[i] == '/') {
+            is_subdir = true;
+            end = i;
+        } else if (dir->buf[i] != '/' && i == dir->size - 1) {
+            is_subdir = true;
+            end = i + 1;
+        }
+        if (is_subdir) {
+            struct buffer subdir;
+            buffer_init(&subdir);
+            for (int j = 0; j < end; j++) {
+                buffer_add_char(&subdir, dir->buf[j]);
+            }
+            buffer_finish(&subdir);
+            DIR* dp = opendir(subdir.buf);
+            bool exists;
+            if (dp) {
+                closedir(dp);
+                exists = true;
+            } else if (errno == ENOENT){
+                exists = false;
+            } else {
+                exists = true;
+                buffer_destroy(&subdir);
+                return set_error("Could not check directory [%s]", strerror(errno));
+            }
+            if (!exists) {
+                if (mkdir(subdir.buf, 0700)) {
+                    buffer_destroy(&subdir);
+                    return set_error("Could not make directory [%s]", strerror(errno));
+                }
+            }
+            buffer_destroy(&subdir);
+        }
+    }
 
     return result_ok;
 }
