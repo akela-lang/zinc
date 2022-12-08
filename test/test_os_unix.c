@@ -133,6 +133,11 @@ void test_os_unix_delete_directory()
     buffer_copy_str(&dir, "/tmp/one");
     enum result r = delete_directory(&dir);
     assert_ok(r, "delete_directory");
+    DIR* dp = opendir("/tmp/one");
+    assert_null(dp, "null dp");
+    if (dp) {
+        closedir(dp);
+    }
 }
 
 void test_os_unix()
