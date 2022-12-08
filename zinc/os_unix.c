@@ -125,16 +125,77 @@ enum result make_directory(struct buffer* dir)
             } else {
                 exists = true;
                 buffer_destroy(&subdir);
-                return set_error("Could not check directory [%s]", strerror(errno));
+                return set_error("Could not check directory [%s]: %s",
+                     strerror(errno), subdir.buf);
             }
             if (!exists) {
                 if (mkdir(subdir.buf, 0700)) {
                     buffer_destroy(&subdir);
-                    return set_error("Could not make directory [%s]", strerror(errno));
+                    return set_error("Could not make directory [%s]: %s",
+                         strerror(errno), subdir.buf);
                 }
             }
             buffer_destroy(&subdir);
         }
+    }
+
+    return result_ok;
+}
+
+enum result delete_directory(struct buffer* dir)  /* NOLINT(misc-no-recursion) */
+{
+    enum result r;
+    buffer_finish(dir);
+    DIR* dp = opendir(dir->buf);
+    if (!dp) {
+        return set_error("Could not open directory: [%s]: %s", strerror(errno), dir->buf);
+    }
+
+    struct dirent *de = NULL;
+    while ((de = readdir(dp)) != NULL) {
+        if (strcmp(de->d_name, "..") == 0) {
+            continue;
+        }
+        if (strcmp(de->d_name, ".") == 0) {
+            continue;
+        }
+
+        struct buffer name;
+        buffer_init(&name);
+        buffer_copy_str(&name, de->d_name);
+
+        struct buffer path;
+        buffer_init(&path);
+
+        path_join(dir, &name, &path);
+
+        buffer_finish(&path);
+        DIR* dp2 = opendir(path.buf);
+        if (dp2) {
+            if (closedir(dp2)) {
+                return set_error("Could not check type directory item: [%s]: %s", strerror(errno), path.buf);
+            }
+
+            r = delete_directory(&path);
+            if (r == result_error) {
+                return r;
+            }
+        } else {
+            if (remove(path.buf)) {
+                return set_error("Could not remove file: [%s]: %s", strerror(errno), path.buf);
+            }
+        }
+
+        buffer_destroy(&name);
+        buffer_destroy(&path);
+    }
+
+    if (closedir(dp)) {
+        return set_error("Error closing directory: [%s]: %s", strerror(errno), dir->buf);
+    }
+
+    if (remove(dir->buf)) {
+        return set_error("Could not remove directory: [%s]: %s", strerror(errno), dir->buf);
     }
 
     return result_ok;

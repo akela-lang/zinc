@@ -121,6 +121,20 @@ void test_os_unix_make_directory()
     system("cd /tmp && rmdir -p apple/bear/creek/doe/eddy");
 }
 
+void test_os_unix_delete_directory()
+{
+    test_name(__func__);
+
+    system("mkdir -p /tmp/one/two");
+    system("touch /tmp/one/two/file");
+
+    struct buffer dir;
+    buffer_init(&dir);
+    buffer_copy_str(&dir, "/tmp/one");
+    enum result r = delete_directory(&dir);
+    assert_ok(r, "delete_directory");
+}
+
 void test_os_unix()
 {
     test_os_unix_get_temp_file();
@@ -128,4 +142,5 @@ void test_os_unix()
     test_os_unix_path_join();
     test_os_unix_get_user_app_directory();
     test_os_unix_make_directory();
+    test_os_unix_delete_directory();
 }

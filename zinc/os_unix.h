@@ -10,6 +10,7 @@ ZINC_API enum result get_user_home_directory(struct buffer* dir);
 ZINC_API void path_join(struct buffer* a, struct buffer* b, struct buffer* c);
 ZINC_API enum result get_user_app_directory(struct buffer* lower_name, struct buffer* dir);
 ZINC_API enum result make_directory(struct buffer* dir);
+ZINC_API enum result delete_directory(struct buffer* dir);
 
 #endif
 
