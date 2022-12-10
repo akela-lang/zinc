@@ -9,6 +9,8 @@ set(SOURCE_FILES
         hash.c
         os_unix.c
         sort.c
+        datetime.c
+        piece.c
 )
 
 add_definitions(-DZINC_EXPORT)

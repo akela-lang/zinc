@@ -55,6 +55,8 @@ ZINC_API void assert_error(enum result r, const char* message);
 /* static-output */
 ZINC_API void expect_int_equal(int a, int b, const char* message);
 
+ZINC_API void expect_long_equal(long a, long b, const char* message);
+
 /* static-output */
 ZINC_API void expect_ptr_equal(void* a, void* b, const char* message);
 

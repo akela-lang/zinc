@@ -9,6 +9,8 @@ set(SOURCE_FILES
         test_hash.c
         test_os_unix.c
         test_sort.c
+        test_datetime.c
+        test_piece.c
 )
 
 include_directories(..)

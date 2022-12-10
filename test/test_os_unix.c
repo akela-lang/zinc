@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <dirent.h>
+#include <errno.h>
 
 void test_os_unix_get_temp_file()
 {
@@ -140,6 +141,20 @@ void test_os_unix_delete_directory()
     }
 }
 
+void test_os_unix_file_exists()
+{
+    struct buffer filename;
+    buffer_init(&filename);
+    buffer_copy_str(&filename, "/tmp/test_os_unix_file_exits");
+    buffer_finish(&filename);
+
+    system("touch /tmp/test_os_unix_file_exits");
+    expect_true(file_exists(&filename), "file exists true");
+
+    system("rm /tmp/test_os_unix_file_exits");
+    expect_false(file_exists(&filename), "file exits false");
+}
+
 void test_os_unix()
 {
     test_os_unix_get_temp_file();
@@ -148,4 +163,5 @@ void test_os_unix()
     test_os_unix_get_user_app_directory();
     test_os_unix_make_directory();
     test_os_unix_delete_directory();
+    test_os_unix_file_exists();
 }

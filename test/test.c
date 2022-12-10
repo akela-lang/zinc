@@ -7,6 +7,8 @@
 #include "test_hash.h"
 #include "test_os_unix.h"
 #include "test_sort.h"
+#include "test_datetime.h"
+#include "test_piece.h"
 
 /* static-output */
 int main()
@@ -19,6 +21,8 @@ int main()
 	test_hash();
     test_os_unix();
     test_sort();
+    test_datetime();
+    test_piece();
 	print_results();
 	return 0;
 }

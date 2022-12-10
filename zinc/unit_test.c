@@ -195,6 +195,14 @@ void expect_int_equal(int a, int b, const char* message)
 	printf("%d = %d error: %s\n", a, b, message);
 }
 
+void expect_long_equal(long a, long b, const char* message)
+{
+    test_called();
+    if (a == b) return;
+    error_triggered();
+    printf("%ld = %ld error: %s\n", a, b, message);
+}
+
 /* static-output */
 void expect_ptr_equal(void* a, void* b, const char* message)
 {

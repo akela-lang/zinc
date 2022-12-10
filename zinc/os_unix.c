@@ -201,4 +201,14 @@ enum result delete_directory(struct buffer* dir)  /* NOLINT(misc-no-recursion) *
     return result_ok;
 }
 
+bool file_exists(struct buffer* filename)
+{
+    buffer_finish(filename);
+    if (access(filename->buf, F_OK) == 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 #endif
