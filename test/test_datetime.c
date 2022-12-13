@@ -15,6 +15,7 @@ void test_datetime_utc()
     datetime_get_utc_tm(&t, &tm);
     datetime_format(&tm, &dt);
     expect_str(&dt, "1970-01-01T00:00:00Z", "1970-01-01T00:00:00Z");
+    buffer_destroy(&dt);
 }
 
 void test_datetime_utc2()
@@ -31,6 +32,7 @@ void test_datetime_utc2()
     tm.tm_gmtoff = -25200;
     datetime_format(&tm, &dt);
     expect_str(&dt, "1970-01-01T00:00:00-07:00", "1970-01-01T00:00:00-0700");
+    buffer_destroy(&dt);
 }
 
 void test_datetime_utc3()
@@ -46,6 +48,7 @@ void test_datetime_utc3()
     struct tm tm2;
     time_t t2 = datetime_to_tm(&dt, &tm2);
     expect_true(t == t2, "t == t2");
+    buffer_destroy(&dt);
 }
 
 void test_datetime_local()
@@ -61,6 +64,7 @@ void test_datetime_local()
     struct tm tm2;
     time_t t2 = datetime_to_tm(&dt, &tm2);
     expect_long_equal(t, t2, "t == t2");
+    buffer_destroy(&dt);
 }
 
 void test_datetime()

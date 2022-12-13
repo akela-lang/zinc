@@ -43,6 +43,8 @@ void test_os_unix_get_temp_file()
     r = delete_temp_file(&name);
     assert_ok(r, "delete_temp_file");
 
+    free(out);
+
     buffer_destroy(&name);
 }
 
@@ -81,6 +83,10 @@ void test_os_unix_path_join()
     path_join(&a, &b, &c);
 
     expect_str(&c, "/home/alf", "/home/alf");
+
+    buffer_destroy(&a);
+    buffer_destroy(&b);
+    buffer_destroy(&c);
 }
 
 void test_os_unix_get_user_app_directory()
@@ -139,6 +145,7 @@ void test_os_unix_delete_directory()
     if (dp) {
         closedir(dp);
     }
+    buffer_destroy(&dir);
 }
 
 void test_os_unix_file_exists()
@@ -153,6 +160,8 @@ void test_os_unix_file_exists()
 
     system("rm /tmp/test_os_unix_file_exits");
     expect_false(file_exists(&filename), "file exits false");
+
+    buffer_destroy(&filename);
 }
 
 void test_os_unix()
