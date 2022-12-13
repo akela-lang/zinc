@@ -1,0 +1,46 @@
+#include "buffer_list.h"
+#include <stdlib.h>
+
+void buffer_node_init(struct buffer_node* bn)
+{
+    buffer_init(&bn->value);
+    bn->next = NULL;
+    bn->prev = NULL;
+}
+
+void buffer_node_destroy(struct buffer_node* bn)
+{
+    buffer_destroy(&bn->value);
+}
+
+void buffer_list_init(struct buffer_list *bl)
+{
+    bl->head = NULL;
+    bl->tail = NULL;
+}
+
+void buffer_list_destroy(struct buffer_list* bl)
+{
+    struct buffer_node* bn = bl->head;
+    while (bn) {
+        struct buffer_node* temp = bn;
+        bn = bn->next;
+        buffer_node_destroy(temp);
+        free(temp);
+    }
+}
+
+void buffer_list_add(struct buffer_list* bl, struct buffer_node* bn)
+{
+    if (!bl->head && !bl->tail) {
+        /* empty */
+        bl->head = bn;
+        bl->tail = bn;
+    } else {
+        /* not empty */
+        struct buffer_node* prev = bl->tail;
+        prev->next = bn;
+        bn->prev = prev;
+        bl->tail = bn;
+    }
+}

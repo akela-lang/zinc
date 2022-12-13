@@ -11,6 +11,7 @@ set(SOURCE_FILES
         test_sort.c
         test_datetime.c
         test_piece.c
+        test_buffer_list.c
 )
 
 include_directories(..)

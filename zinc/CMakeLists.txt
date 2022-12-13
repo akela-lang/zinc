@@ -11,6 +11,7 @@ set(SOURCE_FILES
         sort.c
         datetime.c
         piece.c
+        buffer_list.c
 )
 
 add_definitions(-DZINC_EXPORT)
