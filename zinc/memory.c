@@ -26,3 +26,8 @@ void realloc_safe(void** buf, size_t size)
     }
     *buf = new_buf;
 }
+
+void free_safe(void* p)
+{
+    free(p);
+}
