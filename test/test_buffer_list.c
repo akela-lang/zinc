@@ -41,7 +41,26 @@ void test_buffer_list1()
     buffer_list_destroy(&bl);
 }
 
+void test_buffer_list_add_str()
+{
+    test_name(__func__ );
+
+    struct buffer_list bl;
+    buffer_list_init(&bl);
+    buffer_list_add_str(&bl, "one");
+    buffer_list_add_str(&bl, "two");
+
+    struct buffer_node* bn0 = bl.head;
+    expect_str(&bn0->value, "one", "one");
+
+    struct buffer_node* bn1 = bn0->next;
+    expect_str(&bn1->value, "two", "two");
+
+    buffer_list_destroy(&bl);
+}
+
 void test_buffer_list()
 {
     test_buffer_list1();
+    test_buffer_list_add_str();
 }

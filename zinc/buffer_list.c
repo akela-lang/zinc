@@ -1,5 +1,6 @@
 #include "buffer_list.h"
 #include <stdlib.h>
+#include "memory.h"
 
 void buffer_node_init(struct buffer_node* bn)
 {
@@ -43,4 +44,13 @@ void buffer_list_add(struct buffer_list* bl, struct buffer_node* bn)
         bn->prev = prev;
         bl->tail = bn;
     }
+}
+
+void buffer_list_add_str(struct buffer_list* bl, const char* str)
+{
+    struct buffer_node* bn = NULL;
+    malloc_safe((void**)&bn, sizeof(struct buffer_node));
+    buffer_node_init(bn);
+    buffer_copy_str(&bn->value, str);
+    buffer_list_add(bl, bn);
 }
