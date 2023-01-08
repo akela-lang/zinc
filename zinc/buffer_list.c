@@ -54,3 +54,15 @@ void buffer_list_add_str(struct buffer_list* bl, const char* str)
     buffer_copy_str(&bn->value, str);
     buffer_list_add(bl, bn);
 }
+
+size_t buffer_list_count(struct buffer_list* bl)
+{
+    size_t count = 0;
+
+    struct buffer_node* bn = bl->head;
+    while (bn) {
+        count++;
+        bn = bn->next;
+    }
+    return count;
+}

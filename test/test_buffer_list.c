@@ -59,8 +59,21 @@ void test_buffer_list_add_str()
     buffer_list_destroy(&bl);
 }
 
+void test_buffer_list_count()
+{
+    test_name(__func__ );
+
+    struct buffer_list bl;
+    buffer_list_init(&bl);
+    buffer_list_add_str(&bl, "one");
+    buffer_list_add_str(&bl, "two");
+    expect_size_t_equal(buffer_list_count(&bl), 2, "2");
+    buffer_list_destroy(&bl);
+}
+
 void test_buffer_list()
 {
     test_buffer_list1();
     test_buffer_list_add_str();
+    test_buffer_list_count();
 }
