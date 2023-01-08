@@ -253,8 +253,8 @@ void test_buffer_str_compare()
 	buffer_add_char(&bf, 'y');
 	buffer_add_char(&bf, 'z');
 
-	expect_true(buffer_str_compare(&bf, "xyz") == 1, "equal");
-	expect_true(buffer_str_compare(&bf, "xy1") == 0, "not equal");
+	expect_true(buffer_compare_str(&bf, "xyz") == 1, "equal");
+	expect_true(buffer_compare_str(&bf, "xy1") == 0, "not equal");
 
 	/* destroy bf{} */
 	buffer_destroy(&bf);

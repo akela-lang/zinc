@@ -162,7 +162,7 @@ int buffer_compare(struct buffer* a, struct buffer* b)
 * otherwise, return 0
 */
 /* static-output */
-int buffer_str_compare(struct buffer* a, const char* b)
+int buffer_compare_str(struct buffer* a, const char* b)
 {
     size_t size = strlen(b);
     if (a->size != size) {

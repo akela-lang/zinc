@@ -150,6 +150,8 @@ void test_os_unix_delete_directory()
 
 void test_os_unix_file_exists()
 {
+    test_name(__func__);
+
     struct buffer filename;
     buffer_init(&filename);
     buffer_copy_str(&filename, "/tmp/test_os_unix_file_exits");
@@ -164,6 +166,52 @@ void test_os_unix_file_exists()
     buffer_destroy(&filename);
 }
 
+void test_os_unix_get_dir_files()
+{
+    test_name(__func__);
+
+    system("mkdir -p /tmp/one/two");
+    system("touch /tmp/one/file1");
+    system("touch /tmp/one/file2");
+    system("touch /tmp/one/two/file3");
+    system("touch /tmp/one/two/file4");
+
+    struct buffer dir;
+    buffer_init(&dir);
+    buffer_copy_str(&dir, "/tmp/one");
+
+    struct buffer_list bl;
+    buffer_list_init(&bl);
+
+    enum result r = get_dir_files(&dir, &bl);
+
+    bool seen_file1 = false;
+    bool seen_file2 = false;
+    bool seen_file3 = false;
+    bool seen_file4 = false;
+    struct buffer_node* bn = bl.head;
+    while (bn) {
+        if (buffer_compare_str(&bn->value, "/tmp/one/file1"))
+            seen_file1 = true;
+        if (buffer_compare_str(&bn->value, "/tmp/one/file2"))
+            seen_file2 = true;
+        if (buffer_compare_str(&bn->value, "/tmp/one/two/file3"))
+            seen_file3 = true;
+        if (buffer_compare_str(&bn->value, "/tmp/one/two/file4"))
+            seen_file4 = true;
+        bn = bn->next;
+    }
+
+    expect_true(seen_file1, "seen_file1");
+    expect_true(seen_file2, "seen_file2");
+    expect_true(seen_file3, "seen_file3");
+    expect_true(seen_file4, "seen_file4");
+
+    system("rm -rf /tmp/one");
+    buffer_destroy(&dir);
+    buffer_list_destroy(&bl);
+}
+
 void test_os_unix()
 {
     test_os_unix_get_temp_file();
@@ -173,4 +221,5 @@ void test_os_unix()
     test_os_unix_make_directory();
     test_os_unix_delete_directory();
     test_os_unix_file_exists();
+    test_os_unix_get_dir_files();
 }

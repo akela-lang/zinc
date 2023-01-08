@@ -289,7 +289,7 @@ void expect_ok(enum result r, const char* message)
 void expect_str(struct buffer* a, const char* b, const char* message)
 {
 	test_called();
-	if (buffer_str_compare(a, b)) return;
+	if (buffer_compare_str(a, b)) return;
 	error_triggered();
 	char* temp;
 

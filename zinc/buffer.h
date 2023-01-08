@@ -50,7 +50,7 @@ ZINC_API enum result next_char(struct buffer* bf, size_t* pos, struct buffer* bf
 ZINC_API int buffer_compare(struct buffer* a, struct buffer* b);
 
 /* static-output */
-ZINC_API int buffer_str_compare(struct buffer* a, const char* b);
+ZINC_API int buffer_compare_str(struct buffer* a, const char* b);
 
 /* dynamic-output dest{} */
 ZINC_API enum result buffer_uslice(struct buffer* src, struct buffer* dest, size_t start, size_t end);

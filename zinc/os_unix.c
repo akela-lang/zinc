@@ -14,6 +14,7 @@
 #include <sys/stat.h>
 #include <stdbool.h>
 #include <dirent.h>
+#include "buffer_list.h"
 
 enum result get_temp_file(FILE** fp_out, struct buffer* name)
 {
@@ -209,6 +210,64 @@ bool file_exists(struct buffer* filename)
     } else {
         return false;
     }
+}
+
+enum result get_dir_files(struct buffer* dir, struct buffer_list* bl)   /* NOLINT(misc-no-recursion) */
+{
+    enum result r = result_ok;
+
+    buffer_finish(dir);
+    DIR* dp = opendir(dir->buf);
+    if (!dp) {
+        return set_error("Could not open directory: [%s]: %s", strerror(errno), dir->buf);
+    }
+
+    struct dirent *de = NULL;
+    while ((de = readdir(dp)) != NULL) {
+        if (strcmp(de->d_name, "..") == 0) {
+            continue;
+        }
+        if (strcmp(de->d_name, ".") == 0) {
+            continue;
+        }
+
+        struct buffer name;
+        buffer_init(&name);
+        buffer_copy_str(&name, de->d_name);
+
+        struct buffer path;
+        buffer_init(&path);
+
+        path_join(dir, &name, &path);
+        buffer_finish(&path);
+
+        DIR* dp2 = opendir(path.buf);
+        if (dp2) {
+            if (closedir(dp2)) {
+                buffer_destroy(&name);
+                buffer_destroy(&path);
+                return set_error("Could not check type directory item: [%s]: %s", strerror(errno), path.buf);
+            }
+
+            r = get_dir_files(&path, bl);
+            if (r == result_error) {
+                buffer_destroy(&name);
+                buffer_destroy(&path);
+                return r;
+            }
+        } else {
+            buffer_list_add_str(bl, path.buf);
+        }
+
+        buffer_destroy(&name);
+        buffer_destroy(&path);
+    }
+
+    if (closedir(dp)) {
+        return set_error("Error closing directory: [%s]: %s", strerror(errno), dir->buf);
+    }
+
+    return result_ok;
 }
 
 #endif
