@@ -3,6 +3,7 @@
 #include "zinc/result.h"
 #include "zinc/unit_test.h"
 #include "zinc/buffer.h"
+#include <limits.h>
 
 /* static-output */
 void test_buffer_init()
@@ -287,7 +288,7 @@ void test_buffer_uslice()
 	assert_ok(r, "buffer_uslice");
 
 	assert_ptr(bf2.buf, "ptr buf2.buf");
-	expect_int_equal(bf2.size, 3, "3 bf2.size");
+	expect_size_t_equal(bf2.size, 3, "3 bf2.size");
 	expect_str(&bf2, "cde", "cde bf2");
 
 	/* destory bf{} bf2{} */
@@ -330,6 +331,116 @@ void test_buffer_uslice2()
 	buffer_destroy(&bf2);
 }
 
+void test_buffer_add_format()
+{
+    test_name(__func__);
+
+    struct buffer bf;
+    buffer_init(&bf);
+
+    buffer_add_format(&bf, "%% %c %s %d %lf", 'x', "hello", 10, 5.1);
+    expect_str(&bf, "% x hello 10 5.100000", "bf");
+
+    buffer_destroy(&bf);
+}
+
+void test_buffer_add_format_d_max()
+{
+    test_name(__func__);
+
+    struct buffer bf;
+    buffer_init(&bf);
+
+    int d = INT_MAX;
+    buffer_add_format(&bf, "%d", d);
+    buffer_finish(&bf);
+    expect_int_equal(atoi(bf.buf), d, "compare");
+
+    buffer_destroy(&bf);
+}
+
+void test_buffer_add_format_d_min()
+{
+    test_name(__func__);
+
+    struct buffer bf;
+    buffer_init(&bf);
+
+    int d = INT_MIN;
+    buffer_add_format(&bf, "%d", d);
+    buffer_finish(&bf);
+    expect_int_equal((int)strtol(bf.buf, NULL, 10), d, "compare");
+
+    buffer_destroy(&bf);
+}
+
+void test_buffer_add_format_zu_max()
+{
+    test_name(__func__);
+
+    struct buffer bf;
+    buffer_init(&bf);
+
+    size_t zu = ULONG_MAX;
+    buffer_add_format(&bf, "%zu", zu);
+    buffer_finish(&bf);
+    expect_size_t_equal(strtoul(bf.buf, NULL, 10), zu, "compare");
+
+    buffer_destroy(&bf);
+}
+
+void test_buffer_add_format_zu_min()
+{
+    test_name(__func__);
+
+    struct buffer bf;
+    buffer_init(&bf);
+
+    size_t zu = 0;
+    buffer_add_format(&bf, "%zu", zu);
+    buffer_finish(&bf);
+    expect_size_t_equal(strtol(bf.buf, NULL, 10), zu, "compare");
+
+    buffer_destroy(&bf);
+}
+
+void test_buffer_add_format_s_large()
+{
+    test_name(__func__);
+
+    struct buffer bf;
+    buffer_init(&bf);
+
+    struct buffer input;
+    buffer_init(&input);
+    for (int i = 0; i < BUFFER_CHUNK * 2 + 10; i++) {
+        buffer_add_char(&input, 'x');
+    }
+    buffer_finish(&input);
+
+    buffer_add_format(&bf, "%s", input.buf);
+    expect_true(buffer_compare(&bf, &input), "compare");
+
+    buffer_destroy(&bf);
+}
+
+void test_buffer_add_format_buffer()
+{
+    test_name(__func__);
+
+    struct buffer bf;
+    buffer_init(&bf);
+
+    struct buffer bf_in;
+    buffer_init(&bf_in);
+    buffer_copy_str(&bf_in, "hello");
+
+    buffer_add_format(&bf, "%bf", &bf_in);
+    expect_true(buffer_compare(&bf, &bf_in), "compare");
+
+    buffer_destroy(&bf);
+}
+
 /* static-output */
 void test_buffer()
 {
@@ -345,4 +456,11 @@ void test_buffer()
 	test_buffer_str_compare();
 	test_buffer_uslice();
 	test_buffer_uslice2();
+    test_buffer_add_format();
+    test_buffer_add_format_d_max();
+    test_buffer_add_format_d_min();
+    test_buffer_add_format_zu_max();
+    test_buffer_add_format_zu_min();
+    test_buffer_add_format_s_large();
+    test_buffer_add_format_buffer();
 }

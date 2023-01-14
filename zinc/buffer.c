@@ -1,10 +1,11 @@
 #include <stdlib.h>
-#include <ctype.h>
 #include <string.h>
 #include "result.h"
 #include "buffer.h"
 #include "memory.h"
 #include "utf8.h"
+#include <stdarg.h>
+#include <stdbool.h>
 
 /* static-output */
 /* initialize-output bf{} */
@@ -212,4 +213,107 @@ enum result buffer_uslice(struct buffer* src, struct buffer* dest, size_t start,
     }
 
     return r;
+}
+
+void buffer_add_format(struct buffer *bf, const char* fmt, ...)
+{
+    va_list args;
+    va_start(args, fmt);
+    char* buf = NULL;
+    size_t buf_size = BUFFER_CHUNK;
+    int len;
+
+    malloc_safe((void**)&buf, buf_size);
+
+    char last_last = 0;
+    char last = 0;
+    while (*fmt != '\0') {
+        if (last == '%' && *fmt == '%') {
+            buffer_add_char(bf, '%');
+        } else if (*fmt == '%') {
+            /* nothing */
+        } else if (last == '%' && *fmt == 'l') {
+            /* nothing */
+        } else if (last_last == '%' && last == 'l' && *fmt == 'f') {
+            double lf = va_arg(args, double);
+            while (true) {
+                len = snprintf(buf, buf_size, "%lf", lf);
+                if (len < buf_size) {
+                    break;
+                }
+                buf_size *= 2;
+                realloc_safe((void**)&buf, buf_size);
+            }
+            for (int j = 0; j < len; j++) {
+                buffer_add_char(bf, buf[j]);
+            }
+        } else if (last == '%' && *fmt == 'd') {
+            int d = va_arg(args, int);
+            while (true) {
+                len = snprintf(buf, buf_size, "%d", d);
+                if (len < buf_size) {
+                    break;
+                }
+                buf_size *= 2;
+                realloc_safe((void**)&buf, buf_size);
+            }
+            for (int j = 0; j < len; j++) {
+                buffer_add_char(bf, buf[j]);
+            }
+        } else if (last == '%' && *fmt == 'z') {
+            /* nothing */
+        } else if (last_last == '%' && last == 'z' && *fmt == 'u') {
+            size_t zu = va_arg(args, size_t);
+            while (true) {
+                len = snprintf(buf, buf_size, "%zu", zu);
+                if (len < buf_size) {
+                    break;
+                }
+                buf_size *= 2;
+                realloc_safe((void**)&buf, buf_size);
+            }
+            for (int j = 0; j < len; j++) {
+                buffer_add_char(bf, buf[j]);
+            }
+        } else if (last == '%' && *fmt == 'b') {
+            /* nothing */
+        } else if (last_last == '%' && last == 'b' && *fmt == 'f') {
+            struct buffer* bf_in = va_arg(args, struct buffer*);
+            buffer_copy(bf_in, bf);
+        } else if (last == '%' && *fmt == 's') {
+            char* s = va_arg(args, char*);
+            while (true) {
+                len = snprintf(buf, buf_size, "%s", s);
+                if (len < buf_size) {
+                    break;
+                }
+                buf_size *= 2;
+                realloc_safe((void**)&buf, buf_size);
+            }
+            for (int j = 0; j < len; j++) {
+                buffer_add_char(bf, buf[j]);
+            }
+        } else if (last == '%' && *fmt == 'c') {
+            char c = va_arg(args, int);
+            while (true) {
+                len = snprintf(buf, buf_size, "%c", c);
+                if (len < buf_size) {
+                    break;
+                }
+                buf_size *= 2;
+                realloc_safe((void**)&buf, buf_size);
+            }
+            for (int j = 0; j < len; j++) {
+                buffer_add_char(bf, buf[j]);
+            }
+        } else {
+            buffer_add_char(bf, *fmt);
+        }
+        last_last = last;
+        last = *fmt;
+        fmt++;
+    }
+
+    va_end(args);
+    free(buf);
 }
