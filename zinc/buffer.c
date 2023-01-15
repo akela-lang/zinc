@@ -158,6 +158,22 @@ int buffer_compare(struct buffer* a, struct buffer* b)
     return 1;
 }
 
+int buffer_order(struct buffer* a, struct buffer* b)
+{
+    size_t size = 0;
+    if (a->size > size) size = a->size;
+    if (b->size > size) size = b->size;
+
+    for (size_t i = 0; i < size; i++) {
+        if (i >= b->size) return 1;
+        if (i >= a->size) return -1;
+        if (a->buf[i] < b->buf[i]) return -1;
+        if (a->buf[i] > b->buf[i]) return 1;
+    }
+
+    return 0;
+}
+
 /*
 * if strings are equal, return 1
 * otherwise, return 0

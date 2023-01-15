@@ -57,4 +57,5 @@ ZINC_API enum result buffer_uslice(struct buffer* src, struct buffer* dest, size
 
 ZINC_API void buffer_add_format(struct buffer *bf, const char* fmt, ...);
 
+ZINC_API int buffer_order(struct buffer* a, struct buffer* b);
 #endif

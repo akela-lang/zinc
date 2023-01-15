@@ -441,6 +441,81 @@ void test_buffer_add_format_buffer()
     buffer_destroy(&bf);
 }
 
+void test_buffer_order_same()
+{
+    test_name(__func__);
+
+    struct buffer a;
+    buffer_init(&a);
+    buffer_copy_str(&a, "abc");
+
+    struct buffer b;
+    buffer_init(&b);
+    buffer_copy_str(&b, "abc");
+
+    expect_int_equal(buffer_order(&a, &b), 0, "0");
+}
+
+void test_buffer_order_less_size()
+{
+    test_name(__func__);
+
+    struct buffer a;
+    buffer_init(&a);
+    buffer_copy_str(&a, "abc");
+
+    struct buffer b;
+    buffer_init(&b);
+    buffer_copy_str(&b, "abc123");
+
+    expect_int_equal(buffer_order(&a, &b), -1, "-1");
+}
+
+void test_buffer_order_greater_size()
+{
+    test_name(__func__);
+
+    struct buffer a;
+    buffer_init(&a);
+    buffer_copy_str(&a, "abc123");
+
+    struct buffer b;
+    buffer_init(&b);
+    buffer_copy_str(&b, "abc");
+
+    expect_int_equal(buffer_order(&a, &b), 1, "1");
+}
+
+void test_buffer_order_less_than()
+{
+    test_name(__func__);
+
+    struct buffer a;
+    buffer_init(&a);
+    buffer_copy_str(&a, "abcx");
+
+    struct buffer b;
+    buffer_init(&b);
+    buffer_copy_str(&b, "abcy");
+
+    expect_int_equal(buffer_order(&a, &b), -1, "-1");
+}
+
+void test_buffer_order_greater_than()
+{
+    test_name(__func__);
+
+    struct buffer a;
+    buffer_init(&a);
+    buffer_copy_str(&a, "abcza;llkejrfladf");
+
+    struct buffer b;
+    buffer_init(&b);
+    buffer_copy_str(&b, "abcykewlaf");
+
+    expect_int_equal(buffer_order(&a, &b), 1, "1");
+}
+
 /* static-output */
 void test_buffer()
 {
@@ -463,4 +538,9 @@ void test_buffer()
     test_buffer_add_format_zu_min();
     test_buffer_add_format_s_large();
     test_buffer_add_format_buffer();
+    test_buffer_order_same();
+    test_buffer_order_less_size();
+    test_buffer_order_greater_size();
+    test_buffer_order_less_than();
+    test_buffer_order_greater_than();
 }
