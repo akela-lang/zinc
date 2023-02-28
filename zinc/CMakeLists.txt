@@ -12,6 +12,8 @@ set(SOURCE_FILES
         datetime.c
         piece.c
         buffer_list.c
+        error.c
+        error_unit_test.c
 )
 
 add_definitions(-DZINC_EXPORT)
