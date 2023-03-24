@@ -13,6 +13,7 @@ set(SOURCE_FILES
         test_piece.c
         test_buffer_list.c
         test_error.c
+        test_list.c
 )
 
 include_directories(..)

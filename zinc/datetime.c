@@ -51,6 +51,12 @@ void datetime_get_local_tm(time_t* t, struct tm* tm)
 
 time_t datetime_to_tm(struct buffer* dt, struct tm* tm)
 {
+    time_t t0;
+    struct tm tm0;
+    datetime_get_current_t(&t0);
+    datetime_get_local_tm(&t0, &tm0);
+    int isdst = tm0.tm_isdst;
+
     struct buffer date;
     buffer_init(&date);
     struct buffer time;
@@ -148,7 +154,7 @@ time_t datetime_to_tm(struct buffer* dt, struct tm* tm)
             tm_gmtoff = tm_gmtoff * -1;
         }
         tm->tm_gmtoff = tm_gmtoff;
-        tm->tm_isdst = 0;
+        tm->tm_isdst = isdst;
         tm->tm_zone = NULL;
         t = mktime(tm);
     }

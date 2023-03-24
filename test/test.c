@@ -11,6 +11,7 @@
 #include "test_piece.h"
 #include "test_buffer_list.h"
 #include "test_error.h"
+#include "test_list.h"
 
 /* static-output */
 int main()
@@ -27,6 +28,7 @@ int main()
     test_piece();
     test_buffer_list();
     test_error();
+    test_list();
 	print_results();
 	return 0;
 }

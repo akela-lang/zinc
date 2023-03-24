@@ -58,13 +58,18 @@ void test_datetime_local()
     datetime_get_current_t(&t);
     struct tm tm;
     datetime_get_local_tm(&t, &tm);
+    int isdst = tm.tm_isdst;
     struct buffer dt;
     buffer_init(&dt);
     datetime_format(&tm, &dt);
     struct tm tm2;
     time_t t2 = datetime_to_tm(&dt, &tm2);
+    struct buffer dt2;
+    buffer_init(&dt2);
+    datetime_format(&tm2, &dt2);
     expect_long_equal(t, t2, "t == t2");
     buffer_destroy(&dt);
+    buffer_destroy(&dt2);
 }
 
 void test_datetime()

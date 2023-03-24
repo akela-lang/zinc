@@ -14,6 +14,7 @@ set(SOURCE_FILES
         buffer_list.c
         error.c
         error_unit_test.c
+        list.c
 )
 
 add_definitions(-DZINC_EXPORT)
