@@ -29,20 +29,20 @@ void test_list_1()
     *n2 = 2;
     list_add_item(&l, n2);
 
-    struct list_node* ln0 = l.head;
-    assert_ptr(ln0, "ptr ln0");
-    expect_ptr_equal(ln0->item, n0, "n0");
-    expect_int_equal(*n0, 0, "0");
+    int* x0 = list_get(&l, 0);
+    assert_ptr(x0, "ptr x0");
+    expect_ptr_equal(x0, n0, "x0");
+    expect_int_equal(*x0, 0, "0");
 
-    struct list_node* ln1 = ln0->next;
-    assert_ptr(ln1, "ptr ln1");
-    expect_ptr_equal(ln1->item, n1, "n1");
-    expect_int_equal(*n1, 1, "1");
+    int* x1 = list_get(&l, 1);
+    assert_ptr(x1, "ptr x1");
+    expect_ptr_equal(x1, n1, "x1");
+    expect_int_equal(*x1, 1, "1");
 
-    struct list_node* ln2 = ln1->next;
-    assert_ptr(ln2, "ptr ln2");
-    expect_ptr_equal(ln2->item, n2, "n2");
-    expect_int_equal(*n2, 2, "2");
+    int* x2 = list_get(&l, 2);
+    assert_ptr(x2, "ptr x2");
+    expect_ptr_equal(x2, n2, "x2");
+    expect_int_equal(*x2, 2, "2");
 
     list_destroy(&l, (list_node_destroy)destroy_int);
 }

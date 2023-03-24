@@ -47,3 +47,17 @@ void list_destroy(struct list* l, list_node_destroy lnd)
         free(temp);
     }
 }
+
+void* list_get(struct list* l, int index)
+{
+    int i = 0;
+    struct list_node* ln = l->head;
+    while (ln) {
+        if (i == index) {
+            return ln->item;
+        }
+        i++;
+        ln = ln->next;
+    }
+    return NULL;
+}
