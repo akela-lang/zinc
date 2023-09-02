@@ -58,16 +58,33 @@ void expect_has_errors(struct error_list* el)
     error_triggered();
 }
 
-void expect_error(struct error_list* el, const char message[])
+struct error* assert_source_error(struct error_list* el, const char message[])
 {
     test_called();
     struct error* e = el->head;
     while (e) {
         if (strcmp(e->message, message) == 0) {
-            return;
+            return e;
         }
         e = e->next;
     }
     error_triggered();
     fprintf(stderr, "error not found: %s\n", message);
+    panic();
+    return NULL;
+}
+
+struct error* expect_source_error(struct error_list* el, const char message[])
+{
+    test_called();
+    struct error* e = el->head;
+    while (e) {
+        if (strcmp(e->message, message) == 0) {
+            return e;
+        }
+        e = e->next;
+    }
+    error_triggered();
+    fprintf(stderr, "error not found: %s\n", message);
+    return NULL;
 }
