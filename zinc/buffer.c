@@ -276,6 +276,19 @@ void buffer_add_format(struct buffer *bf, const char* fmt, ...)
             for (int j = 0; j < len; j++) {
                 buffer_add_char(bf, buf[j]);
             }
+        } else if (last_last == '%' && last == 'l' && *fmt == 'd') {
+            long d = va_arg(args, int);
+            while (true) {
+                len = snprintf(buf, buf_size, "%ld", d);
+                if (len < buf_size) {
+                    break;
+                }
+                buf_size *= 2;
+                realloc_safe((void**)&buf, buf_size);
+            }
+            for (int j = 0; j < len; j++) {
+                buffer_add_char(bf, buf[j]);
+            }
         } else if (last == '%' && *fmt == 'z') {
             /* nothing */
         } else if (last_last == '%' && last == 'z' && *fmt == 'u') {
