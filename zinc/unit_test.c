@@ -247,6 +247,16 @@ void expect_uint_equal(unsigned int a, unsigned int b, const char* message)
 }
 
 /* static-output */
+void assert_size_t_equal(size_t a, size_t b, const char* message)
+{
+    test_called();
+    if (a == b) return;
+    error_triggered();
+    fprintf(stderr, "(%zu) = (%zu) error: %s\n", a, b, message);
+    panic();
+}
+
+/* static-output */
 void expect_size_t_equal(size_t a, size_t b, const char* message)
 {
 	test_called();

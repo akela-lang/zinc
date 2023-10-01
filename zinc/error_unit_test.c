@@ -25,7 +25,7 @@ void expect_no_errors(struct error_list* el)
 
     if (!el->head) return;
     error_triggered();
-    fprintf(stderr, "assert no errors: has errors\n");
+    fprintf(stderr, "expect no errors: has errors\n");
     struct error* e = el->head;
     while (e) {
         fprintf(stderr, "(%zu,%zu): %s\n", e->loc.line, e->loc.col, e->message);

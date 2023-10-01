@@ -70,6 +70,8 @@ ZINC_API void expect_char_equal(char a, char b, const char* message);
 /* static-output */
 ZINC_API void expect_uint_equal(unsigned int a, unsigned int b, const char* message);
 
+ZINC_API void assert_size_t_equal(size_t a, size_t b, const char* message);
+
 /* static-output */
 ZINC_API void expect_size_t_equal(size_t a, size_t b, const char* message);
 
