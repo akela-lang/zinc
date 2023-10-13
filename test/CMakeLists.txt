@@ -14,6 +14,7 @@ set(SOURCE_FILES
         test_error.c
         test_list.c
         test_vector.c
+        test_data_frame.c
 )
 
 include_directories(..)

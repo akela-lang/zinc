@@ -12,8 +12,8 @@
 #include "test_error.h"
 #include "test_list.h"
 #include "test_vector.h"
+#include "test_data_frame.h"
 
-/* static-output */
 int main()
 {
 	test_result();
@@ -29,6 +29,7 @@ int main()
     test_error();
     test_list();
     test_vector();
+    TestDataFrame();
 	print_results();
 	return 0;
 }

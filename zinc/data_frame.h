@@ -2,10 +2,9 @@
 #define SERIES_LIST_H
 
 #include "vector.h"
-#include "buffer.h"
 
 struct Series {
-    struct buffer name;
+    struct Vector name;
     struct Vector* vector;
     struct Series* next;
     struct Series* prev;
