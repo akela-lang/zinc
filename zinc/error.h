@@ -34,5 +34,7 @@ ZINC_API void error_list_destroy(struct error_list* el);
 ZINC_API bool error_list_set(struct error_list *el, struct location* loc, const char* fmt, ...);
 ZINC_API void error_list_print(struct error_list* el);
 ZINC_API void location_init(struct location* loc);
+ZINC_API void location_create(struct location** loc);
+ZINC_API const char* plural(int number);
 
 #endif

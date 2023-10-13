@@ -121,3 +121,15 @@ void error_list_print(struct error_list* el)
         e = e->next;
     }
 }
+
+void location_create(struct location** loc)
+{
+    malloc_safe((void**)loc, sizeof(struct location));
+    location_init(*loc);
+}
+
+const char* plural(int number)
+{
+    if (number == 1) return "";
+    else return "s";
+}
