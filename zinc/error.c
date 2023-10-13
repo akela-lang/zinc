@@ -27,6 +27,12 @@ void error_list_init(struct error_list* el)
     el->tail = NULL;
 }
 
+void error_list_create(struct error_list** el)
+{
+    malloc_safe((void**)el, sizeof(struct error_list));
+    error_list_init(*el);
+}
+
 void error_list_add(struct error_list *el, struct error* e)
 {
     if (el->tail) {

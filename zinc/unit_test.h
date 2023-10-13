@@ -3,6 +3,7 @@
 
 #include "api.h"
 #include "buffer.h"
+#include "vector.h"
 
 #define TEST_NAME_SIZE 100
 
@@ -92,6 +93,8 @@ ZINC_API void expect_ok(enum result r, const char* message);
 
 /* static-output */
 ZINC_API void expect_str(struct buffer* a, const char* b, const char* message);
+
+ZINC_API void expect_vector_str(struct Vector* a, const char* b, const char* message);
 
 /* static-output */
 ZINC_API void expect_strcmp(const char* a, const char* b, const char* message);

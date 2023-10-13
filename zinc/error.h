@@ -29,6 +29,7 @@ struct error_list {
 
 ZINC_API void error_init(struct error* e);
 ZINC_API void error_list_init(struct error_list* el);
+ZINC_API void error_list_create(struct error_list** el);
 ZINC_API void error_list_add(struct error_list *el, struct error* e);
 ZINC_API void error_list_destroy(struct error_list* el);
 ZINC_API bool error_list_set(struct error_list *el, struct location* loc, const char* fmt, ...);

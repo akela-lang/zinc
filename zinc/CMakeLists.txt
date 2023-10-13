@@ -8,13 +8,14 @@ set(SOURCE_FILES
         utf8.c
         hash.c
         os_unix.c
-        sort.c
         datetime.c
         piece.c
         buffer_list.c
         error.c
         error_unit_test.c
         list.c
+        vector.c
+        data_frame.c
 )
 
 add_definitions(-DZINC_EXPORT)

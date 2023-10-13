@@ -5,7 +5,9 @@
 #include <stdbool.h>
 #include "result.h"
 #include "buffer.h"
+#include "vector.h"
 #include "unit_test.h"
+#include <assert.h>
 
 struct test_run tr;
 
@@ -325,6 +327,36 @@ void expect_str(struct buffer* a, const char* b, const char* message)
 
 	/* destroy temp */
 	free(temp);
+}
+
+void expect_vector_str(struct Vector* a, const char* b, const char* message)
+{
+    test_called();
+    if (a->value_size != sizeof(char)) {
+        fprintf(stderr,
+                "Vector elements must be size of char to compare to string: %s\n",
+                message);
+        error_triggered();
+        return;
+    }
+    VectorAddNull(a);
+    size_t len = strlen(b);
+    if (a->count != len) {
+        fprintf(stderr,
+                "Vector and string not the same size: (%s) (%s): %s\n",
+                VECTOR_STRING(a), b, message);
+        error_triggered();
+    } else {
+        for (int i = 0; i < a->count; i++) {
+            if (VECTOR_CHAR(a, i) != b[i]) {
+                fprintf(stderr,
+                        "Vector and string not equal: (%s) (%s): %s\n",
+                        VECTOR_STRING(a), b, message);
+                error_triggered();
+                break;
+            }
+        }
+    }
 }
 
 /* static-output */
