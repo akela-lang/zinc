@@ -1,21 +1,11 @@
 #include "series.h"
 #include "memory.h"
-
-void FieldInit(struct Field* field)
-{
-    field->type = SeriesTypeNone;
-    VectorInit(&field->raw, sizeof(char));
-}
-
-void FieldDestroy(struct Field* field)
-{
-    VectorDestroy(&field->raw);
-}
+#include "field.h"
 
 void SeriesInit(struct Series* s)
 {
     VectorInit(&s->name, sizeof(char));
-    s->type = SeriesTypeNone;
+    s->type = FieldTypeNone;
     VectorInit(&s->field, sizeof(struct Field));
     VectorInit(&s->value, sizeof(char));
     s->next = NULL;

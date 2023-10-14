@@ -17,6 +17,9 @@ set(SOURCE_FILES
         vector.c
         series.c
         data_frame.c
+        field.c
+        field_lex.c
+        input_string.c
 )
 
 add_definitions(-DZINC_EXPORT)

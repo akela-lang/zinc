@@ -2,24 +2,11 @@
 #define ZINC_SERIES_H
 
 #include "vector.h"
-
-enum SeriesType {
-    SeriesTypeNone,
-    SeriesTypeEmpty,
-    SeriesTypeString,
-    SeriesTypeInt,
-    SeriesTypeFloat,
-    SeriesTypeBool,
-};
-
-struct Field {
-    enum SeriesType type;
-    struct Vector raw;
-};
+#include "field.h"
 
 struct Series {
     struct Vector name;
-    enum SeriesType type;
+    enum FieldType type;
     struct Vector field;
     struct Vector value;
     struct Series* next;
