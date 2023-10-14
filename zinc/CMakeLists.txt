@@ -15,6 +15,7 @@ set(SOURCE_FILES
         error_unit_test.c
         list.c
         vector.c
+        series.c
         data_frame.c
 )
 

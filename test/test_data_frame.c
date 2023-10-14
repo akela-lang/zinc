@@ -5,12 +5,6 @@ void TestDataFrame1()
 {
     test_name(__func__);
 
-    struct Vector* v0 = NULL;
-    VectorCreate(&v0, sizeof(double));
-
-    struct Vector* v1 = NULL;
-    VectorCreate(&v1, sizeof(double));
-
     struct Series* s0 = NULL;
     SeriesCreate(&s0);
 
@@ -20,15 +14,11 @@ void TestDataFrame1()
     struct DataFrame* df = NULL;
     DataFrameCreate(&df);
 
-    s0->vector = v0;
     DataFrameAdd(df, s0);
 
-    s1->vector = v1;
     DataFrameAdd(df, s1);
 
-    assert_ptr(v0, "ptr ds0");
     assert_ptr(s0, "ptr s0");
-    assert_ptr(v1, "ptr ds1");
     assert_ptr(s1, "ptr s1");
     assert_ptr(df, "ptr df");
 

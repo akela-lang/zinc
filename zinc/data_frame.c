@@ -1,30 +1,10 @@
 #include "data_frame.h"
 #include "memory.h"
 #include "buffer.h"
-
-void SeriesInit(struct Series* s)
-{
-    VectorInit(&s->name, sizeof(char));
-    s->type = SeriesTypeNone;
-    s->vector = NULL;
-    s->next = NULL;
-    s->prev = NULL;
-}
-
-void SeriesCreate(struct Series** s)
-{
-    malloc_safe((void**)s, sizeof(struct Series));
-    SeriesInit(*s);
-}
-
-void SeriesDestroy(struct Series* s)
-{
-    VectorDestroy(&s->name);
-    if (s->vector) {
-        VectorDestroy(s->vector);
-    }
-    free(s);
-}
+#include <stdbool.h>
+#include "string.h"
+#include <ctype.h>
+#include "series.h"
 
 void DataFrameInit(struct DataFrame* df)
 {
@@ -62,6 +42,7 @@ void DataFrameDestroy(struct DataFrame* df)
         struct Series* temp = s;
         s = s->next;
         SeriesDestroy(temp);
+        free(temp);
     }
     free(df);
 }
