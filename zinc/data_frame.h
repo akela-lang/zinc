@@ -3,8 +3,17 @@
 
 #include "vector.h"
 
+enum SeriesType {
+    SeriesTypeNone,
+    SeriesTypeString,
+    SeriesTypeInt,
+    SeriesTypeFloat,
+    SeriesTypeBool,
+};
+
 struct Series {
     struct Vector name;
+    enum SeriesType type;
     struct Vector* vector;
     struct Series* next;
     struct Series* prev;

@@ -5,6 +5,7 @@
 void SeriesInit(struct Series* s)
 {
     VectorInit(&s->name, sizeof(char));
+    s->type = SeriesTypeNone;
     s->vector = NULL;
     s->next = NULL;
     s->prev = NULL;
