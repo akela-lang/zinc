@@ -2,65 +2,65 @@
 #include "memory.h"
 #include "buffer.h"
 
-void SeriesInit(struct Series* sn)
+void SeriesInit(struct Series* s)
 {
-    buffer_init(&sn->name);
-    sn->vector = NULL;
-    sn->next = NULL;
-    sn->prev = NULL;
+    VectorInit(&s->name, sizeof(char));
+    s->vector = NULL;
+    s->next = NULL;
+    s->prev = NULL;
 }
 
-void SeriesCreate(struct Series** sn)
+void SeriesCreate(struct Series** s)
 {
-    malloc_safe((void**)sn, sizeof(struct Series));
-    SeriesInit(*sn);
+    malloc_safe((void**)s, sizeof(struct Series));
+    SeriesInit(*s);
 }
 
-void SeriesDestroy(struct Series* sn)
+void SeriesDestroy(struct Series* s)
 {
-    buffer_destroy(&sn->name);
-    if (sn->vector) {
-        VectorDestroy(sn->vector);
+    VectorDestroy(&s->name);
+    if (s->vector) {
+        VectorDestroy(s->vector);
     }
-    free(sn);
+    free(s);
 }
 
-void DataFrameInit(struct DataFrame* sl)
+void DataFrameInit(struct DataFrame* df)
 {
-    sl->head = NULL;
-    sl->tail = NULL;
+    df->head = NULL;
+    df->tail = NULL;
 }
 
-void DataFrameCreate(struct DataFrame** sl)
+void DataFrameCreate(struct DataFrame** df)
 {
-    malloc_safe((void**)sl, sizeof(struct DataFrame));
-    DataFrameInit(*sl);
+    malloc_safe((void**)df, sizeof(struct DataFrame));
+    DataFrameInit(*df);
 }
 
 /**
  * Append Vector node to end of list.
- * @param sl Vector list
- * @param sn Vector node
+ * @param df Vector list
+ * @param s Vector node
  */
-void DataFrameAdd(struct DataFrame* sl, struct Series* sn)
+void DataFrameAdd(struct DataFrame* df, struct Series* s)
 {
-    if (sl->head == NULL) {
-        sl->head = sn;
-        sl->tail = sn;
+    if (df->head == NULL) {
+        df->head = s;
+        df->tail = s;
     } else {
-        sn->prev = sl->tail;
-        sl->tail->next = sn;
-        sl->tail = sn;
+        s->prev = df->tail;
+        df->tail->next = s;
+        df->tail = s;
     }
 }
 
-void DataFrameDestroy(struct DataFrame* sl)
+void DataFrameDestroy(struct DataFrame* df)
 {
-    struct Series* sn = sl->head;
-    while (sn) {
-        struct Series* temp = sn;
-        sn = sn->next;
+    struct Series* s = df->head;
+    while (s) {
+        struct Series* temp = s;
+        s = s->next;
         SeriesDestroy(temp);
     }
-    free(sl);
+    free(df);
 }

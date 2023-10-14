@@ -53,7 +53,7 @@ void expect_has_errors(struct error_list* el)
 
     if (el->head) return;
     error_triggered();
-    fprintf(stderr, "assert has errors: there are no errors\n");
+    fprintf(stderr, "expect has errors: there are no errors\n");
 
     error_triggered();
 }

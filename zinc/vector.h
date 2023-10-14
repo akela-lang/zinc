@@ -12,12 +12,12 @@ struct Vector {
     size_t container_size;
 };
 
-void VectorInit(struct Vector* s, size_t value_size);
-void VectorCreate(struct Vector** s, size_t value_size);
-void VectorExpand(struct Vector* s, size_t count);
-void VectorAdd(struct Vector* s, void* buffer, size_t count);
-void VectorAddNull(struct Vector* s);
-void VectorDestroy(struct Vector* s);
+void VectorInit(struct Vector* v, size_t value_size);
+void VectorCreate(struct Vector** v, size_t value_size);
+void VectorExpand(struct Vector* v, size_t count);
+void VectorAdd(struct Vector* v, void* buffer, size_t count);
+void VectorAddNull(struct Vector* v);
+void VectorDestroy(struct Vector* v);
 
 #define VECTOR_PTR(s, index) ((s)->buffer + ((s)->value_size * (index)))
 #define VECTOR_DOUBLE(s, index) (*(double*)((s)->buffer + ((s)->value_size * (index))))
