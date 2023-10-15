@@ -13,6 +13,7 @@
 #include "test_list.h"
 #include "test_vector.h"
 #include "test_data_frame.h"
+#include "test_input_string.h"
 
 int main()
 {
@@ -30,6 +31,7 @@ int main()
     test_list();
     test_vector();
     TestDataFrame();
+    TestInputString();
 	print_results();
 	return 0;
 }

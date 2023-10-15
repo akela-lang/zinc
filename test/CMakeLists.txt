@@ -15,6 +15,7 @@ set(SOURCE_FILES
         test_list.c
         test_vector.c
         test_data_frame.c
+        test_input_string.c
 )
 
 include_directories(..)

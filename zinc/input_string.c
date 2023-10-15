@@ -22,6 +22,7 @@ bool InputStringNextChar(struct InputString* data, char* c, struct location* loc
         location_init(&data->prev_loc);
         data->loc.line = 1;
         data->loc.col = 1;
+        data->loc.size = 1;
     }
 
     if (data->repeat_char && data->pos > 0) {
