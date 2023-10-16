@@ -14,6 +14,7 @@
 #include "test_vector.h"
 #include "test_data_frame.h"
 #include "test_input_string.h"
+#include "test_field_lex.h"
 
 int main()
 {
@@ -32,6 +33,7 @@ int main()
     test_vector();
     TestDataFrame();
     TestInputString();
+    TestFieldLex();
 	print_results();
 	return 0;
 }

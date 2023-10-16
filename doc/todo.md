@@ -1,2 +1,4 @@
 # Todo
-* add lexer for fields - field_lex
+* test floats
+* test strings
+* booleans; test booleans

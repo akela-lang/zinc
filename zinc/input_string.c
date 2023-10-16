@@ -1,4 +1,5 @@
 #include "input_string.h"
+#include "memory.h"
 
 void InputStringInit(struct InputString* input_string, struct Vector* text)
 {
@@ -7,6 +8,12 @@ void InputStringInit(struct InputString* input_string, struct Vector* text)
     input_string->repeat_char = false;
     input_string->pos = 0;
     input_string->text = text;
+}
+
+void InputStringCreate(struct InputString** input_string, struct Vector* text)
+{
+    malloc_safe((void**)input_string, sizeof(struct InputString));
+    InputStringInit(*input_string, text);
 }
 
 /**

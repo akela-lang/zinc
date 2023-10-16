@@ -6,6 +6,7 @@ enum FieldType {
     FieldTypeEmpty,
     FieldTypeString,
     FieldTypeInt,
+    FieldTypeIntUnsigned,
     FieldTypeFloat,
     FieldTypeBool,
 };

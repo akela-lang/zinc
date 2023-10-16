@@ -15,6 +15,7 @@ struct InputString {
 };
 
 void InputStringInit(struct InputString* input_string, struct Vector* text);
+void InputStringCreate(struct InputString** input_string, struct Vector* text);
 bool InputStringNextChar(struct InputString* data, char* c, struct location* loc);
 void InputStringRepeatChar(struct InputString* data);
 
