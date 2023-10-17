@@ -16,6 +16,15 @@ void InputStringCreate(struct InputString** input_string, struct Vector* text)
     InputStringInit(*input_string, text);
 }
 
+void InputStringClear(struct InputString* data)
+{
+    location_init(&data->loc);
+    location_init(&data->prev_loc);
+    data->loc.line = 1;
+    data->loc.col = 1;
+    data->loc.size = 1;
+}
+
 /**
  * Get the next character.
  * @param lex_data lexer data
@@ -25,11 +34,7 @@ void InputStringCreate(struct InputString** input_string, struct Vector* text)
 bool InputStringNextChar(struct InputString* data, char* c, struct location* loc)
 {
     if (data->loc.byte_pos == 0) {
-        location_init(&data->loc);
-        location_init(&data->prev_loc);
-        data->loc.line = 1;
-        data->loc.col = 1;
-        data->loc.size = 1;
+        InputStringClear(data);
     }
 
     if (data->repeat_char && data->pos > 0) {
@@ -63,4 +68,30 @@ bool InputStringNextChar(struct InputString* data, char* c, struct location* loc
 void InputStringRepeatChar(struct InputString* data)
 {
     data->repeat_char = true;
+}
+
+/**
+ * Seek to position in data stream. This call invalidates location data.
+ * @param data the data
+ * @param pos position to go to
+ */
+void InputStringSeek(struct InputString* data, size_t pos)
+{
+    if (pos < data->text->count)
+    {
+        InputStringClear(data);
+        data->pos = pos;
+    }
+}
+
+/**
+ * Get entire input stream.
+ * @param data the data
+ * @param v the output vector
+ */
+void InputStringGetAll(struct InputString* data, struct Vector** text)
+{
+    InputStringClear(data);
+    data->pos = data->text->count;
+    *text = data->text;
 }

@@ -26,4 +26,11 @@ typedef void (*RepeatCharInterface)(void*);
  */
 typedef void (*SeekInterface)(void*, size_t);
 
+/**
+ * Get the entire input.
+ * @param data the data
+ * @param text the input text
+ */
+typedef void (*GetAllInterface)(void*, struct Vector**);
+
 #endif

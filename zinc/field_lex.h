@@ -24,6 +24,7 @@ struct FieldLexData {
     NextCharInterface NextChar;
     RepeatCharInterface RepeatChar;
     SeekInterface Seek;
+    GetAllInterface GetAll;
     void* data;
 };
 

@@ -1,2 +1,3 @@
 # Todo
-* booleans; test booleans
+* move CSV code to zinc
+* CSV parse

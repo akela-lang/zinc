@@ -72,3 +72,17 @@ void VectorDestroy(struct Vector* v)
 {
     free(v->buffer);
 }
+
+bool VectorMatch(struct Vector* a, struct Vector* b)
+{
+    return match(
+            a->buffer, a->count * a->value_size,
+            b->buffer, b->count * b->value_size);
+}
+
+bool VectorMatchStr(struct Vector* a, const char b[])
+{
+    return match(
+            a->buffer, a->count * a->value_size,
+            (u_int8_t *)b, strlen(b));
+}

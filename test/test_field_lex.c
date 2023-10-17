@@ -16,6 +16,9 @@ void TestFieldLexRun(char* text, enum FieldType* type)
     struct FieldLexData* lex_data = NULL;
     FieldLexDataCreate(&lex_data);
     lex_data->NextChar = (NextCharInterface)InputStringNextChar;
+    lex_data->RepeatChar = (RepeatCharInterface) InputStringRepeatChar;
+    lex_data->Seek = (SeekInterface) InputStringSeek;
+    lex_data->GetAll = (GetAllInterface) InputStringGetAll;
     lex_data->data = input_string;
 
     FieldLex(lex_data, type);
@@ -293,6 +296,44 @@ void TestFieldLexStringFloatExponentPositive()
     expect_int_equal(type, FieldTypeString, "int");
 }
 
+void TestFieldLexStringBooleanTrue()
+{
+    test_name(__func__);
+
+    enum FieldType type;
+
+    TestFieldLexRun("True", &type);
+    expect_int_equal(type, FieldTypeBool, "0");
+
+    TestFieldLexRun("aTrue", &type);
+    expect_int_equal(type, FieldTypeString, "1");
+
+    TestFieldLexRun("Traue", &type);
+    expect_int_equal(type, FieldTypeString, "2");
+
+    TestFieldLexRun("Truea", &type);
+    expect_int_equal(type, FieldTypeString, "3");
+}
+
+void TestFieldLexStringBooleanFalse()
+{
+    test_name(__func__);
+
+    enum FieldType type;
+
+    TestFieldLexRun("False", &type);
+    expect_int_equal(type, FieldTypeBool, "0");
+
+    TestFieldLexRun("aFalse", &type);
+    expect_int_equal(type, FieldTypeString, "1");
+
+    TestFieldLexRun("Falase", &type);
+    expect_int_equal(type, FieldTypeString, "2");
+
+    TestFieldLexRun("Falsea", &type);
+    expect_int_equal(type, FieldTypeString, "3");
+}
+
 void TestFieldLex()
 {
     TestFieldLexEmpty();
@@ -328,4 +369,8 @@ void TestFieldLex()
 
     TestFieldLexFloatExponentPositive();
     TestFieldLexStringFloatExponentPositive();
+
+    TestFieldLexStringBooleanTrue();
+
+    TestFieldLexStringBooleanFalse();
 }

@@ -2,6 +2,7 @@
 #define ZINC_VECTOR_H
 
 #include <stdlib.h>
+#include <stdbool.h>
 
 #define SERIES_CHUNK_SIZE 64
 
@@ -18,6 +19,8 @@ void VectorExpand(struct Vector* v, size_t count);
 void VectorAdd(struct Vector* v, void* buffer, size_t count);
 void VectorAddNull(struct Vector* v);
 void VectorDestroy(struct Vector* v);
+bool VectorMatch(struct Vector* a, struct Vector* b);
+bool VectorMatchStr(struct Vector* a, const char b[]);
 
 #define VECTOR_PTR(s, index) ((s)->buffer + ((s)->value_size * (index)))
 #define VECTOR_DOUBLE(s, index) (*(double*)((s)->buffer + ((s)->value_size * (index))))
