@@ -17,6 +17,7 @@ set(SOURCE_FILES
         test_data_frame.c
         test_input_string.c
         test_field_lex.c
+        test_csv_lex.c
 )
 
 include_directories(..)

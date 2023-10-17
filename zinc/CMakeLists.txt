@@ -20,6 +20,8 @@ set(SOURCE_FILES
         field.c
         field_lex.c
         input_string.c
+        csv_lex.c
+        csv_parse.c
 )
 
 add_definitions(-DZINC_EXPORT)

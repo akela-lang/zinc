@@ -15,6 +15,7 @@
 #include "test_data_frame.h"
 #include "test_input_string.h"
 #include "test_field_lex.h"
+#include "test_csv_lex.h"
 
 int main()
 {
@@ -34,6 +35,7 @@ int main()
     TestDataFrame();
     TestInputString();
     TestFieldLex();
+    TestCSVLex();
 	print_results();
 	return 0;
 }
