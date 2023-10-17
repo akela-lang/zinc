@@ -230,5 +230,5 @@ void FieldLex(struct FieldLexData* lex_data, enum FieldType* type)
 {
     *type = FieldTypeNone;
     FieldLexStart(lex_data, type);
-    assert(*type != FieldTypeString);
+    assert(*type != FieldTypeNone);
 }
