@@ -30,6 +30,7 @@ void TestDataFrame1()
     expect_ptr_equal(df->tail, s1, "tail");
 
     DataFrameDestroy(df);
+    free(df);
 }
 
 void TestDataFrame()

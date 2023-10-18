@@ -86,3 +86,9 @@ bool VectorMatchStr(struct Vector* a, const char b[])
             a->buffer, a->count * a->value_size,
             (u_int8_t *)b, strlen(b));
 }
+
+void VectorCopy(struct Vector* src, struct Vector* dest)
+{
+    assert(src->value_size == dest->value_size);
+    VectorAdd(dest, src->buffer, src->count);
+}

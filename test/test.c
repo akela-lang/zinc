@@ -16,6 +16,7 @@
 #include "test_input_string.h"
 #include "test_field_lex.h"
 #include "test_csv_lex.h"
+#include "test_csv_parse.h"
 
 int main()
 {
@@ -36,6 +37,7 @@ int main()
     TestInputString();
     TestFieldLex();
     TestCSVLex();
+    TestCSVParse();
 	print_results();
 	return 0;
 }

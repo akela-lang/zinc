@@ -44,5 +44,34 @@ void DataFrameDestroy(struct DataFrame* df)
         SeriesDestroy(temp);
         free(temp);
     }
-    free(df);
+}
+
+struct Series* DataFrameSeriesByIndex(struct DataFrame* df, size_t index)
+{
+    size_t i = 0;
+    struct Series* s = df->head;
+    while (s) {
+        if (i == index) {
+            return s;
+        }
+        s = s->next;
+    }
+    return NULL;
+}
+
+size_t DataFrameColumnCount(struct DataFrame* df)
+{
+    size_t count = 0;
+    struct Series* s = df->head;
+    while(s) {
+        count++;
+        s = s->next;
+    }
+    return count;
+}
+
+size_t DataFrameRowCount(struct DataFrame* df)
+{
+    struct Series* s = df->head;
+    return s->value.count;
 }

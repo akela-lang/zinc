@@ -18,6 +18,7 @@ set(SOURCE_FILES
         test_input_string.c
         test_field_lex.c
         test_csv_lex.c
+        test_csv_parse.c
 )
 
 include_directories(..)

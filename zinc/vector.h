@@ -21,6 +21,7 @@ void VectorAddNull(struct Vector* v);
 void VectorDestroy(struct Vector* v);
 bool VectorMatch(struct Vector* a, struct Vector* b);
 bool VectorMatchStr(struct Vector* a, const char b[]);
+void VectorCopy(struct Vector* src, struct Vector* dest);
 
 #define VECTOR_PTR(s, index) ((s)->buffer + ((s)->value_size * (index)))
 #define VECTOR_DOUBLE(s, index) (*(double*)((s)->buffer + ((s)->value_size * (index))))

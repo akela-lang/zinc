@@ -4,11 +4,11 @@
 enum FieldType {
     FieldTypeNone,
     FieldTypeEmpty,
-    FieldTypeString,
-    FieldTypeInt,
     FieldTypeIntUnsigned,
+    FieldTypeInt,
     FieldTypeFloat,
     FieldTypeBool,
+    FieldTypeString,
 };
 
 #include "vector.h"
