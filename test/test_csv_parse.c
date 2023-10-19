@@ -88,7 +88,7 @@ void TestCSVParseRowField()
     expect_true(VectorMatchStr(&s->name, "Count"), "Count");
 
     enum FieldType field_type = *(enum FieldType*)VECTOR_PTR(&s->types, 0);
-    expect_int_equal(field_type, FieldTypeNone, "types");
+    expect_int_equal(field_type, FieldTypeIntUnsigned, "types");
 
     struct Vector* v = *(struct Vector**)VECTOR_PTR(&s->raw, 0);
     expect_true(VectorMatchStr(v, "11"), "11");

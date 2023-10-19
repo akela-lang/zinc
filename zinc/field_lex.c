@@ -238,3 +238,16 @@ void FieldLex(struct FieldLexData* lex_data, enum FieldType* type)
     FieldLexStart(lex_data, type);
     assert(*type != FieldTypeNone);
 }
+
+void FieldGetType(struct Vector* text, enum FieldType* type)
+{
+    struct InputString input_string;
+    InputStringInit(&input_string, text);
+
+    struct FieldLexData lex_data;
+    FieldLexDataInit(&lex_data);
+    lex_data.NextChar = (NextCharInterface)InputStringNextChar;
+    lex_data.data = &input_string;
+
+    FieldLex(&lex_data, type);
+}

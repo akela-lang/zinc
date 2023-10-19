@@ -6,18 +6,6 @@
 #include "input.h"
 #include "field.h"
 
-enum FieldLexState {
-    FieldLexStateStart,
-    FieldLexStateSign,
-    FieldLexStateInteger,
-    FieldLexStatePoint,
-    FieldLexStateFraction,
-    FieldLexStateExponentE,
-    FieldLexStateExponentSign,
-    FieldLexStateExponent,
-    FieldLexStateString,
-};
-
 struct FieldLexData {
     bool has_digit;
     bool has_sign;
@@ -31,5 +19,6 @@ struct FieldLexData {
 void FieldLexDataInit(struct FieldLexData* lex_data);
 void FieldLexDataCreate(struct FieldLexData** lex_data);
 void FieldLex(struct FieldLexData* lex_data, enum FieldType* type);
+void FieldGetType(struct Vector* text, enum FieldType* type);
 
 #endif

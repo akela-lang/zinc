@@ -105,12 +105,18 @@ bool CSVParseRow(struct CSVParseData* parse_data, struct DataFrame* df)
             if (!s) {
                 error_list_set(parse_data->el, &token->loc, "Row has more fields than header");
             } else {
-                enum FieldType field_type = FieldTypeNone;
+                /* field type */
+                enum FieldType field_type;
+                FieldGetType(&token->value, &field_type);
                 VectorAdd(&s->types, &field_type, 1);
+
+                /* field raw */
                 struct Vector* v = NULL;
                 VectorCreate(&v, sizeof(char));
                 VectorAdd(v, token->value.buffer, token->value.count);
                 VectorAdd(&s->raw, &v, 1);
+
+                /* field value */
             }
             i++;
             CSVTokenDestroy(token);
