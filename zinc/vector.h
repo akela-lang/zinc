@@ -25,6 +25,7 @@ void VectorCopy(struct Vector* src, struct Vector* dest);
 
 #define VECTOR_PTR(s, index) ((s)->buffer + ((s)->value_size * (index)))
 #define VECTOR_DOUBLE(s, index) (*(double*)((s)->buffer + ((s)->value_size * (index))))
+#define VECTOR_U_LONG(s, index) (*(unsigned long*)((s)->buffer + ((s)->value_size * (index))))
 #define VECTOR_CHAR(s, index) (*(char*)((s)->buffer + ((s)->value_size * (index))))
 #define VECTOR_STRING(s) ((char*)(s)->buffer)
 
