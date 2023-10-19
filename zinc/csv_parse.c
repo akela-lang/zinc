@@ -45,6 +45,12 @@ void CSVParse(struct CSVParseData* parse_data, struct DataFrame* df)
     while (!done) {
         done = CSVParseRow(parse_data, df);
     }
+
+    struct Series* s = df->head;
+    while (s) {
+        SeriesRefreshValues(s);
+        s = s->next;
+    }
 }
 
 /**
@@ -109,14 +115,14 @@ bool CSVParseRow(struct CSVParseData* parse_data, struct DataFrame* df)
                 enum FieldType field_type;
                 FieldGetType(&token->value, &field_type);
                 VectorAdd(&s->types, &field_type, 1);
+                s->type = FieldPromotion(field_type, s->type);
 
                 /* field raw */
-                struct Vector* v = NULL;
-                VectorCreate(&v, sizeof(char));
-                VectorAdd(v, token->value.buffer, token->value.count);
-                VectorAdd(&s->raw, &v, 1);
-
-                /* field value */
+                struct Vector* raw = NULL;
+                VectorCreate(&raw, sizeof(char));
+                VectorAdd(raw, token->value.buffer, token->value.count);
+                VectorAddNull(raw);
+                VectorAdd(&s->raw, &raw, 1);
             }
             i++;
             CSVTokenDestroy(token);

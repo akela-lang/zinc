@@ -81,7 +81,7 @@ void TestCSVParseRowField()
     expect_no_errors(parse_output->el);
 
     expect_size_t_equal(DataFrameColumnCount(parse_output->df), 1, "column count");
-    expect_size_t_equal(DataFrameRowCount(parse_output->df), 0, "row count");
+    expect_size_t_equal(DataFrameRowCount(parse_output->df), 1, "row count");
 
     struct Series* s = DataFrameSeriesByIndex(parse_output->df, 0);
     assert_ptr(s, "ptr s");
@@ -89,6 +89,8 @@ void TestCSVParseRowField()
 
     enum FieldType field_type = *(enum FieldType*)VECTOR_PTR(&s->types, 0);
     expect_int_equal(field_type, FieldTypeIntUnsigned, "types");
+
+    expect_int_equal(s->type, FieldTypeIntUnsigned, "type");
 
     struct Vector* v = *(struct Vector**)VECTOR_PTR(&s->raw, 0);
     expect_true(VectorMatchStr(v, "11"), "11");

@@ -14,4 +14,9 @@ struct Series {
     struct Series* prev;
 };
 
+void SeriesInit(struct Series* s);
+void SeriesCreate(struct Series** s);
+void SeriesDestroy(struct Series* s);
+void SeriesRefreshValues(struct Series* s);
+
 #endif

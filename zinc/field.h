@@ -20,5 +20,6 @@ struct Field {
 
 void FieldInit(struct Field* field);
 void FieldDestroy(struct Field* field);
+enum FieldType FieldPromotion(enum FieldType f1, enum FieldType f2);
 
 #endif

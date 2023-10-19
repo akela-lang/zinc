@@ -1,4 +1,3 @@
 # Todo
-* set value of field
-* load CSV to data frame
+* parse csv test cases
 * save CSV from data frame

@@ -23,7 +23,7 @@ bool FieldIsNumber(enum FieldType type)
     return false;
 }
 
-bool FieldPromotion(enum FieldType f1, enum FieldType f2)
+enum FieldType FieldPromotion(enum FieldType f1, enum FieldType f2)
 {
     assert(f1 != FieldTypeNone);
     assert(f2 != FieldTypeNone);
@@ -31,9 +31,9 @@ bool FieldPromotion(enum FieldType f1, enum FieldType f2)
     if (f1 == f2)
         return f1;
 
-    if (f1 == FieldTypeEmpty)
+    if (f1 == FieldTypeEmpty || f1 == FieldTypeNone)
         return f2;
-    if (f2 == FieldTypeEmpty)
+    if (f2 == FieldTypeEmpty || f2 == FieldTypeNone)
         return f1;
 
     if (FieldIsNumber(f1) && FieldIsNumber(f2)) {
