@@ -4,7 +4,7 @@
 enum FieldType {
     FieldTypeNone,
     FieldTypeEmpty,
-    FieldTypeIntUnsigned,
+    FieldTypeIntU,
     FieldTypeInt,
     FieldTypeFloat,
     FieldTypeBool,

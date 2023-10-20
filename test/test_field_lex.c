@@ -45,7 +45,7 @@ void TestFieldLexIntegerUnsigned()
 
     enum FieldType type;
     TestFieldLexRun("100", &type);
-    expect_int_equal(type, FieldTypeIntUnsigned, "int");
+    expect_int_equal(type, FieldTypeIntU, "int");
 }
 
 void TestFieldLexStringIntegerUnsigned() {

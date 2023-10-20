@@ -85,7 +85,7 @@ void FieldLexInteger(struct FieldLexData* lex_data, enum FieldType* type)
             if (lex_data->has_sign) {
                 *type = FieldTypeInt;
             } else {
-                *type = FieldTypeIntUnsigned;
+                *type = FieldTypeIntU;
             }
             break;
         } else if (isdigit(c)) {
@@ -247,6 +247,7 @@ void FieldGetType(struct Vector* text, enum FieldType* type)
     struct FieldLexData lex_data;
     FieldLexDataInit(&lex_data);
     lex_data.NextChar = (NextCharInterface)InputStringNextChar;
+    lex_data.GetAll = (GetAllInterface)InputStringGetAll;
     lex_data.data = &input_string;
 
     FieldLex(&lex_data, type);

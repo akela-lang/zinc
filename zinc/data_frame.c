@@ -55,6 +55,7 @@ struct Series* DataFrameSeriesByIndex(struct DataFrame* df, size_t index)
             return s;
         }
         s = s->next;
+        i++;
     }
     return NULL;
 }

@@ -14,7 +14,7 @@ void FieldDestroy(struct Field* field)
 
 bool FieldIsNumber(enum FieldType type)
 {
-    if (type == FieldTypeIntUnsigned)
+    if (type == FieldTypeIntU)
         return true;
     if (type == FieldTypeInt)
         return true;

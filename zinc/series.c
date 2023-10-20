@@ -37,7 +37,7 @@ void SeriesRefreshValues(struct Series* s)
         case FieldTypeInt:
             s->value.value_size = sizeof(long);
             break;
-        case FieldTypeIntUnsigned:
+        case FieldTypeIntU:
             s->value.value_size = sizeof(unsigned long);
             break;
         case FieldTypeBool:
@@ -71,7 +71,7 @@ void SeriesRefreshValues(struct Series* s)
                 VectorAdd(&s->value, &value, 1);
                 break;
             }
-            case FieldTypeIntUnsigned: {
+            case FieldTypeIntU: {
                 struct Vector* raw = *(struct Vector**)VECTOR_PTR(&s->raw, i);
                 unsigned long value = strtoul(raw->buffer, NULL, 10);
                 VectorAdd(&s->value, &value, 1);
@@ -82,7 +82,7 @@ void SeriesRefreshValues(struct Series* s)
                 u_int8_t value;
                 if (VectorMatchStr(raw, "True")) {
                     value = 1;
-                } else if (VectorMatchStr(raw, "True")) {
+                } else if (VectorMatchStr(raw, "False")) {
                     value = 0;
                 } else {
                     assert(false);
