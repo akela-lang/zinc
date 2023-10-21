@@ -17,6 +17,7 @@
 #include "test_field_lex.h"
 #include "test_csv_lex.h"
 #include "test_csv_parse.h"
+#include "test_csv_write.h"
 
 int main()
 {
@@ -38,6 +39,7 @@ int main()
     TestFieldLex();
     TestCSVLex();
     TestCSVParse();
+    TestCSVWrite();
 	print_results();
 	return 0;
 }

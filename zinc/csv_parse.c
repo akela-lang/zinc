@@ -22,6 +22,7 @@ void CSVParseCreate(struct CSVParseData** parse_data)
 
 void CSVParseOutputInit(struct CSVParseOutput* parse_output)
 {
+    parse_output->input_text = NULL;
     parse_output->el = NULL;
     parse_output->df = NULL;
 }

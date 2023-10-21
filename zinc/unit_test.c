@@ -359,6 +359,34 @@ void expect_vector_str(struct Vector* a, const char* b, const char* message)
     }
 }
 
+void expect_vector(struct Vector* a, struct Vector* b, const char* message)
+{
+    test_called();
+    if (a->value_size != b->value_size) {
+        fprintf(stderr,
+                "Vector elements must be the same size: %s\n",
+                message);
+        error_triggered();
+        return;
+    }
+    if (a->count != b->count) {
+        fprintf(stderr,
+                "Vectors not the same size: (%zu) (%zu): %s\n",
+                a->count, b->count, message);
+        error_triggered();
+    } else {
+        for (int i = 0; i < a->count * a->value_size; i++) {
+            if (VECTOR_CHAR(a, i) != VECTOR_CHAR(b, i)) {
+                fprintf(stderr,
+                        "Vectors not equal: %s\n",
+                        message);
+                error_triggered();
+                break;
+            }
+        }
+    }
+}
+
 /* static-output */
 void expect_strcmp(const char* a, const char* b, const char* message)
 {

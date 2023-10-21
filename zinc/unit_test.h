@@ -96,6 +96,8 @@ ZINC_API void expect_str(struct buffer* a, const char* b, const char* message);
 
 ZINC_API void expect_vector_str(struct Vector* a, const char* b, const char* message);
 
+ZINC_API void expect_vector(struct Vector* a, struct Vector* b, const char* message);
+
 /* static-output */
 ZINC_API void expect_strcmp(const char* a, const char* b, const char* message);
 

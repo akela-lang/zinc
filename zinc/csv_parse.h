@@ -12,6 +12,7 @@ struct CSVParseData {
 };
 
 struct CSVParseOutput {
+    struct Vector* input_text;
     struct error_list* el;
     struct DataFrame* df;
 };
