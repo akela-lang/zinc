@@ -16,7 +16,7 @@ struct CSVParseOutput {
     struct DataFrame* df;
 };
 
-void CSVParse(struct CSVParseData* parse_data, struct DataFrame* df);
+struct DataFrame* CSVParse(struct CSVParseData* parse_data);
 void CSVParseDataInit(struct CSVParseData* parse_data);
 void CSVParseCreate(struct CSVParseData** parse_data);
 

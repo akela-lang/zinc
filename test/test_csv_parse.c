@@ -23,15 +23,13 @@ void CSVParseSetup(struct CSVParseOutput** parse_output, const char* text)
     lex_data->RepeatChar = (RepeatCharInterface)CSVLexRepeatChar;
     lex_data->input = input;
 
-    struct DataFrame* df = NULL;
-    DataFrameCreate(&df);
     struct CSVParseData* parse_data = NULL;
     CSVParseCreate(&parse_data);
     parse_data->el = el;
     parse_data->lex_data = lex_data;
-    parse_data->df = df;
 
-    CSVParse(parse_data, df);
+    struct DataFrame* df = NULL;
+    df = CSVParse(parse_data);
 
     CSVParseOutputCreate(parse_output);
     (*parse_output)->el = el;

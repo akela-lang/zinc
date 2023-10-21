@@ -37,9 +37,12 @@ void CSVParseOutputCreate(struct CSVParseOutput** parse_output)
  * @param parse_data parse data
  * @param df data frame
  */
-void CSVParse(struct CSVParseData* parse_data, struct DataFrame* df)
+struct DataFrame* CSVParse(struct CSVParseData* parse_data)
 {
     bool done = false;
+    struct DataFrame* df = NULL;
+    DataFrameCreate(&df);
+    parse_data->df = df;
 
     done = CSVParseHeader(parse_data, df);
     while (!done) {
@@ -51,6 +54,8 @@ void CSVParse(struct CSVParseData* parse_data, struct DataFrame* df)
         SeriesRefreshValues(s);
         s = s->next;
     }
+
+    return df;
 }
 
 /**

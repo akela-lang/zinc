@@ -22,6 +22,11 @@ void SeriesCreate(struct Series** s)
 
 void SeriesDestroy(struct Series* s)
 {
+    for (size_t i = 0; i < s->raw.count; i++) {
+        struct Vector* v = VECTOR_VECTOR(&s->raw, i);
+        VectorDestroy(v);
+        free(v);
+    }
     VectorDestroy(&s->name);
     VectorDestroy(&s->types);
     VectorDestroy(&s->raw);
