@@ -8,6 +8,7 @@
 #include "vector.h"
 #include "unit_test.h"
 #include <assert.h>
+#include <math.h>
 
 struct test_run tr;
 
@@ -216,6 +217,7 @@ void expect_u_long_equal(unsigned long a, unsigned long b, const char* message)
 void expect_double_equal(double a, double b, const char* message)
 {
     test_called();
+    if (isnan(a) && isnan(b)) return;
     if (a == b) return;
     error_triggered();
     fprintf(stderr, "%lf = %lf error: %s\n", a, b, message);
