@@ -2,6 +2,7 @@
 #include "memory.h"
 #include <assert.h>
 #include <string.h>
+#include <stdio.h>
 
 void VectorInit(struct Vector* v, size_t value_size)
 {
@@ -91,4 +92,11 @@ void VectorCopy(struct Vector* src, struct Vector* dest)
 {
     assert(src->value_size == dest->value_size);
     VectorAdd(dest, src->buffer, src->count);
+}
+
+void VectorPrintDouble(struct Vector* v)
+{
+    for (size_t i = 0; i < v->count; i++) {
+        printf("%15.15lf\n", VECTOR_DOUBLE(v, i));
+    }
 }

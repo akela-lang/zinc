@@ -380,8 +380,45 @@ void expect_vector(struct Vector* a, struct Vector* b, const char* message)
         for (int i = 0; i < a->count * a->value_size; i++) {
             if (VECTOR_CHAR(a, i) != VECTOR_CHAR(b, i)) {
                 fprintf(stderr,
-                        "Vectors not equal: %s\n",
-                        message);
+                        "Vectors not equal: %d: %s\n",
+                        i, message);
+                error_triggered();
+                break;
+            }
+        }
+    }
+}
+
+void expect_vector_double(struct Vector* a, struct Vector* b, double threshold, const char* message)
+{
+    test_called();
+    if (a->value_size != b->value_size) {
+        fprintf(stderr,
+                "Vector elements must be the same size: %s\n",
+                message);
+        error_triggered();
+        return;
+    }
+    if (a->count != b->count) {
+        fprintf(stderr,
+                "Vectors not the same size: (%zu) (%zu): %s\n",
+                a->count, b->count, message);
+        error_triggered();
+    } else {
+        for (size_t i = 0; i < a->count; i++) {
+            double a_value = VECTOR_DOUBLE(a, i);
+            double b_value = VECTOR_DOUBLE(b, i);
+            if (isnan(a_value) && isnan(b_value)) {
+                continue;
+            }
+            double delta = a_value - b_value;
+            if (delta < 0) {
+                delta *= -1;
+            }
+            if (isnan(delta) || delta >= threshold) {
+                fprintf(stderr,
+                        "Vector element %zu not equal: (%15.15lf) (%15.15lf): %s\n",
+                        i, a_value, b_value, message);
                 error_triggered();
                 break;
             }
