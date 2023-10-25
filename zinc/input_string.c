@@ -1,5 +1,13 @@
 #include "input_string.h"
 #include "memory.h"
+#include <stddef.h>
+
+InputVTable InputStringVTable = {
+        .next_char_offset = offsetof(struct InputString, NextChar),
+        .repeat_char_offset = offsetof(struct InputString, RepeatChar),
+        .seek_offset = offsetof(struct InputString, Seek),
+        .get_all_offset = offsetof(struct InputString, GetAll),
+};
 
 void InputStringInit(struct InputString* input_string, struct Vector* text)
 {
@@ -8,6 +16,11 @@ void InputStringInit(struct InputString* input_string, struct Vector* text)
     input_string->repeat_char = false;
     input_string->pos = 0;
     input_string->text = text;
+    input_string->NextChar = (NextCharInterface)InputStringNextChar;
+    input_string->RepeatChar = (RepeatCharInterface)InputStringRepeatChar;
+    input_string->Seek = (SeekInterface)InputStringSeek;
+    input_string->GetAll = (GetAllInterface)InputStringGetAll;
+    input_string->input_vtable = &InputStringVTable;
 }
 
 void InputStringCreate(struct InputString** input_string, struct Vector* text)

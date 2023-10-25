@@ -15,15 +15,12 @@ void TestFieldLexRun(char* text, enum FieldType* type)
 
     struct FieldLexData* lex_data = NULL;
     FieldLexDataCreate(&lex_data);
-    lex_data->NextChar = (NextCharInterface)InputStringNextChar;
-    lex_data->RepeatChar = (RepeatCharInterface) InputStringRepeatChar;
-    lex_data->Seek = (SeekInterface) InputStringSeek;
-    lex_data->GetAll = (GetAllInterface) InputStringGetAll;
-    lex_data->data = input_string;
+    lex_data->input_data = input_string;
+    lex_data->input_vtable = input_string->input_vtable;
 
     FieldLex(lex_data, type);
 
-    struct InputString* data = lex_data->data;
+    struct InputString* data = lex_data->input_data;
     VectorDestroy(text2);
     free(text2);
     free(input_string);

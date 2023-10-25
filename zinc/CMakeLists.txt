@@ -23,6 +23,7 @@ set(SOURCE_FILES
         csv_lex.c
         csv_parse.c
         csv_write.c
+        input.c
 )
 
 add_definitions(-DZINC_EXPORT)

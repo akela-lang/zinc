@@ -1,2 +1,2 @@
 # Todo
-* virtual table for interfaces
+* utf8 input interface

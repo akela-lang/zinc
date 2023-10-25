@@ -9,11 +9,8 @@
 struct FieldLexData {
     bool has_digit;
     bool has_sign;
-    NextCharInterface NextChar;
-    RepeatCharInterface RepeatChar;
-    SeekInterface Seek;
-    GetAllInterface GetAll;
-    void* data;
+    void* input_data;
+    InputVTable* input_vtable;
 };
 
 void FieldLexDataInit(struct FieldLexData* lex_data);

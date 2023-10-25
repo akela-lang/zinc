@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include "error.h"
+#include "vector.h"
 
 /**
  * Get the next character.
@@ -32,5 +33,17 @@ typedef void (*SeekInterface)(void*, size_t);
  * @param text the input text
  */
 typedef void (*GetAllInterface)(void*, struct Vector**);
+
+typedef struct {
+    u_int8_t next_char_offset;
+    u_int8_t repeat_char_offset;
+    u_int8_t seek_offset;
+    u_int8_t get_all_offset;
+} InputVTable;
+
+bool InputNextChar(void* input_obj, InputVTable* input_vtable, char* c, struct location* loc);
+void InputRepeatChar(void* input_obj, InputVTable* input_vtable);
+void InputSeek(void* input_obj, InputVTable* input_vtable, size_t pos);
+void InputGetAll(void* input_obj, InputVTable* input_vtable, struct Vector** text);
 
 #endif

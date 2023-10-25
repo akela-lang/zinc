@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "error.h"
 #include "vector.h"
+#include "input.h"
 
 struct InputString {
     struct location loc;
@@ -12,7 +13,14 @@ struct InputString {
     bool repeat_char;
     size_t pos;
     struct Vector* text;
+    NextCharInterface NextChar;
+    RepeatCharInterface RepeatChar;
+    SeekInterface Seek;
+    GetAllInterface GetAll;
+    InputVTable* input_vtable;
 };
+
+extern InputVTable InputStringVTable;
 
 void InputStringInit(struct InputString* input_string, struct Vector* text);
 void InputStringCreate(struct InputString** input_string, struct Vector* text);
