@@ -3,13 +3,13 @@
 #include <stddef.h>
 
 InputCharVTable InputStringVTable = {
-        .next_offset = offsetof(struct InputCharString, Next),
-        .repeat_offset = offsetof(struct InputCharString, Repeat),
-        .seek_offset = offsetof(struct InputCharString, Seek),
-        .get_all_offset = offsetof(struct InputCharString, GetAll),
+        .next_offset = offsetof(InputCharString, Next),
+        .repeat_offset = offsetof(InputCharString, Repeat),
+        .seek_offset = offsetof(InputCharString, Seek),
+        .get_all_offset = offsetof(InputCharString, GetAll),
 };
 
-void InputCharStringInit(struct InputCharString* input_string, struct Vector* text)
+void InputCharStringInit(InputCharString* input_string, struct Vector* text)
 {
     location_init(&input_string->loc);
     location_init(&input_string->prev_loc);
@@ -23,13 +23,13 @@ void InputCharStringInit(struct InputCharString* input_string, struct Vector* te
     input_string->input_vtable = &InputStringVTable;
 }
 
-void InputCharStringCreate(struct InputCharString** input_string, struct Vector* text)
+void InputCharStringCreate(InputCharString** input_string, struct Vector* text)
 {
-    malloc_safe((void**)input_string, sizeof(struct InputCharString));
+    malloc_safe((void**)input_string, sizeof(InputCharString));
     InputCharStringInit(*input_string, text);
 }
 
-void InputCharStringClear(struct InputCharString* data)
+void InputCharStringClear(InputCharString* data)
 {
     location_init(&data->loc);
     location_init(&data->prev_loc);
@@ -44,7 +44,7 @@ void InputCharStringClear(struct InputCharString* data)
  * @param c the next char
  * @return done
  */
-bool InputCharStringNext(struct InputCharString* data, char* c, struct location* loc)
+bool InputCharStringNext(InputCharString* data, char* c, struct location* loc)
 {
     if (data->loc.byte_pos == 0) {
         InputCharStringClear(data);
@@ -78,7 +78,7 @@ bool InputCharStringNext(struct InputCharString* data, char* c, struct location*
  * Repeat the previous character.
  * @param data lexer data
  */
-void InputCharStringRepeat(struct InputCharString* data)
+void InputCharStringRepeat(InputCharString* data)
 {
     data->repeat_char = true;
 }
@@ -88,7 +88,7 @@ void InputCharStringRepeat(struct InputCharString* data)
  * @param data the data
  * @param pos position to go to
  */
-void InputCharStringSeek(struct InputCharString* data, size_t pos)
+void InputCharStringSeek(InputCharString* data, size_t pos)
 {
     if (pos < data->text->count)
     {
@@ -102,7 +102,7 @@ void InputCharStringSeek(struct InputCharString* data, size_t pos)
  * @param data the data
  * @param v the output vector
  */
-void InputCharStringGetAll(struct InputCharString* data, struct Vector** text)
+void InputCharStringGetAll(InputCharString* data, struct Vector** text)
 {
     InputCharStringClear(data);
     data->pos = data->text->count;

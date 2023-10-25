@@ -7,7 +7,7 @@
 #include "vector.h"
 #include "input_char.h"
 
-struct InputCharString {
+typedef struct {
     struct location loc;
     struct location prev_loc;
     bool repeat_char;
@@ -18,15 +18,15 @@ struct InputCharString {
     InputCharSeekInterface Seek;
     InputCharGetAllInterface GetAll;
     InputCharVTable* input_vtable;
-};
+} InputCharString;
 
 extern InputCharVTable InputStringVTable;
 
-void InputCharStringInit(struct InputCharString* input_string, struct Vector* text);
-void InputCharStringCreate(struct InputCharString** input_string, struct Vector* text);
-bool InputCharStringNext(struct InputCharString* data, char* c, struct location* loc);
-void InputCharStringRepeat(struct InputCharString* data);
-void InputCharStringSeek(struct InputCharString* data, size_t pos);
-void InputCharStringGetAll(struct InputCharString* data, struct Vector** text);
+void InputCharStringInit(InputCharString* input_string, struct Vector* text);
+void InputCharStringCreate(InputCharString** input_string, struct Vector* text);
+bool InputCharStringNext(InputCharString* data, char* c, struct location* loc);
+void InputCharStringRepeat(InputCharString* data);
+void InputCharStringSeek(InputCharString* data, size_t pos);
+void InputCharStringGetAll(InputCharString* data, struct Vector** text);
 
 #endif

@@ -239,7 +239,7 @@ void FieldLex(struct FieldLexData* lex_data, enum FieldType* type)
 
 void FieldGetType(struct Vector* text, enum FieldType* type)
 {
-    struct InputCharString input_string;
+    InputCharString input_string;
     InputCharStringInit(&input_string, text);
 
     struct FieldLexData lex_data;
