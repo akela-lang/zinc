@@ -1,6 +1,11 @@
 #include <stdbool.h>
 #include "input_char.h"
 
+struct location* InputCharLocation(void* input_obj, InputCharVTable* input_vtable)
+{
+    return input_obj + input_vtable->loc_offset;
+}
+
 bool InputCharNext(void* input_obj, InputCharVTable* input_vtable, char* c, struct location* loc)
 {
     InputCharNextInterface *get_char = input_obj + input_vtable->next_offset;

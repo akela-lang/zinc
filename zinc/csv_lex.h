@@ -33,14 +33,8 @@ struct CSVToken {
 struct CSVLexData {
     struct error_list* el;
     enum CSVStateType state;
-    InputCharNextInterface NextChar;
-    InputCharRepeatInterface RepeatChar;
-    InputCharSeekInterface Seek;
-    Vector* input;
-    size_t pos;
-    bool repeatChar;
-    struct location loc;
-    struct location prev_loc;
+    void* input_data;
+    InputCharVTable* input_vtable;
 };
 
 bool CSVLexNextChar(struct CSVLexData* lex_data, char* c, struct location* loc);

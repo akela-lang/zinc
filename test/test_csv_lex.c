@@ -4,30 +4,34 @@
 #include "zinc/csv_lex.h"
 #include "zinc/error.h"
 #include "zinc/vector.h"
+#include "zinc/input_char_string.h"
 
 void CSVLexSetup(struct CSVLexData** lex_data, const char* text)
 {
-    struct Vector* input = NULL;
+    Vector* input = NULL;
     VectorCreate(&input, sizeof(char));
     for (int i = 0; text[i]; i++) {
         VectorAdd(input, (char*)(text+i), 1);
     }
     VectorAddNull(input);
+    InputCharString* input_data;
+    InputCharStringCreate(&input_data, input);
     CSVLexDataCreate(lex_data);
     struct error_list* el = NULL;
     error_list_create(&el);
     (*lex_data)->el = el;
-    (*lex_data)->NextChar = (InputCharNextInterface)CSVLexNextChar;
-    (*lex_data)->RepeatChar = (InputCharRepeatInterface)CSVLexRepeatChar;
-    (*lex_data)->input = input;
+    (*lex_data)->input_data = input_data;
+    (*lex_data)->input_vtable = input_data->input_vtable;
 }
 
 void CSVLexTeardown(struct CSVLexData* lex_data)
 {
     error_list_destroy(lex_data->el);
     free(lex_data->el);
-    VectorDestroy(lex_data->input);
-    free(lex_data->input);
+    InputCharString* input_data = lex_data->input_data;
+    VectorDestroy(input_data->text);
+    free(input_data->text);
+    free(input_data);
     free(lex_data);
 }
 
@@ -397,7 +401,7 @@ void TestCSVLexTwoRowsQuoted()
     CSVLexTeardown(lex_data);
 }
 
-void CSVLexErrorQuote()
+void TestCSVLexErrorQuote()
 {
     test_name(__func__);
 
@@ -420,7 +424,7 @@ void CSVLexErrorQuote()
     CSVLexTeardown(lex_data);
 }
 
-void CSVLexErrorExtraCharactersAfterQuote()
+void TestCSVLexErrorExtraCharactersAfterQuote()
 {
     test_name(__func__);
 
@@ -455,7 +459,7 @@ void CSVLexErrorExtraCharactersAfterQuote()
     CSVLexTeardown(lex_data);
 }
 
-void CSVLexErrorEOFBeforeQuote()
+void TestCSVLexErrorEOFBeforeQuote()
 {
     test_name(__func__);
 
@@ -491,7 +495,7 @@ void CSVLexErrorEOFBeforeQuote()
     CSVLexTeardown(lex_data);
 }
 
-void CSVLexQuoteNewline()
+void TestCSVLexQuoteNewline()
 {
     test_name(__func__);
 
@@ -526,7 +530,7 @@ void CSVLexQuoteNewline()
     CSVLexTeardown(lex_data);
 }
 
-void CSVLexQuoteComma()
+void TestCSVLexQuoteComma()
 {
     test_name(__func__);
 
@@ -571,9 +575,9 @@ void TestCSVLex()
     TestCSVLexTwoFieldsQuoted();
     TestCSVLexTwoRows();
     TestCSVLexTwoRowsQuoted();
-    CSVLexErrorQuote();
-    CSVLexErrorExtraCharactersAfterQuote();
-    CSVLexErrorEOFBeforeQuote();
-    CSVLexQuoteNewline();
-    CSVLexQuoteComma();
+    TestCSVLexErrorQuote();
+    TestCSVLexErrorExtraCharactersAfterQuote();
+    TestCSVLexErrorEOFBeforeQuote();
+    TestCSVLexQuoteNewline();
+    TestCSVLexQuoteComma();
 }

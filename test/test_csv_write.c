@@ -19,7 +19,7 @@ void TestCSVWrite1()
     expect_size_t_equal(DataFrameColumnCount(parse_output->df), 6, "column count");
     expect_size_t_equal(DataFrameRowCount(parse_output->df), 2, "row count");
 
-    struct Vector* output_text = CSVWrite(parse_output->df);
+    Vector* output_text = CSVWrite(parse_output->df);
     expect_vector(parse_output->input_text, output_text, "text");
 
     CSVParseTeardown(parse_output);

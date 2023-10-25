@@ -3,6 +3,7 @@
 #include <stddef.h>
 
 InputCharVTable InputStringVTable = {
+        .loc_offset = offsetof(InputCharString, loc),
         .next_offset = offsetof(InputCharString, Next),
         .repeat_offset = offsetof(InputCharString, Repeat),
         .seek_offset = offsetof(InputCharString, Seek),

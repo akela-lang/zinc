@@ -47,7 +47,7 @@ void TestCSVParseRowField()
 
     expect_int_equal(s->type, FieldTypeIntU, "type");
 
-    struct Vector* raw0 = *(struct Vector**)VECTOR_PTR(&s->raw, 0);
+    Vector* raw0 = *(Vector**)VECTOR_PTR(&s->raw, 0);
     expect_true(VectorMatchStr(raw0, "11"), "11 raw");
 
     expect_u_long_equal(VECTOR_U_LONG(&s->value, 0), 11, "11 value");
