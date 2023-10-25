@@ -279,7 +279,7 @@ void CSVLex(struct CSVLexData* lex_data, struct CSVToken** token)
     CSVLexDispatch(lex_data, *token);
 }
 
-enum result CSVLoad(const char* filename, struct Vector* text)
+enum result CSVLoad(const char* filename, Vector* text)
 {
     FILE *fp = NULL;
     fp = fopen(filename, "r");

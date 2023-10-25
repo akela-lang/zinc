@@ -9,7 +9,7 @@ InputCharVTable InputStringVTable = {
         .get_all_offset = offsetof(InputCharString, GetAll),
 };
 
-void InputCharStringInit(InputCharString* input_string, struct Vector* text)
+void InputCharStringInit(InputCharString* input_string, Vector* text)
 {
     location_init(&input_string->loc);
     location_init(&input_string->prev_loc);
@@ -23,7 +23,7 @@ void InputCharStringInit(InputCharString* input_string, struct Vector* text)
     input_string->input_vtable = &InputStringVTable;
 }
 
-void InputCharStringCreate(InputCharString** input_string, struct Vector* text)
+void InputCharStringCreate(InputCharString** input_string, Vector* text)
 {
     malloc_safe((void**)input_string, sizeof(InputCharString));
     InputCharStringInit(*input_string, text);
@@ -102,7 +102,7 @@ void InputCharStringSeek(InputCharString* data, size_t pos)
  * @param data the data
  * @param v the output vector
  */
-void InputCharStringGetAll(InputCharString* data, struct Vector** text)
+void InputCharStringGetAll(InputCharString* data, Vector** text)
 {
     InputCharStringClear(data);
     data->pos = data->text->count;

@@ -94,9 +94,9 @@ ZINC_API void expect_ok(enum result r, const char* message);
 /* static-output */
 ZINC_API void expect_str(struct buffer* a, const char* b, const char* message);
 
-ZINC_API void expect_vector_str(struct Vector* a, const char* b, const char* message);
+ZINC_API void expect_vector_str(Vector* a, const char* b, const char* message);
 
-ZINC_API void expect_vector(struct Vector* a, struct Vector* b, const char* message);
+ZINC_API void expect_vector(Vector* a, Vector* b, const char* message);
 
 /* static-output */
 ZINC_API void expect_strcmp(const char* a, const char* b, const char* message);
@@ -107,6 +107,6 @@ ZINC_API void expect_nts(const char* a, const char* b, const char* message);
 /* static-output */
 ZINC_API void expect_error_message(const char* s);
 
-ZINC_API void expect_vector_double(struct Vector* a, struct Vector* b, double threshold, const char* message);
+ZINC_API void expect_vector_double(Vector* a, Vector* b, double threshold, const char* message);
 
 #endif

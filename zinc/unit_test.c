@@ -331,7 +331,7 @@ void expect_str(struct buffer* a, const char* b, const char* message)
 	free(temp);
 }
 
-void expect_vector_str(struct Vector* a, const char* b, const char* message)
+void expect_vector_str(Vector* a, const char* b, const char* message)
 {
     test_called();
     if (a->value_size != sizeof(char)) {
@@ -361,7 +361,7 @@ void expect_vector_str(struct Vector* a, const char* b, const char* message)
     }
 }
 
-void expect_vector(struct Vector* a, struct Vector* b, const char* message)
+void expect_vector(Vector* a, Vector* b, const char* message)
 {
     test_called();
     if (a->value_size != b->value_size) {
@@ -389,7 +389,7 @@ void expect_vector(struct Vector* a, struct Vector* b, const char* message)
     }
 }
 
-void expect_vector_double(struct Vector* a, struct Vector* b, double threshold, const char* message)
+void expect_vector_double(Vector* a, Vector* b, double threshold, const char* message)
 {
     test_called();
     if (a->value_size != b->value_size) {

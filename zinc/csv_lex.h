@@ -26,7 +26,7 @@ enum CSVStateType {
 
 struct CSVToken {
     enum CSVTokenType type;
-    struct Vector value;
+    Vector value;
     struct location loc;
 };
 
@@ -36,7 +36,7 @@ struct CSVLexData {
     InputCharNextInterface NextChar;
     InputCharRepeatInterface RepeatChar;
     InputCharSeekInterface Seek;
-    struct Vector* input;
+    Vector* input;
     size_t pos;
     bool repeatChar;
     struct location loc;
@@ -51,6 +51,6 @@ void CSVTokenDestroy(struct CSVToken* token);
 void CSVLexDataInit(struct CSVLexData* lex_data);
 void CSVLexDataCreate(struct CSVLexData** lex_data);
 void CSVLex(struct CSVLexData* lex_data, struct CSVToken** token);
-enum result CSVLoad(const char* filename, struct Vector* text);
+enum result CSVLoad(const char* filename, Vector* text);
 
 #endif

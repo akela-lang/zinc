@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdio.h>
 
-void VectorInit(struct Vector* v, size_t value_size)
+void VectorInit(Vector* v, size_t value_size)
 {
     v->buffer = NULL;
     v->value_size = value_size;
@@ -12,9 +12,9 @@ void VectorInit(struct Vector* v, size_t value_size)
     v->container_size = 0;
 }
 
-void VectorCreate(struct Vector** v, size_t value_size)
+void VectorCreate(Vector** v, size_t value_size)
 {
-    malloc_safe((void**)v, sizeof(struct Vector));
+    malloc_safe((void**)v, sizeof(Vector));
     VectorInit(*v, value_size);
 }
 
@@ -23,7 +23,7 @@ void VectorCreate(struct Vector** v, size_t value_size)
  * @param v Vector
  * @param count the count of elements
  */
-void VectorExpand(struct Vector* v, size_t count)
+void VectorExpand(Vector* v, size_t count)
 {
     assert(v->value_size > 0);
 
@@ -50,7 +50,7 @@ void VectorExpand(struct Vector* v, size_t count)
  * @param buffer the buffer holding the new values
  * @param count the number of new elements
  */
-void VectorAdd(struct Vector* v, void* buffer, size_t count)
+void VectorAdd(Vector* v, void* buffer, size_t count)
 {
     VectorExpand(v, count);
     memcpy(VECTOR_PTR(v, v->count), buffer, v->value_size * count);
@@ -61,7 +61,7 @@ void VectorAdd(struct Vector* v, void* buffer, size_t count)
  * Add a null byte. Only use if value_size is 1 byte.
  * @param v Vector
  */
-void VectorAddNull(struct Vector* v)
+void VectorAddNull(Vector* v)
 {
     assert(v->value_size == sizeof(u_int8_t));
     u_int8_t value = 0x0;
@@ -69,32 +69,32 @@ void VectorAddNull(struct Vector* v)
     v->count--;
 }
 
-void VectorDestroy(struct Vector* v)
+void VectorDestroy(Vector* v)
 {
     free(v->buffer);
 }
 
-bool VectorMatch(struct Vector* a, struct Vector* b)
+bool VectorMatch(Vector* a, Vector* b)
 {
     return match(
             a->buffer, a->count * a->value_size,
             b->buffer, b->count * b->value_size);
 }
 
-bool VectorMatchStr(struct Vector* a, const char b[])
+bool VectorMatchStr(Vector* a, const char b[])
 {
     return match(
             a->buffer, a->count * a->value_size,
             (u_int8_t *)b, strlen(b));
 }
 
-void VectorCopy(struct Vector* src, struct Vector* dest)
+void VectorCopy(Vector* src, Vector* dest)
 {
     assert(src->value_size == dest->value_size);
     VectorAdd(dest, src->buffer, src->count);
 }
 
-void VectorPrintDouble(struct Vector* v)
+void VectorPrintDouble(Vector* v)
 {
     for (size_t i = 0; i < v->count; i++) {
         printf("%15.15lf\n", VECTOR_DOUBLE(v, i));

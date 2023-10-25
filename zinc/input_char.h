@@ -32,7 +32,7 @@ typedef void (*InputCharSeekInterface)(void*, size_t);
  * @param data the data
  * @param text the input text
  */
-typedef void (*InputCharGetAllInterface)(void*, struct Vector**);
+typedef void (*InputCharGetAllInterface)(void*, Vector**);
 
 typedef struct {
     u_int8_t next_offset;
@@ -44,6 +44,6 @@ typedef struct {
 bool InputCharNext(void* input_obj, InputCharVTable* input_vtable, char* c, struct location* loc);
 void InputCharRepeat(void* input_obj, InputCharVTable* input_vtable);
 void InputCharSeek(void* input_obj, InputCharVTable* input_vtable, size_t pos);
-void InputCharGetAll(void* input_obj, InputCharVTable* input_vtable, struct Vector** text);
+void InputCharGetAll(void* input_obj, InputCharVTable* input_vtable, Vector** text);
 
 #endif

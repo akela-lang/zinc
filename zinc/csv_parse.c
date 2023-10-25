@@ -124,7 +124,7 @@ bool CSVParseRow(struct CSVParseData* parse_data, struct DataFrame* df)
                 s->type = FieldPromotion(field_type, s->type);
 
                 /* field raw */
-                struct Vector* raw = NULL;
+                Vector* raw = NULL;
                 VectorCreate(&raw, sizeof(char));
                 VectorAdd(raw, token->value.buffer, token->value.count);
                 VectorAddNull(raw);

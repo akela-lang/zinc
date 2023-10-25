@@ -4,6 +4,6 @@
 #include "zinc/vector.h"
 #include "zinc/data_frame.h"
 
-struct Vector* CSVWrite(struct DataFrame* df);
+Vector* CSVWrite(struct DataFrame* df);
 
 #endif

@@ -1,9 +1,9 @@
 #include "data_frame.h"
 
 
-struct Vector* CSVWrite(struct DataFrame* df)
+Vector* CSVWrite(struct DataFrame* df)
 {
-    struct Vector* output = NULL;
+    Vector* output = NULL;
     VectorCreate(&output, sizeof(char));
 
     size_t column_count = DataFrameColumnCount(df);

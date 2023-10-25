@@ -12,7 +12,7 @@ typedef struct {
     struct location prev_loc;
     bool repeat_char;
     size_t pos;
-    struct Vector* text;
+    Vector* text;
     InputCharNextInterface Next;
     InputCharRepeatInterface Repeat;
     InputCharSeekInterface Seek;
@@ -22,11 +22,11 @@ typedef struct {
 
 extern InputCharVTable InputStringVTable;
 
-void InputCharStringInit(InputCharString* input_string, struct Vector* text);
-void InputCharStringCreate(InputCharString** input_string, struct Vector* text);
+void InputCharStringInit(InputCharString* input_string, Vector* text);
+void InputCharStringCreate(InputCharString** input_string, Vector* text);
 bool InputCharStringNext(InputCharString* data, char* c, struct location* loc);
 void InputCharStringRepeat(InputCharString* data);
 void InputCharStringSeek(InputCharString* data, size_t pos);
-void InputCharStringGetAll(InputCharString* data, struct Vector** text);
+void InputCharStringGetAll(InputCharString* data, Vector** text);
 
 #endif

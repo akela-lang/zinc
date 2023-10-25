@@ -8,7 +8,7 @@ void SeriesInit(struct Series* s)
     VectorInit(&s->name, sizeof(char));
     s->type = FieldTypeNone;
     VectorInit(&s->types, sizeof(enum FieldType));
-    VectorInit(&s->raw, sizeof(struct Vector*));
+    VectorInit(&s->raw, sizeof(Vector*));
     VectorInit(&s->value, 0);
     s->next = NULL;
     s->prev = NULL;
@@ -23,7 +23,7 @@ void SeriesCreate(struct Series** s)
 void SeriesDestroy(struct Series* s)
 {
     for (size_t i = 0; i < s->raw.count; i++) {
-        struct Vector* v = VECTOR_VECTOR(&s->raw, i);
+        Vector* v = VECTOR_VECTOR(&s->raw, i);
         VectorDestroy(v);
         free(v);
     }
@@ -49,7 +49,7 @@ void SeriesRefreshValues(struct Series* s)
             s->value.value_size = sizeof(u_int8_t);
             break;
         case FieldTypeString:
-            s->value.value_size = sizeof(struct Vector*);
+            s->value.value_size = sizeof(Vector*);
             break;
         case FieldTypeEmpty:
             s->value.value_size = 0;
@@ -65,25 +65,25 @@ void SeriesRefreshValues(struct Series* s)
     for (size_t i = 0; i < s->raw.count; i++) {
         switch (s->type) {
             case FieldTypeFloat: {
-                struct Vector* raw = *(struct Vector**)VECTOR_PTR(&s->raw, i);
+                Vector* raw = *(Vector**)VECTOR_PTR(&s->raw, i);
                 double value = strtod(raw->buffer, NULL);
                 VectorAdd(&s->value, &value, 1);
                 break;
             }
             case FieldTypeInt: {
-                struct Vector* raw = *(struct Vector**)VECTOR_PTR(&s->raw, i);
+                Vector* raw = *(Vector**)VECTOR_PTR(&s->raw, i);
                 long value = strtol(raw->buffer, NULL, 10);
                 VectorAdd(&s->value, &value, 1);
                 break;
             }
             case FieldTypeIntU: {
-                struct Vector* raw = *(struct Vector**)VECTOR_PTR(&s->raw, i);
+                Vector* raw = *(Vector**)VECTOR_PTR(&s->raw, i);
                 unsigned long value = strtoul(raw->buffer, NULL, 10);
                 VectorAdd(&s->value, &value, 1);
                 break;
             }
             case FieldTypeBool: {
-                struct Vector* raw = *(struct Vector**)VECTOR_PTR(&s->raw, i);
+                Vector* raw = *(Vector**)VECTOR_PTR(&s->raw, i);
                 u_int8_t value;
                 if (VectorMatchStr(raw, "True")) {
                     value = 1;
@@ -96,7 +96,7 @@ void SeriesRefreshValues(struct Series* s)
                 break;
             }
             case FieldTypeString: {
-                struct Vector* raw = *(struct Vector**)VECTOR_PTR(&s->raw, i);
+                Vector* raw = *(Vector**)VECTOR_PTR(&s->raw, i);
                 VectorAdd(&s->value, &raw, 1);
             }
             case FieldTypeEmpty:

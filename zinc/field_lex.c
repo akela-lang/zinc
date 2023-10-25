@@ -221,7 +221,7 @@ void FieldLexExponent(struct FieldLexData* lex_data, enum FieldType* type)
 
 void FieldLexString(struct FieldLexData* lex_data, enum FieldType* type)
 {
-    struct Vector* text = NULL;
+    Vector* text = NULL;
     InputCharGetAll(lex_data->input_data, lex_data->input_vtable, &text);
     if (VectorMatchStr(text, "True") || VectorMatchStr(text, "False")) {
         *type = FieldTypeBool;
@@ -237,7 +237,7 @@ void FieldLex(struct FieldLexData* lex_data, enum FieldType* type)
     assert(*type != FieldTypeNone);
 }
 
-void FieldGetType(struct Vector* text, enum FieldType* type)
+void FieldGetType(Vector* text, enum FieldType* type)
 {
     InputCharString input_string;
     InputCharStringInit(&input_string, text);

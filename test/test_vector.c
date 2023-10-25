@@ -6,7 +6,7 @@ void test_vector_double()
 {
     test_name(__func__);
 
-    struct Vector* v = NULL;
+    Vector* v = NULL;
     VectorCreate(&v, sizeof(double));
 
     double v0 = 5;
@@ -29,7 +29,7 @@ void test_vector_double_large()
 {
     test_name(__func__);
 
-    struct Vector* v = NULL;
+    Vector* v = NULL;
     VectorCreate(&v, sizeof(double));
 
     double value[100];

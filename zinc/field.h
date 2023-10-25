@@ -15,7 +15,7 @@ enum FieldType {
 
 struct Field {
     enum FieldType type;
-    struct Vector raw;
+    Vector raw;
 };
 
 void FieldInit(struct Field* field);

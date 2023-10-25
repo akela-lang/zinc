@@ -19,7 +19,7 @@ void InputCharSeek(void* input_obj, InputCharVTable* input_vtable, size_t pos)
     (*seek)(input_obj, pos);
 }
 
-void InputCharGetAll(void* input_obj, InputCharVTable* input_vtable, struct Vector** text)
+void InputCharGetAll(void* input_obj, InputCharVTable* input_vtable, Vector** text)
 {
     InputCharGetAllInterface *get_all = input_obj + input_vtable->get_all_offset;
     (*get_all)(input_obj, text);

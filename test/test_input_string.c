@@ -10,7 +10,7 @@ void TestInputStringGetCharWord()
     size_t buffer_len = strlen(buffer);
 
     InputCharString input_string;
-    struct Vector text;
+    Vector text;
     VectorInit(&text, sizeof(char));
     VectorAdd(&text, buffer, buffer_len);
     VectorAddNull(&text);
@@ -80,7 +80,7 @@ void TestInputStringGetCharLine()
     size_t buffer_len = strlen(buffer);
 
     InputCharString input_string;
-    struct Vector text;
+    Vector text;
     VectorInit(&text, sizeof(char));
     VectorAdd(&text, buffer, buffer_len);
     VectorAddNull(&text);
@@ -134,7 +134,7 @@ void TestInputStringRepeat()
     size_t buffer_len = strlen(buffer);
 
     InputCharString input_string;
-    struct Vector text;
+    Vector text;
     VectorInit(&text, sizeof(char));
     VectorAdd(&text, buffer, buffer_len);
     VectorAddNull(&text);
