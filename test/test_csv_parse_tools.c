@@ -22,7 +22,7 @@ void CSVParseSetup(struct CSVParseOutput** parse_output, const char* text)
     lex_data->input_vtable = input_data->input_vtable;
 
     struct CSVParseData* parse_data = NULL;
-    CSVParseCreate(&parse_data);
+    CSVParseDataCreate(&parse_data);
     parse_data->el = el;
     parse_data->lex_data = lex_data;
 

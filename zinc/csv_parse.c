@@ -11,10 +11,9 @@ void CSVParseDataInit(struct CSVParseData* parse_data)
 {
     parse_data->el = NULL;
     parse_data->lex_data = NULL;
-    parse_data->df = NULL;
 }
 
-void CSVParseCreate(struct CSVParseData** parse_data)
+void CSVParseDataCreate(struct CSVParseData** parse_data)
 {
     malloc_safe((void**)parse_data, sizeof(struct CSVParseData));
     CSVParseDataInit(*parse_data);
@@ -43,7 +42,6 @@ DataFrame* CSVParse(struct CSVParseData* parse_data)
     bool done = false;
     DataFrame* df = NULL;
     DataFrameCreate(&df);
-    parse_data->df = df;
 
     done = CSVParseHeader(parse_data, df);
     while (!done) {

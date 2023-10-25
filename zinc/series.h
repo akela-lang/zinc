@@ -4,7 +4,7 @@
 #include "vector.h"
 #include "field.h"
 
-typedef struct {
+typedef struct Series {
     Vector name;
     enum FieldType type;
     Vector types;

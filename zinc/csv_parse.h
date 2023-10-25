@@ -8,7 +8,6 @@
 struct CSVParseData {
     struct error_list* el;
     struct CSVLexData* lex_data;
-    DataFrame* df;
 };
 
 struct CSVParseOutput {
@@ -19,7 +18,7 @@ struct CSVParseOutput {
 
 DataFrame* CSVParse(struct CSVParseData* parse_data);
 void CSVParseDataInit(struct CSVParseData* parse_data);
-void CSVParseCreate(struct CSVParseData** parse_data);
+void CSVParseDataCreate(struct CSVParseData** parse_data);
 
 void CSVParseOutputInit(struct CSVParseOutput* parse_output);
 void CSVParseOutputCreate(struct CSVParseOutput** parse_output);
