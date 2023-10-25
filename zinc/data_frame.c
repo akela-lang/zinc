@@ -6,15 +6,15 @@
 #include <ctype.h>
 #include "series.h"
 
-void DataFrameInit(struct DataFrame* df)
+void DataFrameInit(DataFrame* df)
 {
     df->head = NULL;
     df->tail = NULL;
 }
 
-void DataFrameCreate(struct DataFrame** df)
+void DataFrameCreate(DataFrame** df)
 {
-    malloc_safe((void**)df, sizeof(struct DataFrame));
+    malloc_safe((void**)df, sizeof(DataFrame));
     DataFrameInit(*df);
 }
 
@@ -23,7 +23,7 @@ void DataFrameCreate(struct DataFrame** df)
  * @param df Vector list
  * @param s Vector node
  */
-void DataFrameAdd(struct DataFrame* df, Series* s)
+void DataFrameAdd(DataFrame* df, Series* s)
 {
     if (df->head == NULL) {
         df->head = s;
@@ -35,7 +35,7 @@ void DataFrameAdd(struct DataFrame* df, Series* s)
     }
 }
 
-void DataFrameDestroy(struct DataFrame* df)
+void DataFrameDestroy(DataFrame* df)
 {
     Series* s = df->head;
     while (s) {
@@ -46,7 +46,7 @@ void DataFrameDestroy(struct DataFrame* df)
     }
 }
 
-Series* DataFrameSeriesByIndex(struct DataFrame* df, size_t index)
+Series* DataFrameSeriesByIndex(DataFrame* df, size_t index)
 {
     size_t i = 0;
     Series* s = df->head;
@@ -60,7 +60,7 @@ Series* DataFrameSeriesByIndex(struct DataFrame* df, size_t index)
     return NULL;
 }
 
-size_t DataFrameColumnCount(struct DataFrame* df)
+size_t DataFrameColumnCount(DataFrame* df)
 {
     size_t count = 0;
     Series* s = df->head;
@@ -71,7 +71,7 @@ size_t DataFrameColumnCount(struct DataFrame* df)
     return count;
 }
 
-size_t DataFrameRowCount(struct DataFrame* df)
+size_t DataFrameRowCount(DataFrame* df)
 {
     Series* s = df->head;
     return s->value.count;

@@ -11,7 +11,7 @@ void TestDataFrame1()
     Series* s1 = NULL;
     SeriesCreate(&s1);
 
-    struct DataFrame* df = NULL;
+    DataFrame* df = NULL;
     DataFrameCreate(&df);
 
     DataFrameAdd(df, s0);

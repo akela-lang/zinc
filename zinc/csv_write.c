@@ -1,7 +1,7 @@
 #include "data_frame.h"
 
 
-Vector* CSVWrite(struct DataFrame* df)
+Vector* CSVWrite(DataFrame* df)
 {
     Vector* output = NULL;
     VectorCreate(&output, sizeof(char));

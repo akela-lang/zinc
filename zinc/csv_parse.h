@@ -8,16 +8,16 @@
 struct CSVParseData {
     struct error_list* el;
     struct CSVLexData* lex_data;
-    struct DataFrame* df;
+    DataFrame* df;
 };
 
 struct CSVParseOutput {
     Vector* input_text;
     struct error_list* el;
-    struct DataFrame* df;
+    DataFrame* df;
 };
 
-struct DataFrame* CSVParse(struct CSVParseData* parse_data);
+DataFrame* CSVParse(struct CSVParseData* parse_data);
 void CSVParseDataInit(struct CSVParseData* parse_data);
 void CSVParseCreate(struct CSVParseData** parse_data);
 

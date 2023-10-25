@@ -4,8 +4,8 @@
 #include <assert.h>
 #include "field_lex.h"
 
-bool CSVParseHeader(struct CSVParseData* parse_data, struct DataFrame* df);
-bool CSVParseRow(struct CSVParseData* parse_data, struct DataFrame* df);
+bool CSVParseHeader(struct CSVParseData* parse_data, DataFrame* df);
+bool CSVParseRow(struct CSVParseData* parse_data, DataFrame* df);
 
 void CSVParseDataInit(struct CSVParseData* parse_data)
 {
@@ -38,10 +38,10 @@ void CSVParseOutputCreate(struct CSVParseOutput** parse_output)
  * @param parse_data parse data
  * @param df data frame
  */
-struct DataFrame* CSVParse(struct CSVParseData* parse_data)
+DataFrame* CSVParse(struct CSVParseData* parse_data)
 {
     bool done = false;
-    struct DataFrame* df = NULL;
+    DataFrame* df = NULL;
     DataFrameCreate(&df);
     parse_data->df = df;
 
@@ -65,7 +65,7 @@ struct DataFrame* CSVParse(struct CSVParseData* parse_data)
  * @param df dataframe add series to
  * @return true if done, otherwise false
  */
-bool CSVParseHeader(struct CSVParseData* parse_data, struct DataFrame* df)
+bool CSVParseHeader(struct CSVParseData* parse_data, DataFrame* df)
 {
     while (true) {
         struct CSVToken* token = NULL;
@@ -98,7 +98,7 @@ bool CSVParseHeader(struct CSVParseData* parse_data, struct DataFrame* df)
  * @param df data frame
  * @return true if done with input, otherwise false
  */
-bool CSVParseRow(struct CSVParseData* parse_data, struct DataFrame* df)
+bool CSVParseRow(struct CSVParseData* parse_data, DataFrame* df)
 {
     size_t i = 0;
     while (true) {

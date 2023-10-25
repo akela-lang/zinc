@@ -23,7 +23,7 @@ void CSVParseSetup(struct CSVParseOutput** parse_output, const char* text)
     parse_data->el = el;
     parse_data->lex_data = lex_data;
 
-    struct DataFrame* df = NULL;
+    DataFrame* df = NULL;
     df = CSVParse(parse_data);
 
     CSVParseOutputCreate(parse_output);
