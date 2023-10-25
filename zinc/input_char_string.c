@@ -2,7 +2,7 @@
 #include "memory.h"
 #include <stddef.h>
 
-InputCharVTable InputStringVTable = {
+InputCharVTable InputCharStringVTable = {
         .loc_offset = offsetof(InputCharString, loc),
         .next_offset = offsetof(InputCharString, Next),
         .repeat_offset = offsetof(InputCharString, Repeat),
@@ -21,7 +21,7 @@ void InputCharStringInit(InputCharString* input_string, Vector* text)
     input_string->Repeat = (InputCharRepeatInterface) InputCharStringRepeat;
     input_string->Seek = (InputCharSeekInterface) InputCharStringSeek;
     input_string->GetAll = (InputCharGetAllInterface) InputCharStringGetAll;
-    input_string->input_vtable = &InputStringVTable;
+    input_string->input_vtable = &InputCharStringVTable;
 }
 
 void InputCharStringCreate(InputCharString** input_string, Vector* text)

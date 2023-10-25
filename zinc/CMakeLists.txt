@@ -24,6 +24,7 @@ set(SOURCE_FILES
         csv_parse.c
         csv_write.c
         input_char.c
+        input_char_file.c
 )
 
 add_definitions(-DZINC_EXPORT)

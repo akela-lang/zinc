@@ -13,11 +13,12 @@
 #include "test_list.h"
 #include "test_vector.h"
 #include "test_data_frame.h"
-#include "test_input_string.h"
+#include "test_input_char_string.h"
 #include "test_field_lex.h"
 #include "test_csv_lex.h"
 #include "test_csv_parse.h"
 #include "test_csv_write.h"
+#include "test_input_char_file.h"
 
 int main()
 {
@@ -35,11 +36,12 @@ int main()
     test_list();
     test_vector();
     TestDataFrame();
-    TestInputString();
+    TestInputCharString();
     TestFieldLex();
     TestCSVLex();
     TestCSVParse();
     TestCSVWrite();
+    TestInputCharFile();
 	print_results();
 	return 0;
 }

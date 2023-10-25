@@ -2,7 +2,7 @@
 #include "zinc/input_char_string.h"
 #include <string.h>
 
-void TestInputStringGetCharWord()
+void TestInputCharStringGetCharWord()
 {
     test_name(__func__);
 
@@ -72,7 +72,7 @@ void TestInputStringGetCharWord()
     VectorDestroy(&text);
 }
 
-void TestInputStringGetCharLine()
+void TestInputCharStringGetCharLine()
 {
     test_name(__func__);
 
@@ -126,7 +126,7 @@ void TestInputStringGetCharLine()
     VectorDestroy(&text);
 }
 
-void TestInputStringRepeat()
+void TestInputCharStringRepeat()
 {
     test_name(__func__);
 
@@ -190,9 +190,9 @@ void TestInputStringRepeat()
     VectorDestroy(&text);
 }
 
-void TestInputString()
+void TestInputCharString()
 {
-    TestInputStringGetCharWord();
-    TestInputStringGetCharLine();
-    TestInputStringRepeat();
+    TestInputCharStringGetCharWord();
+    TestInputCharStringGetCharLine();
+    TestInputCharStringRepeat();
 }

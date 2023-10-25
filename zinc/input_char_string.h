@@ -20,7 +20,7 @@ typedef struct {
     InputCharVTable* input_vtable;
 } InputCharString;
 
-extern InputCharVTable InputStringVTable;
+extern InputCharVTable InputCharStringVTable;
 
 void InputCharStringInit(InputCharString* input_string, Vector* text);
 void InputCharStringCreate(InputCharString** input_string, Vector* text);
