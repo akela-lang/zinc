@@ -17,7 +17,7 @@ void TestCSVParseHeaderName()
     expect_no_errors(parse_output->el);
     expect_size_t_equal(DataFrameColumnCount(parse_output->df), 1, "column count");
     expect_size_t_equal(DataFrameRowCount(parse_output->df), 0, "row count");
-    struct Series* s = DataFrameSeriesByIndex(parse_output->df, 0);
+    Series* s = DataFrameSeriesByIndex(parse_output->df, 0);
     assert_ptr(s, "ptr s");
     expect_true(VectorMatchStr(&s->name, "First Name"), "First Name");
 
@@ -38,7 +38,7 @@ void TestCSVParseRowField()
     expect_size_t_equal(DataFrameColumnCount(parse_output->df), 1, "column count");
     expect_size_t_equal(DataFrameRowCount(parse_output->df), 1, "row count");
 
-    struct Series* s = DataFrameSeriesByIndex(parse_output->df, 0);
+    Series* s = DataFrameSeriesByIndex(parse_output->df, 0);
     assert_ptr(s, "ptr s");
     expect_true(VectorMatchStr(&s->name, "Count"), "Count");
 
@@ -69,7 +69,7 @@ void TestCSVParseTypes()
     expect_size_t_equal(DataFrameColumnCount(parse_output->df), 6, "column count");
     expect_size_t_equal(DataFrameRowCount(parse_output->df), 2, "row count");
 
-    struct Series* s0 = DataFrameSeriesByIndex(parse_output->df, 0);
+    Series* s0 = DataFrameSeriesByIndex(parse_output->df, 0);
     assert_ptr(s0, "ptr s0");
     expect_true(VectorMatchStr(&s0->name, "Bool"), "s0 name");
     expect_int_equal(s0->type, FieldTypeBool, "s0 type");
@@ -82,7 +82,7 @@ void TestCSVParseTypes()
     expect_true(VectorMatchStr(VECTOR_VECTOR(&s0->raw, 1), "False"), "s0 raw 1");
     expect_int_equal(VECTOR_BOOL(&s0->value, 1), 0, "s0 value 1");
 
-    struct Series* s1 = DataFrameSeriesByIndex(parse_output->df, 1);
+    Series* s1 = DataFrameSeriesByIndex(parse_output->df, 1);
     assert_ptr(s1, "ptr s1");
     expect_true(VectorMatchStr(&s1->name, "Float"), "s1 name");
     expect_int_equal(s1->type, FieldTypeFloat, "s1 type");
@@ -95,7 +95,7 @@ void TestCSVParseTypes()
     expect_true(VectorMatchStr(VECTOR_VECTOR(&s1->raw, 1), "5.1"), "s1 raw 1");
     expect_double_equal(VECTOR_DOUBLE(&s1->value, 1), 5.1, "s1 value 1");
 
-    struct Series* s2 = DataFrameSeriesByIndex(parse_output->df, 2);
+    Series* s2 = DataFrameSeriesByIndex(parse_output->df, 2);
     assert_ptr(s2, "ptr s2");
     expect_true(VectorMatchStr(&s2->name, "Int"), "s2 name");
     expect_int_equal(s2->type, FieldTypeInt, "s2 type");
@@ -108,7 +108,7 @@ void TestCSVParseTypes()
     expect_true(VectorMatchStr(VECTOR_VECTOR(&s2->raw, 1), "80"), "s2 raw 1");
     expect_int_equal(VECTOR_INT(&s2->value, 1), 80, "s2 value 1");
 
-    struct Series* s3 = DataFrameSeriesByIndex(parse_output->df, 3);
+    Series* s3 = DataFrameSeriesByIndex(parse_output->df, 3);
     assert_ptr(s3, "ptr s3");
     expect_true(VectorMatchStr(&s3->name, "IntU"), "s3 name");
     expect_int_equal(s3->type, FieldTypeIntU, "s3 type");
@@ -121,7 +121,7 @@ void TestCSVParseTypes()
     expect_true(VectorMatchStr(VECTOR_VECTOR(&s3->raw, 1), "1"), "s3 raw 1");
     expect_int_equal(VECTOR_INT(&s3->value, 1), 1, "s3 value 1");
 
-    struct Series* s4 = DataFrameSeriesByIndex(parse_output->df, 4);
+    Series* s4 = DataFrameSeriesByIndex(parse_output->df, 4);
     assert_ptr(s4, "ptr s4");
     expect_true(VectorMatchStr(&s4->name, "String"), "s4 name");
     expect_int_equal(s4->type, FieldTypeString, "s4 type");
@@ -134,7 +134,7 @@ void TestCSVParseTypes()
     expect_true(VectorMatchStr(VECTOR_VECTOR(&s4->raw, 1), "world"), "s4 raw 1");
     expect_vector_str(VECTOR_VECTOR(&s4->value, 1), "world", "s4 value 1");
 
-    struct Series* s5 = DataFrameSeriesByIndex(parse_output->df, 5);
+    Series* s5 = DataFrameSeriesByIndex(parse_output->df, 5);
     assert_ptr(s5, "ptr s5");
     expect_true(VectorMatchStr(&s5->name, "Empty"), "s5 name");
     expect_int_equal(s5->type, FieldTypeEmpty, "s5 type");

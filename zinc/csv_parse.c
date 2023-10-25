@@ -50,7 +50,7 @@ struct DataFrame* CSVParse(struct CSVParseData* parse_data)
         done = CSVParseRow(parse_data, df);
     }
 
-    struct Series* s = df->head;
+    Series* s = df->head;
     while (s) {
         SeriesRefreshValues(s);
         s = s->next;
@@ -79,7 +79,7 @@ bool CSVParseHeader(struct CSVParseData* parse_data, struct DataFrame* df)
             free(token);
             return false;
         } else if (token->type == CSVTokenTypeField) {
-            struct Series* s = NULL;
+            Series* s = NULL;
             SeriesCreate(&s);
             s->type = FieldTypeEmpty;
             VectorAdd(&s->name, token->value.buffer, token->value.count);
@@ -113,7 +113,7 @@ bool CSVParseRow(struct CSVParseData* parse_data, struct DataFrame* df)
             free(token);
             return false;
         } else if (token->type == CSVTokenTypeField) {
-            struct Series* s = DataFrameSeriesByIndex(df, i);
+            Series* s = DataFrameSeriesByIndex(df, i);
             if (!s) {
                 error_list_set(parse_data->el, &token->loc, "Row has more fields than header");
             } else {

@@ -10,7 +10,7 @@ Vector* CSVWrite(struct DataFrame* df)
     size_t row_count = DataFrameRowCount(df);
 
     char comma = ',';
-    struct Series* s = df->head;
+    Series* s = df->head;
     while (s) {
         if (s != df->head) {
             VectorAdd(output, &comma, 1);

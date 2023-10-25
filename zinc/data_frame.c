@@ -23,7 +23,7 @@ void DataFrameCreate(struct DataFrame** df)
  * @param df Vector list
  * @param s Vector node
  */
-void DataFrameAdd(struct DataFrame* df, struct Series* s)
+void DataFrameAdd(struct DataFrame* df, Series* s)
 {
     if (df->head == NULL) {
         df->head = s;
@@ -37,19 +37,19 @@ void DataFrameAdd(struct DataFrame* df, struct Series* s)
 
 void DataFrameDestroy(struct DataFrame* df)
 {
-    struct Series* s = df->head;
+    Series* s = df->head;
     while (s) {
-        struct Series* temp = s;
+        Series* temp = s;
         s = s->next;
         SeriesDestroy(temp);
         free(temp);
     }
 }
 
-struct Series* DataFrameSeriesByIndex(struct DataFrame* df, size_t index)
+Series* DataFrameSeriesByIndex(struct DataFrame* df, size_t index)
 {
     size_t i = 0;
-    struct Series* s = df->head;
+    Series* s = df->head;
     while (s) {
         if (i == index) {
             return s;
@@ -63,7 +63,7 @@ struct Series* DataFrameSeriesByIndex(struct DataFrame* df, size_t index)
 size_t DataFrameColumnCount(struct DataFrame* df)
 {
     size_t count = 0;
-    struct Series* s = df->head;
+    Series* s = df->head;
     while(s) {
         count++;
         s = s->next;
@@ -73,6 +73,6 @@ size_t DataFrameColumnCount(struct DataFrame* df)
 
 size_t DataFrameRowCount(struct DataFrame* df)
 {
-    struct Series* s = df->head;
+    Series* s = df->head;
     return s->value.count;
 }

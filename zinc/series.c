@@ -3,7 +3,7 @@
 #include "field.h"
 #include <assert.h>
 
-void SeriesInit(struct Series* s)
+void SeriesInit(Series* s)
 {
     VectorInit(&s->name, sizeof(char));
     s->type = FieldTypeNone;
@@ -14,13 +14,13 @@ void SeriesInit(struct Series* s)
     s->prev = NULL;
 }
 
-void SeriesCreate(struct Series** s)
+void SeriesCreate(Series** s)
 {
-    malloc_safe((void**)s, sizeof(struct Series));
+    malloc_safe((void**)s, sizeof(Series));
     SeriesInit(*s);
 }
 
-void SeriesDestroy(struct Series* s)
+void SeriesDestroy(Series* s)
 {
     for (size_t i = 0; i < s->raw.count; i++) {
         Vector* v = VECTOR_VECTOR(&s->raw, i);
@@ -33,7 +33,7 @@ void SeriesDestroy(struct Series* s)
     VectorDestroy(&s->value);
 }
 
-void SeriesRefreshValues(struct Series* s)
+void SeriesRefreshValues(Series* s)
 {
     switch (s->type) {
         case FieldTypeFloat:

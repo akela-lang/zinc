@@ -5,10 +5,10 @@ void TestDataFrame1()
 {
     test_name(__func__);
 
-    struct Series* s0 = NULL;
+    Series* s0 = NULL;
     SeriesCreate(&s0);
 
-    struct Series* s1 = NULL;
+    Series* s1 = NULL;
     SeriesCreate(&s1);
 
     struct DataFrame* df = NULL;

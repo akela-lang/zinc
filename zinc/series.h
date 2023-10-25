@@ -4,7 +4,7 @@
 #include "vector.h"
 #include "field.h"
 
-struct Series {
+typedef struct {
     Vector name;
     enum FieldType type;
     Vector types;
@@ -12,11 +12,11 @@ struct Series {
     Vector value;
     struct Series* next;
     struct Series* prev;
-};
+} Series;
 
-void SeriesInit(struct Series* s);
-void SeriesCreate(struct Series** s);
-void SeriesDestroy(struct Series* s);
-void SeriesRefreshValues(struct Series* s);
+void SeriesInit(Series* s);
+void SeriesCreate(Series** s);
+void SeriesDestroy(Series* s);
+void SeriesRefreshValues(Series* s);
 
 #endif
