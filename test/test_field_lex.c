@@ -10,8 +10,8 @@ void TestFieldLexRun(char* text, enum FieldType* type)
     size_t len = strlen(text);
     VectorAdd(text2, text, len);
 
-    struct InputString* input_string = NULL;
-    InputStringCreate(&input_string, text2);
+    struct InputCharString* input_string = NULL;
+    InputCharStringCreate(&input_string, text2);
 
     struct FieldLexData* lex_data = NULL;
     FieldLexDataCreate(&lex_data);
@@ -20,7 +20,7 @@ void TestFieldLexRun(char* text, enum FieldType* type)
 
     FieldLex(lex_data, type);
 
-    struct InputString* data = lex_data->input_data;
+    struct InputCharString* data = lex_data->input_data;
     VectorDestroy(text2);
     free(text2);
     free(input_string);

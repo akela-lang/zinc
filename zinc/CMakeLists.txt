@@ -19,11 +19,11 @@ set(SOURCE_FILES
         data_frame.c
         field.c
         field_lex.c
-        input_string.c
+        input_char_string.c
         csv_lex.c
         csv_parse.c
         csv_write.c
-        input.c
+        input_char.c
 )
 
 add_definitions(-DZINC_EXPORT)

@@ -1,35 +1,35 @@
-#include "input_string.h"
+#include "input_char_string.h"
 #include "memory.h"
 #include <stddef.h>
 
-InputVTable InputStringVTable = {
-        .next_char_offset = offsetof(struct InputString, NextChar),
-        .repeat_char_offset = offsetof(struct InputString, RepeatChar),
-        .seek_offset = offsetof(struct InputString, Seek),
-        .get_all_offset = offsetof(struct InputString, GetAll),
+InputCharVTable InputStringVTable = {
+        .next_offset = offsetof(struct InputCharString, Next),
+        .repeat_offset = offsetof(struct InputCharString, Repeat),
+        .seek_offset = offsetof(struct InputCharString, Seek),
+        .get_all_offset = offsetof(struct InputCharString, GetAll),
 };
 
-void InputStringInit(struct InputString* input_string, struct Vector* text)
+void InputCharStringInit(struct InputCharString* input_string, struct Vector* text)
 {
     location_init(&input_string->loc);
     location_init(&input_string->prev_loc);
     input_string->repeat_char = false;
     input_string->pos = 0;
     input_string->text = text;
-    input_string->NextChar = (NextCharInterface)InputStringNextChar;
-    input_string->RepeatChar = (RepeatCharInterface)InputStringRepeatChar;
-    input_string->Seek = (SeekInterface)InputStringSeek;
-    input_string->GetAll = (GetAllInterface)InputStringGetAll;
+    input_string->Next = (InputCharNextInterface) InputCharStringNext;
+    input_string->Repeat = (InputCharRepeatInterface) InputCharStringRepeat;
+    input_string->Seek = (InputCharSeekInterface) InputCharStringSeek;
+    input_string->GetAll = (InputCharGetAllInterface) InputCharStringGetAll;
     input_string->input_vtable = &InputStringVTable;
 }
 
-void InputStringCreate(struct InputString** input_string, struct Vector* text)
+void InputCharStringCreate(struct InputCharString** input_string, struct Vector* text)
 {
-    malloc_safe((void**)input_string, sizeof(struct InputString));
-    InputStringInit(*input_string, text);
+    malloc_safe((void**)input_string, sizeof(struct InputCharString));
+    InputCharStringInit(*input_string, text);
 }
 
-void InputStringClear(struct InputString* data)
+void InputCharStringClear(struct InputCharString* data)
 {
     location_init(&data->loc);
     location_init(&data->prev_loc);
@@ -44,10 +44,10 @@ void InputStringClear(struct InputString* data)
  * @param c the next char
  * @return done
  */
-bool InputStringNextChar(struct InputString* data, char* c, struct location* loc)
+bool InputCharStringNext(struct InputCharString* data, char* c, struct location* loc)
 {
     if (data->loc.byte_pos == 0) {
-        InputStringClear(data);
+        InputCharStringClear(data);
     }
 
     if (data->repeat_char && data->pos > 0) {
@@ -78,7 +78,7 @@ bool InputStringNextChar(struct InputString* data, char* c, struct location* loc
  * Repeat the previous character.
  * @param data lexer data
  */
-void InputStringRepeatChar(struct InputString* data)
+void InputCharStringRepeat(struct InputCharString* data)
 {
     data->repeat_char = true;
 }
@@ -88,11 +88,11 @@ void InputStringRepeatChar(struct InputString* data)
  * @param data the data
  * @param pos position to go to
  */
-void InputStringSeek(struct InputString* data, size_t pos)
+void InputCharStringSeek(struct InputCharString* data, size_t pos)
 {
     if (pos < data->text->count)
     {
-        InputStringClear(data);
+        InputCharStringClear(data);
         data->pos = pos;
     }
 }
@@ -102,9 +102,9 @@ void InputStringSeek(struct InputString* data, size_t pos)
  * @param data the data
  * @param v the output vector
  */
-void InputStringGetAll(struct InputString* data, struct Vector** text)
+void InputCharStringGetAll(struct InputCharString* data, struct Vector** text)
 {
-    InputStringClear(data);
+    InputCharStringClear(data);
     data->pos = data->text->count;
     *text = data->text;
 }

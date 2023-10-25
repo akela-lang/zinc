@@ -1,5 +1,5 @@
 #include "zinc/unit_test.h"
-#include "zinc/input_string.h"
+#include "zinc/input_char_string.h"
 #include <string.h>
 
 void TestInputStringGetCharWord()
@@ -9,12 +9,12 @@ void TestInputStringGetCharWord()
     char buffer[] = "hello";
     size_t buffer_len = strlen(buffer);
 
-    struct InputString input_string;
+    struct InputCharString input_string;
     struct Vector text;
     VectorInit(&text, sizeof(char));
     VectorAdd(&text, buffer, buffer_len);
     VectorAddNull(&text);
-    InputStringInit(&input_string, &text);
+    InputCharStringInit(&input_string, &text);
 
     expect_vector_str(&text, buffer, buffer);
 
@@ -22,7 +22,7 @@ void TestInputStringGetCharWord()
     char c;
     struct location loc;
 
-    done = InputStringNextChar(&input_string, &c, &loc);
+    done = InputCharStringNext(&input_string, &c, &loc);
     expect_false(done, "done 0");
     expect_char_equal(c, 'h', "c 0");
     expect_size_t_equal(loc.line, 1, "line 0");
@@ -30,7 +30,7 @@ void TestInputStringGetCharWord()
     expect_size_t_equal(loc.byte_pos, 0, "byte_pos 0");
     expect_size_t_equal(loc.size, 1, "size 0");
 
-    done = InputStringNextChar(&input_string, &c, &loc);
+    done = InputCharStringNext(&input_string, &c, &loc);
     expect_false(done, "done 1");
     expect_char_equal(c, 'e', "c 1");
     expect_size_t_equal(loc.line, 1, "line 1");
@@ -38,7 +38,7 @@ void TestInputStringGetCharWord()
     expect_size_t_equal(loc.byte_pos, 1, "byte_pos 1");
     expect_size_t_equal(loc.size, 1, "size 1");
 
-    done = InputStringNextChar(&input_string, &c, &loc);
+    done = InputCharStringNext(&input_string, &c, &loc);
     expect_false(done, "done 2");
     expect_char_equal(c, 'l', "c 2");
     expect_size_t_equal(loc.line, 1, "line 2");
@@ -46,7 +46,7 @@ void TestInputStringGetCharWord()
     expect_size_t_equal(loc.byte_pos, 2, "byte_pos 2");
     expect_size_t_equal(loc.size, 1, "size 2");
 
-    done = InputStringNextChar(&input_string, &c, &loc);
+    done = InputCharStringNext(&input_string, &c, &loc);
     expect_false(done, "done 3");
     expect_char_equal(c, 'l', "c 3");
     expect_size_t_equal(loc.line, 1, "line 3");
@@ -54,7 +54,7 @@ void TestInputStringGetCharWord()
     expect_size_t_equal(loc.byte_pos, 3, "byte_pos 3");
     expect_size_t_equal(loc.size, 1, "size 3");
 
-    done = InputStringNextChar(&input_string, &c, &loc);
+    done = InputCharStringNext(&input_string, &c, &loc);
     expect_false(done, "done 4");
     expect_char_equal(c, 'o', "c 4");
     expect_size_t_equal(loc.line, 1, "line 4");
@@ -62,7 +62,7 @@ void TestInputStringGetCharWord()
     expect_size_t_equal(loc.byte_pos, 4, "byte_pos 4");
     expect_size_t_equal(loc.size, 1, "size 4");
 
-    done = InputStringNextChar(&input_string, &c, &loc);
+    done = InputCharStringNext(&input_string, &c, &loc);
     expect_true(done, "done 5");
     expect_size_t_equal(loc.line, 1, "line 5");
     expect_size_t_equal(loc.col, 6, "col 5");
@@ -79,12 +79,12 @@ void TestInputStringGetCharLine()
     char buffer[] = "a\nb";
     size_t buffer_len = strlen(buffer);
 
-    struct InputString input_string;
+    struct InputCharString input_string;
     struct Vector text;
     VectorInit(&text, sizeof(char));
     VectorAdd(&text, buffer, buffer_len);
     VectorAddNull(&text);
-    InputStringInit(&input_string, &text);
+    InputCharStringInit(&input_string, &text);
 
     expect_vector_str(&text, buffer, buffer);
 
@@ -92,7 +92,7 @@ void TestInputStringGetCharLine()
     char c;
     struct location loc;
 
-    done = InputStringNextChar(&input_string, &c, &loc);
+    done = InputCharStringNext(&input_string, &c, &loc);
     expect_false(done, "done 0");
     expect_char_equal(c, 'a', "c 0");
     expect_size_t_equal(loc.line, 1, "line 0");
@@ -100,7 +100,7 @@ void TestInputStringGetCharLine()
     expect_size_t_equal(loc.byte_pos, 0, "byte_pos 0");
     expect_size_t_equal(loc.size, 1, "size 0");
 
-    done = InputStringNextChar(&input_string, &c, &loc);
+    done = InputCharStringNext(&input_string, &c, &loc);
     expect_false(done, "done 1");
     expect_char_equal(c, '\n', "c 1");
     expect_size_t_equal(loc.line, 1, "line 1");
@@ -108,7 +108,7 @@ void TestInputStringGetCharLine()
     expect_size_t_equal(loc.byte_pos, 1, "byte_pos 1");
     expect_size_t_equal(loc.size, 1, "size 1");
 
-    done = InputStringNextChar(&input_string, &c, &loc);
+    done = InputCharStringNext(&input_string, &c, &loc);
     expect_false(done, "done 2");
     expect_char_equal(c, 'b', "c 2");
     expect_size_t_equal(loc.line, 2, "line 2");
@@ -116,7 +116,7 @@ void TestInputStringGetCharLine()
     expect_size_t_equal(loc.byte_pos, 2, "byte_pos 2");
     expect_size_t_equal(loc.size, 1, "size 2");
 
-    done = InputStringNextChar(&input_string, &c, &loc);
+    done = InputCharStringNext(&input_string, &c, &loc);
     expect_true(done, "done 5");
     expect_size_t_equal(loc.line, 2, "line 5");
     expect_size_t_equal(loc.col, 2, "col 5");
@@ -133,12 +133,12 @@ void TestInputStringRepeat()
     char buffer[] = "abc";
     size_t buffer_len = strlen(buffer);
 
-    struct InputString input_string;
+    struct InputCharString input_string;
     struct Vector text;
     VectorInit(&text, sizeof(char));
     VectorAdd(&text, buffer, buffer_len);
     VectorAddNull(&text);
-    InputStringInit(&input_string, &text);
+    InputCharStringInit(&input_string, &text);
 
     expect_vector_str(&text, buffer, buffer);
 
@@ -146,7 +146,7 @@ void TestInputStringRepeat()
     char c;
     struct location loc;
 
-    done = InputStringNextChar(&input_string, &c, &loc);
+    done = InputCharStringNext(&input_string, &c, &loc);
     expect_false(done, "done 0");
     expect_char_equal(c, 'a', "c 0");
     expect_size_t_equal(loc.line, 1, "line 0");
@@ -154,7 +154,7 @@ void TestInputStringRepeat()
     expect_size_t_equal(loc.byte_pos, 0, "byte_pos 0");
     expect_size_t_equal(loc.size, 1, "size 0");
 
-    done = InputStringNextChar(&input_string, &c, &loc);
+    done = InputCharStringNext(&input_string, &c, &loc);
     expect_false(done, "done 1");
     expect_char_equal(c, 'b', "c 1");
     expect_size_t_equal(loc.line, 1, "line 1");
@@ -162,9 +162,9 @@ void TestInputStringRepeat()
     expect_size_t_equal(loc.byte_pos, 1, "byte_pos 1");
     expect_size_t_equal(loc.size, 1, "size 1");
 
-    InputStringRepeatChar(&input_string);
+    InputCharStringRepeat(&input_string);
 
-    done = InputStringNextChar(&input_string, &c, &loc);
+    done = InputCharStringNext(&input_string, &c, &loc);
     expect_false(done, "done 1r");
     expect_char_equal(c, 'b', "c 1r");
     expect_size_t_equal(loc.line, 1, "line 1r");
@@ -172,7 +172,7 @@ void TestInputStringRepeat()
     expect_size_t_equal(loc.byte_pos, 1, "byte_pos 1r");
     expect_size_t_equal(loc.size, 1, "size 1r");
 
-    done = InputStringNextChar(&input_string, &c, &loc);
+    done = InputCharStringNext(&input_string, &c, &loc);
     expect_false(done, "done 2");
     expect_char_equal(c, 'c', "c 2");
     expect_size_t_equal(loc.line, 1, "line 2");
@@ -180,7 +180,7 @@ void TestInputStringRepeat()
     expect_size_t_equal(loc.byte_pos, 2, "byte_pos 2");
     expect_size_t_equal(loc.size, 1, "size 2");
 
-    done = InputStringNextChar(&input_string, &c, &loc);
+    done = InputCharStringNext(&input_string, &c, &loc);
     expect_true(done, "done 3");
     expect_size_t_equal(loc.line, 1, "line 3");
     expect_size_t_equal(loc.col, 4, "col 3");

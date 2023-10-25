@@ -2,15 +2,15 @@
 #define ZINC_FIELD_LEX_H
 
 #include "error.h"
-#include "input_string.h"
-#include "input.h"
+#include "input_char_string.h"
+#include "input_char.h"
 #include "field.h"
 
 struct FieldLexData {
     bool has_digit;
     bool has_sign;
     void* input_data;
-    InputVTable* input_vtable;
+    InputCharVTable* input_vtable;
 };
 
 void FieldLexDataInit(struct FieldLexData* lex_data);

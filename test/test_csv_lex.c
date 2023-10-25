@@ -17,8 +17,8 @@ void CSVLexSetup(struct CSVLexData** lex_data, const char* text)
     struct error_list* el = NULL;
     error_list_create(&el);
     (*lex_data)->el = el;
-    (*lex_data)->NextChar = (NextCharInterface)CSVLexNextChar;
-    (*lex_data)->RepeatChar = (RepeatCharInterface)CSVLexRepeatChar;
+    (*lex_data)->NextChar = (InputCharNextInterface)CSVLexNextChar;
+    (*lex_data)->RepeatChar = (InputCharRepeatInterface)CSVLexRepeatChar;
     (*lex_data)->input = input;
 }
 

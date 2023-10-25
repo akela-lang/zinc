@@ -36,7 +36,7 @@ void FieldLexStart(struct FieldLexData* lex_data, enum FieldType* type)
     struct location loc;
     bool done;
 
-    done = InputNextChar(lex_data->input_data, lex_data->input_vtable, &c, &loc);
+    done = InputCharNext(lex_data->input_data, lex_data->input_vtable, &c, &loc);
     if (done) {
         *type = FieldTypeEmpty;
     } else if (c == '+' || c == '-') {
@@ -58,7 +58,7 @@ void FieldLexSign(struct FieldLexData* lex_data, enum FieldType* type)
     struct location loc;
     bool done;
 
-    done = InputNextChar(lex_data->input_data, lex_data->input_vtable, &c, &loc);
+    done = InputCharNext(lex_data->input_data, lex_data->input_vtable, &c, &loc);
     if (done) {
         *type = FieldTypeString;
     } else if (isdigit(c)) {
@@ -78,7 +78,7 @@ void FieldLexInteger(struct FieldLexData* lex_data, enum FieldType* type)
     bool done;
 
     while (true) {
-        done = InputNextChar(lex_data->input_data, lex_data->input_vtable, &c, &loc);
+        done = InputCharNext(lex_data->input_data, lex_data->input_vtable, &c, &loc);
         if (done) {
             if (lex_data->has_sign) {
                 *type = FieldTypeInt;
@@ -107,7 +107,7 @@ void FieldLexPoint(struct FieldLexData* lex_data, enum FieldType* type)
     struct location loc;
     bool done;
 
-    done = InputNextChar(lex_data->input_data, lex_data->input_vtable, &c, &loc);
+    done = InputCharNext(lex_data->input_data, lex_data->input_vtable, &c, &loc);
 
     if (done) {
         if (lex_data->has_digit) {
@@ -132,7 +132,7 @@ void FieldLexFraction(struct FieldLexData* lex_data, enum FieldType* type)
     bool done;
 
     while (true) {
-        done = InputNextChar(lex_data->input_data, lex_data->input_vtable, &c, &loc);
+        done = InputCharNext(lex_data->input_data, lex_data->input_vtable, &c, &loc);
 
         if (done) {
             *type = FieldTypeFloat;
@@ -156,7 +156,7 @@ void FieldLexExponentE(struct FieldLexData* lex_data, enum FieldType* type)
     struct location loc;
     bool done;
 
-    done = InputNextChar(lex_data->input_data, lex_data->input_vtable, &c, &loc);
+    done = InputCharNext(lex_data->input_data, lex_data->input_vtable, &c, &loc);
 
     if (done) {
         if (lex_data->has_digit) {
@@ -179,7 +179,7 @@ void FieldLexExponentSign(struct FieldLexData* lex_data, enum FieldType* type)
     struct location loc;
     bool done;
 
-    done = InputNextChar(lex_data->input_data, lex_data->input_vtable, &c, &loc);
+    done = InputCharNext(lex_data->input_data, lex_data->input_vtable, &c, &loc);
 
     if (done) {
         if (lex_data->has_digit) {
@@ -201,7 +201,7 @@ void FieldLexExponent(struct FieldLexData* lex_data, enum FieldType* type)
     bool done;
 
     while (true) {
-        done = InputNextChar(lex_data->input_data, lex_data->input_vtable, &c, &loc);
+        done = InputCharNext(lex_data->input_data, lex_data->input_vtable, &c, &loc);
 
         if (done) {
             if (lex_data->has_digit) {
@@ -222,7 +222,7 @@ void FieldLexExponent(struct FieldLexData* lex_data, enum FieldType* type)
 void FieldLexString(struct FieldLexData* lex_data, enum FieldType* type)
 {
     struct Vector* text = NULL;
-    InputGetAll(lex_data->input_data, lex_data->input_vtable, &text);
+    InputCharGetAll(lex_data->input_data, lex_data->input_vtable, &text);
     if (VectorMatchStr(text, "True") || VectorMatchStr(text, "False")) {
         *type = FieldTypeBool;
     } else {
@@ -239,8 +239,8 @@ void FieldLex(struct FieldLexData* lex_data, enum FieldType* type)
 
 void FieldGetType(struct Vector* text, enum FieldType* type)
 {
-    struct InputString input_string;
-    InputStringInit(&input_string, text);
+    struct InputCharString input_string;
+    InputCharStringInit(&input_string, text);
 
     struct FieldLexData lex_data;
     FieldLexDataInit(&lex_data);

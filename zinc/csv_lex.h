@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "error.h"
-#include "input.h"
+#include "input_char.h"
 
 enum CSVTokenType {
     CSVTokenTypeNone,
@@ -33,9 +33,9 @@ struct CSVToken {
 struct CSVLexData {
     struct error_list* el;
     enum CSVStateType state;
-    NextCharInterface NextChar;
-    RepeatCharInterface RepeatChar;
-    SeekInterface Seek;
+    InputCharNextInterface NextChar;
+    InputCharRepeatInterface RepeatChar;
+    InputCharSeekInterface Seek;
     struct Vector* input;
     size_t pos;
     bool repeatChar;
