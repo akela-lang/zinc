@@ -16,5 +16,6 @@ void DataFrameDestroy(DataFrame* df);
 Series* DataFrameSeriesByIndex(DataFrame* df, size_t index);
 size_t DataFrameColumnCount(DataFrame* df);
 size_t DataFrameRowCount(DataFrame* df);
+void DataFramePrint(DataFrame* df);
 
 #endif

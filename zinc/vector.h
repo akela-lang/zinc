@@ -29,6 +29,8 @@ void VectorPrintDouble(Vector* v);
 #define VECTOR_U_LONG(s, index) (*(unsigned long*)((s)->buffer + ((s)->value_size * (index))))
 #define VECTOR_INT(s, index) (*(int*)((s)->buffer + ((s)->value_size * (index))))
 #define VECTOR_INT_U(s, index) (*(unsigned int*)((s)->buffer + ((s)->value_size * (index))))
+#define VECTOR_LONG(s, index) (*(long*)((s)->buffer + ((s)->value_size * (index))))
+#define VECTOR_LONG_U(s, index) (*(unsigned long*)((s)->buffer + ((s)->value_size * (index))))
 #define VECTOR_BOOL(s, index) (*(u_int8_t*)((s)->buffer + ((s)->value_size * (index))))
 #define VECTOR_CHAR(s, index) (*(char*)((s)->buffer + ((s)->value_size * (index))))
 #define VECTOR_STRING(s) ((char*)(s)->buffer)
