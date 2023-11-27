@@ -34,14 +34,14 @@ void free_safe(void* p)
 }
 
 /**
- * Check if byte arrays match.
+ * Check if byte arrays memory_match.
  * @param a first array
  * @param a_size first array size
  * @param b second array
  * @param b_size second array size
- * @return true if they match, otherwise false
+ * @return true if they memory_match, otherwise false
  */
-bool match(const u_int8_t a[], size_t a_size, const u_int8_t b[], size_t b_size)
+bool memory_match(const u_int8_t a[], size_t a_size, const u_int8_t b[], size_t b_size)
 {
     if (a_size != b_size) {
         return false;

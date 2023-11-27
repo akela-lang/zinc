@@ -450,5 +450,5 @@ void expect_error_message(const char* s)
 	test_called();
 	if (strcmp(error_message, s) == 0) return;
 	error_triggered();
-	fprintf(stderr, "(%s) = (%s): error message does not match\n", error_message, s);
+	fprintf(stderr, "(%s) = (%s): error message does not memory_match\n", error_message, s);
 }

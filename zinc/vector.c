@@ -76,16 +76,16 @@ void VectorDestroy(Vector* v)
 
 bool VectorMatch(Vector* a, Vector* b)
 {
-    return match(
+    return memory_match(
             a->buffer, a->count * a->value_size,
             b->buffer, b->count * b->value_size);
 }
 
 bool VectorMatchStr(Vector* a, const char b[])
 {
-    return match(
+    return memory_match(
             a->buffer, a->count * a->value_size,
-            (u_int8_t *)b, strlen(b));
+            (u_int8_t *) b, strlen(b));
 }
 
 void VectorCopy(Vector* src, Vector* dest)
